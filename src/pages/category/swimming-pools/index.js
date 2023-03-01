@@ -1,8 +1,16 @@
 import Heading from '/src/components/Heading';
-import styles from '/src/styles/Home.module.css';
+import { Box } from '@mui/material';
+
 const SwimmingPools = () => (
-    <div className={styles.wrapper}>
+    <Box
+        xs={{
+            minHeight: '100%',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}
+    >
         <Heading text='SwimmingPools' />
-    </div>
+    </Box>
 );
 export default SwimmingPools;

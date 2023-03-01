@@ -1,7 +1,8 @@
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import Heading from '/src/components/Heading';
-import styles from '/src/styles/404.module.css';
+import Heading from 'src/components/Heading';
+import { Box } from "@mui/material";
+
 const Error = () => {
     const router = useRouter();
 
@@ -12,12 +13,12 @@ const Error = () => {
     }, [router]);
 
     return (
-        <div className={styles.wrapper}>
+        <Box>
             <div>
                 <Heading text="404" />
                 <Heading tag="h2" text="Something is going wrong..." />
             </div>
-        </div>
+        </Box>
     )
 };
 export default Error;

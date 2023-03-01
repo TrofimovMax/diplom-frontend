@@ -1,7 +1,7 @@
-import Link from "next/link";
+import NextLink from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import styles from "../styles/Navbar.module.css";
+import { Button, Box, ButtonGroup } from '@mui/material';
 
 const navigation = [
     { id: 1, title: 'Home', path: '/' },
@@ -13,23 +13,30 @@ const Navbar = () => {
     const { pathname } = useRouter();
 
     return (
-        <nav className={styles.nav}>
-            <div className={styles.logo}>
+        <nav>
+            <Box>
                 <Image src="/logo.svg" width={70} height={70} alt="logo" />
-            </div>
-            <div className={styles.links}>
+            </Box>
+
+            <ButtonGroup variant="contained" aria-label="outlined button group">
                 {navigation.map(({ id, title, path }) => {
                     return(
-                        <Link className={styles.navButton}
-                              active={pathname === path ? true : null}
-                              key={id}
-                              href={path}>
-                            <div> {title} </div>
-                        </Link>
-                    )
-                }
-                )}
-            </div>
+                        <Button
+                            key={id}
+                            component='a'
+                            href={path}
+                            LinkComponent={NextLink}
+                        >
+                            {title}
+                            {/*<Link*/}
+                            {/*    active={pathname === path ? "true" : null}*/}
+                            {/*    href={path}*/}
+                            {/*>*/}
+                            {/*    {title}*/}
+                            {/*</Link>*/}
+                        </Button>
+                    )})}
+            </ButtonGroup>
         </nav>
     );
 };

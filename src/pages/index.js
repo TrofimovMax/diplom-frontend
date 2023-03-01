@@ -1,9 +1,10 @@
 import Heading from '/src/components/Heading';
-import styles from '/src/styles/Home.module.css'
+import { Box } from "@mui/material";
+
 const Home = () => (
-    <div className={styles.wrapper}>
+    <Box>
         <Heading text='Hello Next.js!' />
-    </div>
+    </Box>
 
 );
 export default Home;
