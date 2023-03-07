@@ -17,46 +17,42 @@ const Navbar = () => {
       <Paper>
         <Box
           sx={{
-              minHeight: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'
+            minHeight: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center'
           }}
           padding={1.5}
         >
-          <Image src="/logo.svg" width={70} height={70} alt="logo"
-          />
-          <Box>
-              {navigation.map(({id, title, path}) => {
-                return (
-                  <Box
-                    sx={{
-                      minHeight: '100%',
-                      display: 'inline-grid',
-                      justifyContent: 'space-between',
-                      alignItems: 'center',
-                      maxWidth: '33%'
-                    }}
+          <Image src="/logo.svg" width={70} height={70} alt="logo" />
+          <Box
+            sx={{
+            minHeight: '100%',
+            display: 'flex',
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            maxWidth: '50%'
+          }}
+            marginRight={30}
+          >
+            {navigation.map(({id, title, path}) => {
+              return (
+                  <Button
                     key={id}
-                    marginRight={30}
+                    component='a'
+                    href={path}
+                    LinkComponent={NextLink}
                   >
-                    <Button
-                      component='a'
-                      href={path}
-                      LinkComponent={NextLink}
-                    >
-                      {title}
-                      {/*<Link*/}
-                      {/*    active={pathname === path ? "true" : null}*/}
-                      {/*    href={path}*/}
-                      {/*>*/}
-                      {/*    {title}*/}
-                      {/*</Link>*/}
-                    </Button>
-                  </Box>
-
-                )
-              })}
+                    {title}
+                    {/*<Link*/}
+                    {/*    active={pathname === path ? "true" : null}*/}
+                    {/*    href={path}*/}
+                    {/*>*/}
+                    {/*    {title}*/}
+                    {/*</Link>*/}
+                  </Button>
+              )
+            })}
           </Box>
         </Box>
       </Paper>

@@ -1,0 +1,7 @@
+{
+  "Images": [
+    {"id": 1, "title": "strength", "img": "/car1.jpeg"},
+    {"id": 2, "title": "dexterity", "img": "/car2.jpeg"},
+    {"id": 3, "title": "constitution", "img": "/car3.jpeg"}
+  ]
+}
