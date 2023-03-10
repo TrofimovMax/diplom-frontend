@@ -1,20 +1,31 @@
-import {Paper, Box, Typography, Button} from "@mui/material";
+import {Box, ThemeProvider, createTheme} from "@mui/material";
 
-const FormCell = ({start,end,maxCapacity, currentCapacity}) => (
-  <Paper>
-    <Box>
-      <Typography>Class starting:{start}</Typography>
-      <Typography>Class ending:{end}</Typography>
-      <Typography>Number of places: {currentCapacity} of {maxCapacity}</Typography>
+const theme = createTheme({
+  palette: {
+      primary: {
+        main:'#00A36C'
+      },
+      secondary: {
+        main: '#7CFC00'
+      },
+  },
+});
+
+const FormCell = () => (
+  <ThemeProvider theme={theme}>
+    <Box
+      sx={{
+        height: 1,
+        width: 1,
+        borderRadius: 1,
+        backgroundColor: 'primary.main',
+        '&:hover': {
+          backgroundColor: 'secondary.main',
+          opacity: [0.9, 0.8, 0.7],
+        },
+      }}
+    >
     </Box>
-    <Box>
-      {
-        currentCapacity < maxCapacity ?
-          <Button>
-            Book
-          </Button> : null
-      }
-    </Box>
-  </Paper>
+  </ThemeProvider>
 );
 export default FormCell;
