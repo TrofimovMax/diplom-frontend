@@ -17,7 +17,6 @@ const FormCell = () => (
       sx={{
         height: 1,
         width: 1,
-        borderRadius: 1,
         backgroundColor: 'primary.main',
         '&:hover': {
           backgroundColor: 'secondary.main',
