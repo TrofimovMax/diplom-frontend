@@ -6,7 +6,7 @@ import {Button, Box, ButtonGroup, Paper} from '@mui/material';
 const navigation = [
   {id: 1, title: 'Home', path: '/'},
   {id: 2, title: 'History', path: '/history'},
-  {id: 3, title: 'Category', path: '/category'},
+  {id: 3, title: 'Gyms', path: '/gyms'},
 ];
 
 const Navbar = () => {
@@ -44,12 +44,6 @@ const Navbar = () => {
                     LinkComponent={NextLink}
                   >
                     {title}
-                    {/*<Link*/}
-                    {/*    active={pathname === path ? "true" : null}*/}
-                    {/*    href={path}*/}
-                    {/*>*/}
-                    {/*    {title}*/}
-                    {/*</Link>*/}
                   </Button>
               )
             })}

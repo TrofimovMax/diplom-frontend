@@ -1,18 +1,32 @@
-import Heading from '/src/components/Heading';
+import React, { useEffect } from 'react';
+import { useQuery } from 'react-query'
+import Heading from "@/components/Heading";
+import {Box, Button, Container, ImageList, ImageListItem, Typography} from "@mui/material";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
-import {Box, Button, Container, Typography, ImageList, ImageListItem} from '@mui/material';
+import Images from "@/api/images.json";
+import Benefits from "@/api/benefits.json";
 
-import Benefits from "/src/api/benefits.json"
-import Images from "/src/api/images.json"
+export const fetchGymsFromAPI = async () => {
+  const res = await fetch('http://localhost:3000/gyms');
+  const data = await res.json();
 
-const categories = [
-  {id: 1, title: 'ForKids', path: '/category/for-kids'},
-  {id: 2, title: 'Gyms', path: '/category/gyms'},
-  {id: 3, title: 'SwimmingPool', path: '/category/swimming-pools'},
-];
-const Category = () => {
+  if (!data) {
+    return {
+      notFound: true,
+    }
+  }
+  return {
+    props: { gyms: data },
+  }
+}
+
+const Gyms = () => {
   const {pathname} = useRouter();
+  const { data,status} = useQuery("gyms", fetchGymsFromAPI);
+
+  if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
+
   return (
     <Container>
       <Box sx={{
@@ -21,16 +35,15 @@ const Category = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <Heading text='Category' tag={'h2'}/>
+        <Heading text='Gyms' tag={'h2'}/>
         <Box>
-          {categories.map(({id, title, path}) => {
+          {data.props.gyms.map(({id, title, address}) => {
             return (
               <Button
                 component='a'
                 LinkComponent={NextLink}
-                active={pathname === path ? "true" : null}
                 key={id}
-                href={path}
+                href={pathname + `/${id}`}
               >
                 {title}
               </Button>
@@ -72,4 +85,4 @@ const Category = () => {
     </Container>
   );
 }
-export default Category;
+export default Gyms;
