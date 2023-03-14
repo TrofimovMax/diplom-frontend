@@ -47,14 +47,12 @@ const timeInit = (obj, time) => {
   for (startInterval + 1; startInterval < endInterval; startInterval++) {
     popped.push(startInterval + ":00");// добавляет в массив интервалов только начало занятий
   }
-  console.log(popped)
   return popped.includes(findTime) ? true : null;
 }
 
 
 const GymTable = ({address, raw}) => {
   const tableArr = Object.entries(raw);
-  console.log(raw);
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 1200}} aria-label="customized table">
