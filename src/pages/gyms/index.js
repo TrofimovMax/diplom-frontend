@@ -4,8 +4,8 @@ import Heading from "@/components/Heading";
 import {Box, Button, Container, ImageList, ImageListItem, Typography} from "@mui/material";
 import NextLink from "next/link";
 import {useRouter} from "next/router";
-import Images from "@/api/images.json";
-import Benefits from "@/api/benefits.json";
+import Images from "@/helper/images.json";
+import Benefits from "@/helper/benefits.json";
 
 export const fetchGymsFromAPI = async () => {
   const res = await fetch('http://localhost:3000/gyms');
