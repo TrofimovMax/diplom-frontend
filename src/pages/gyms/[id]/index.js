@@ -1,13 +1,14 @@
 import React from "react";
 import Heading from '/src/components/Heading';
 import {
-  Box,
-  Container,
+  Box, Button,
+  Container, Grid,
   Typography
 } from '@mui/material';
 import {useQuery} from 'react-query';
 import {useRouter} from "next/router";
 import GymTable from "@/components/GymTable";
+import NextLink from "next/link";
 
 const getGymById = async (id) => {
   if (id) {
@@ -18,6 +19,7 @@ const getGymById = async (id) => {
 
 const Gym = () => {
   const router = useRouter();
+  const pathName = router.pathname;
   const pageNum = router.query.id
   const { status, data, error} = useQuery(
     ["gyms", pageNum],
@@ -33,15 +35,24 @@ const Gym = () => {
   return (
     <Container>
         <Box>
-          <Heading text={data?.title}/>
+          <>
+            <Heading text={data?.title}/>
+            <Button
+              component='a'
+              LinkComponent={NextLink}
+              href={pathName + `/edit`}
+            >
+              Edit
+            </Button>
+          </>
       {
         (() => {
           if(schObj) {
             return (
-              <GymTable
-                address = {data?.address}
-                raw = {schObj}
-              />
+                <GymTable
+                  address = {data?.address}
+                  raw = {schObj}
+                />
             )
           }
         }) ()
