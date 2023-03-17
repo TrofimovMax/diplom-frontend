@@ -1,4 +1,4 @@
-import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow} from "@mui/material";
+import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
 import FormCell from "@/components/FormCell";
 import React from "react";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
@@ -41,10 +41,10 @@ const timeInit = (obj, time) => {
   const re = /:\d\d/;
   const findTime = time + ":00";
   const arrInterval = Object.entries(obj[1]) //[Array(2)]0:(2) ['12:00', '20:00']length:1[[Prototype]]:Array(0)
-  let startInterval = arrInterval[0][0].split(re, 1)[0];
-  let endInterval = arrInterval[0][1].split(re, 1)[0];
-  let popped = arrInterval[0].splice(0, -1); // убирает из массива интервалов значения конца
-  for (startInterval + 1; startInterval < endInterval; startInterval++) {
+  let startInterval = Number(arrInterval[0][0].split(re, 1)[0]);
+  let endInterval = Number(arrInterval[0][1].split(re, 1)[0]);
+  let popped = []
+  for (startInterval ; startInterval < endInterval; startInterval++) {
     popped.push(startInterval + ":00");// добавляет в массив интервалов только начало занятий
   }
   return popped.includes(findTime) ? true : null;
@@ -52,6 +52,7 @@ const timeInit = (obj, time) => {
 
 
 const GymTable = ({address, raw}) => {
+  if (!raw) return (<Typography variant='h1'>Error</Typography>)
   const tableArr = Object.entries(raw);
   return (
     <TableContainer component={Paper}>

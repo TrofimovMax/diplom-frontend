@@ -16,7 +16,6 @@ const getGymById = async (id) => {
     return res.json();
   }
 }
-
 const Gym = () => {
   const router = useRouter();
   const pathName = router.pathname;
@@ -31,27 +30,42 @@ const Gym = () => {
   );
   if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
   if (error) return (<Typography variant='h1'>Error: {error}</Typography>)
-  const schObj = data?.schedule.configuration.raw.hours;
+  // data?.schedule?.configuration?.raw?.hours path to obj {day:{time: time}, ...}
+  //JSON.stringify(data?.schedule?.configuration?.raw?.hours, null, '  ')
   return (
     <Container>
         <Box>
           <>
             <Heading text={data?.title}/>
-            <Button
-              component='a'
-              LinkComponent={NextLink}
-              href={pathName + `/edit`}
-            >
-              Edit
-            </Button>
+            <Box sx = {{
+              minWidth: '100%',
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center'}}>
+              <Button
+                component='button'
+                LinkComponent={NextLink}
+                onClick={() => router.push('/gyms/' + pageNum + '/edit')}
+              >
+                Edit
+              </Button>
+              <Button
+                component='button'
+                LinkComponent={NextLink}
+                onClick={() => router.push('/gyms')}
+              >
+                Back
+              </Button>
+            </Box>
+
           </>
       {
         (() => {
-          if(schObj) {
+          if(data?.id) {
             return (
                 <GymTable
                   address = {data?.address}
-                  raw = {schObj}
+                  raw = {data?.schedule?.configuration?.raw?.hours}
                 />
             )
           }

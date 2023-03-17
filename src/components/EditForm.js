@@ -44,10 +44,23 @@ const EditForm = ({raw}) => {
     const data = {
       "fri": {
         [startTimes['fri']]: endTime['fri']
+      },
+      "mon": {
+        [startTimes['mon']]: endTime['mon']
+      },
+      "sat": {
+        [startTimes['sat']]: endTime['sat']
+      },
+      "thu": {
+        [startTimes['thu']]: endTime['thu']
+      },
+      "tue": {
+        [startTimes['tue']]: endTime['tue']
+      },
+      "wed": {
+        [startTimes['wed']]: endTime['wed']
       }
     }
-
-    console.log(data)
   }
 
   const handleChangeStartTimes = (event, day) => {

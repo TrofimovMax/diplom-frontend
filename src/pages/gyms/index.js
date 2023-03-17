@@ -22,9 +22,9 @@ export const fetchGymsFromAPI = async () => {
 }
 
 const Gyms = () => {
+  const router = useRouter()
   const {pathname} = useRouter();
   const { data,status} = useQuery("gyms", fetchGymsFromAPI);
-
   if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
 
   return (
@@ -35,7 +35,21 @@ const Gyms = () => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <Heading text='Gyms' tag={'h2'}/>
+        <Box sx = {{
+          minWidth: '100%',
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center'}}>
+          <Heading text='Gyms' tag={'h2'}/>
+          <Button
+            component='button'
+            LinkComponent={NextLink}
+            onClick={() => router.push('/')}
+          >
+            Back
+          </Button>
+        </Box>
+
         <Box>
           {data.props.gyms.map(({id, title, address}) => {
             return (

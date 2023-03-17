@@ -1,7 +1,7 @@
 import React from 'react';
 import Carousel from 'react-material-ui-carousel'
 import CarouselItem from "@/components/CarouselItem";
-import slider from '../helper/slider.json'
+import slider from '/src/helper/slider.json'
 const Slider = () => {
 
   return (

@@ -14,7 +14,6 @@ const getGymById = async (id) => {
 
 
 const Edit = () => {
-
   const router = useRouter();
   const pageNum = router.query.id
   const { status, data, error} = useQuery(
