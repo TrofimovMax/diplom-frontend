@@ -3,10 +3,11 @@ import {Button, Grid, Typography} from "@mui/material";
 import EditForm from "@/components/EditForm";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
+import NextLink from "next/link";
 
-const getGymById = async (id) => {
+const getGymById = async (id, url) => {
   if (id) {
-    const res = await fetch(`http://localhost:3000/gyms/${id}`);
+    const res = await fetch(url);
     return res.json();
   }
 }
@@ -16,9 +17,10 @@ const getGymById = async (id) => {
 const Edit = () => {
   const router = useRouter();
   const pageNum = router.query.id
+  const url = `http://localhost:3000/gyms/${pageNum}`
   const { status, data, error} = useQuery(
     ["gyms", pageNum],
-    () => getGymById(pageNum),
+    () => getGymById(pageNum, url),
     {
       keepPreviousData: true,
       staleTime: 80000
@@ -26,7 +28,6 @@ const Edit = () => {
   );
   if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
   if (error) return (<Typography variant='h1'>Error: {error}</Typography>)
-  const schObj = data?.schedule.configuration.raw.hours;
 
   return (
     <Grid container spacing={0}
@@ -38,17 +39,24 @@ const Edit = () => {
       <Grid item xs={12}>
         <Typography variant="h4" component="h6">Edit Form</Typography>
       </Grid>
+
       <Grid item xs={12} marginTop={3}>
-        { schObj && (
+        { data && (
           <EditForm
-            raw = {schObj}
+            data = {data}
+            url = {url}
           />
         ) }
 
       </Grid>
       <Grid item xs={4} marginTop={3}>
-        <Button variant="contained" color="success">
-          Edit
+        <Button
+          component='button'
+          LinkComponent={NextLink}
+          onClick={() => router.push('/gyms/' + pageNum)}
+          variant="contained"
+        >
+          Back
         </Button>
       </Grid>
     </Grid>

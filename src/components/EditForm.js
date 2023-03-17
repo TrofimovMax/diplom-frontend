@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import {Grid, FormControl, InputLabel, MenuItem, Select, Typography, Box, Button} from "@mui/material";
 import {times, keys, values, first} from "lodash";
+import {useMutation} from "react-query";
 
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
@@ -18,7 +19,8 @@ const getDayStartTime = (day) => first(keys(day))
 
 const getDayEndTime = (day) => first(values(day))
 
-const EditForm = ({raw}) => {
+const EditForm = ({data, url}) => {
+  const raw = data?.schedule.configuration.raw.hours;
   let array = [];
   raw !== undefined ? array = Object.entries(raw): array = [];
 
@@ -40,27 +42,49 @@ const EditForm = ({raw}) => {
     "wed": getDayEndTime(raw['wed'])
   });
 
-  const save = () => {
-    const data = {
-      "fri": {
-        [startTimes['fri']]: endTime['fri']
+  const { mutate } = useMutation((data) => {
+    fetch(url, {
+      method: 'PATCH',
+      body: JSON.stringify(data),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
       },
-      "mon": {
-        [startTimes['mon']]: endTime['mon']
-      },
-      "sat": {
-        [startTimes['sat']]: endTime['sat']
-      },
-      "thu": {
-        [startTimes['thu']]: endTime['thu']
-      },
-      "tue": {
-        [startTimes['tue']]: endTime['tue']
-      },
-      "wed": {
-        [startTimes['wed']]: endTime['wed']
-      }
+    })
+  },{
+    onSuccess: (res) => {
+      console.log('>>>>>>>')
+      alert("Update schedule!");
+    },
+    onError: (error) => {
+      console.log(error);
     }
+  })
+
+  const onSave = () => {
+    mutate({
+      title: data.title,
+      address: data.address,
+      hours: {
+        "fri": {
+          [startTimes['fri']]: endTime['fri']
+        },
+        "mon": {
+          [startTimes['mon']]: endTime['mon']
+        },
+        "sat": {
+          [startTimes['sat']]: endTime['sat']
+        },
+        "thu": {
+          [startTimes['thu']]: endTime['thu']
+        },
+        "tue": {
+          [startTimes['tue']]: endTime['tue']
+        },
+        "wed": {
+          [startTimes['wed']]: endTime['wed']
+        }
+      }
+    })
   }
 
   const handleChangeStartTimes = (event, day) => {
@@ -72,55 +96,59 @@ const EditForm = ({raw}) => {
   };
 
   return (
-    <Grid container>
-      {
-        array.map(item => {
-          return (
-            <Box key={item} m={1}>
-              <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>
-              </FormControl>
-              <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                <InputLabel id="demo-simple-select-label">From</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={startTimes[item[0]]}
-                  label="endTime"
-                  onChange={(e) => handleChangeStartTimes(e, item[0]) }
-                >
-                  {
-                    hours.map(time => {
-                      return(
-                        <MenuItem key={time} value={time}>{time}</MenuItem>
-                      )
-                    })
-                  }
-                </Select>
-              </FormControl>
-              <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                <InputLabel id="demo-simple-select-label">To</InputLabel>
-                <Select
-                  labelId="demo-simple-select-label"
-                  id="demo-simple-select"
-                  value={endTime[item[0]]}
-                  label="endTime"
-                  onChange={(e) => handleChange(e, item[0])}
-                >
-                  {
-                    hours.map(time => {
-                      return (
-                        <MenuItem key={time} value={time}>{time}</MenuItem>
-                      )
-                    })
-                  }
-                </Select>
-              </FormControl>
-            </Box>
-          )
-        })
-      }
-      <Button onClick={save} > Update</Button>
+    <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        {
+          array.map(item => {
+            return (
+              <Grid item key={item} xs={2} sm={4} md={4}>
+              <Box m={1}>
+                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
+                  <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>
+                </FormControl>
+                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
+                  <InputLabel id="demo-simple-select-label">From</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={startTimes[item[0]]}
+                    label="endTime"
+                    onChange={(e) => handleChangeStartTimes(e, item[0]) }
+                  >
+                    {
+                      hours.map(time => {
+                        return(
+                          <MenuItem key={time} value={time}>{time}</MenuItem>
+                        )
+                      })
+                    }
+                  </Select>
+                </FormControl>
+                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
+                  <InputLabel id="demo-simple-select-label">To</InputLabel>
+                  <Select
+                    labelId="demo-simple-select-label"
+                    id="demo-simple-select"
+                    value={endTime[item[0]]}
+                    label="endTime"
+                    onChange={(e) => handleChange(e, item[0])}
+                  >
+                    {
+                      hours.map(time => {
+                        return (
+                          <MenuItem key={time} value={time}>{time}</MenuItem>
+                        )
+                      })
+                    }
+                  </Select>
+                </FormControl>
+              </Box>
+              </Grid>
+            )
+          })
+        }
+      <Grid item xs="auto">
+        <Button onClick={onSave} > Update</Button>
+      </Grid>
     </Grid>
   )
 }

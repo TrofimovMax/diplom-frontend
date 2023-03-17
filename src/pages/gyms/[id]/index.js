@@ -18,15 +18,10 @@ const getGymById = async (id) => {
 }
 const Gym = () => {
   const router = useRouter();
-  const pathName = router.pathname;
   const pageNum = router.query.id
   const { status, data, error} = useQuery(
     ["gyms", pageNum],
     () => getGymById(pageNum),
-    {
-      keepPreviousData: true,
-      staleTime: 80000
-    }
   );
   if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
   if (error) return (<Typography variant='h1'>Error: {error}</Typography>)
@@ -45,28 +40,31 @@ const Gym = () => {
               <Button
                 component='button'
                 LinkComponent={NextLink}
-                onClick={() => router.push('/gyms/' + pageNum + '/edit')}
-              >
-                Edit
-              </Button>
-              <Button
-                component='button'
-                LinkComponent={NextLink}
                 onClick={() => router.push('/gyms')}
               >
                 Back
               </Button>
+              <Button
+                component='button'
+                LinkComponent={NextLink}
+                onClick={() => router.push('/gyms/' + pageNum + '/edit')}
+              >
+                Edit
+              </Button>
             </Box>
-
           </>
       {
         (() => {
           if(data?.id) {
             return (
+              <Box sx={{
+                marginTop:2
+              }}>
                 <GymTable
                   address = {data?.address}
                   raw = {data?.schedule?.configuration?.raw?.hours}
                 />
+              </Box>
             )
           }
         }) ()
