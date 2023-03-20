@@ -1,6 +1,7 @@
 import React from 'react';
 import {Grid, Button, Typography, createTheme, ThemeProvider} from '@mui/material'
 import CssBaseline from "@mui/material/CssBaseline";
+import NextLink from "next/link";
 
 const theme = createTheme({
   palette: {
@@ -57,6 +58,9 @@ const CarouselItem = ({item}) => {
 
             <Grid item xs={4}>
               <Button
+                component='a'
+                LinkComponent={NextLink}
+                href={'/gyms'}
                 sx={{
                   backgroundColor: 'button',
                   '&:hover': {
@@ -67,6 +71,7 @@ const CarouselItem = ({item}) => {
                 GET STARTED
               </Button>
             </Grid>
+
           </Grid>
         </Grid>
       </Grid>
