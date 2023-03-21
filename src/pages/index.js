@@ -3,30 +3,10 @@ import {Container, Box, Paper, Grid, Card, CardContent, Typography, CardActions,
 import Slider from "@/components/Slider";
 import GymsCard from "@/components/GymsCard";
 import cards from '@/helper/gymsCard.json'
+import TitleSection from "@/components/TitleSection";
 
 const Home = () => (
   <Box>
-    <Paper style={{backgroundImage: 'url(https://livedemo00.template-help.com/wt_58939/images/header-bg-02.jpg)'}}
-           sx={
-             {
-               color: "#fff",
-               position: "relative",
-               marginBottom: 4,
-               backgroundSize: "cover",
-               backgroundPosition: "center",
-               backgroundRepeat: "no-repeat"
-             }
-           }
-    >
-      <Container fixed>
-        <Grid container>
-          <Grid item md={6}>
-            <Heading text='Welcome Sport Palace'/>
-          </Grid>
-        </Grid>
-      </Container>
-    </Paper>
-
     <Container>
       <Box>
         <Slider/>

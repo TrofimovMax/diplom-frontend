@@ -1,18 +1,15 @@
 import NextLink from "next/link";
 import Image from "next/image";
-import {useRouter} from "next/router";
 import * as React from 'react';
 import {
   Button,
   Box,
-  ButtonGroup,
-  Paper,
   Typography,
   Divider,
   List,
   ListItem,
   ListItemButton,
-  ListItemText, AppBar, Toolbar, IconButton, Drawer
+  ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink
 } from '@mui/material';
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -70,7 +67,13 @@ function NavBar(props) {
           >
             <MenuIcon />
           </IconButton>
-          <Image src="/logo.svg" width={70} height={70} alt="logo" />
+          <NextLink
+            href="/" passHref legacyBehavior>
+            <MUILink>
+              <Image src="/logo.svg" width={70} height={70} alt="logo" />
+            </MUILink>
+          </NextLink>
+
           <Typography
             variant="h6"
             component="div"
