@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink
+  ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink, Grid
 } from '@mui/material';
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -54,51 +54,80 @@ function NavBar(props) {
   const container = window !== undefined ? () => window().document.body : undefined;
 
   return (
-    <Box sx={{ display: 'flex', paddingBottom: 9}}>
+    <Box sx={{ display: 'flex', paddingBottom: "10vh"}}>
       <CssBaseline />
       <AppBar component="nav" style={{ background: '#fff' }}>
         <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            edge="start"
-            onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <NextLink
-            href="/" passHref legacyBehavior>
-            <MUILink>
-              <Image src="/logo.svg" width={70} height={70} alt="logo" />
-            </MUILink>
-          </NextLink>
-
-          <Typography
-            variant="h6"
-            component="div"
-            sx={{ color: '#000', flexGrow: 1, marginLeft: 3, display: { xs: 'none', sm: 'block' } }}
-          >
-            Sport Palace
-          </Typography>
-
-          <Box sx={{ display: { xs: 'none', sm: 'block' } }}>
-            {
-              navigation.map(({id, title, path}) => {
-              return (
-                <Button
-                  sx={{ color: '#000' }}
-                  key={id}
-                  component='a'
-                  href={path}
-                  LinkComponent={NextLink}
+          <Grid container spacing={3}>
+            <Grid container item
+                  xs={4}
+                  direction="row"
+                  justifyContent="center"
+                  alignItems="center"
+            >
+              <Grid item xs={1}>
+                <IconButton
+                  color="inherit"
+                  aria-label="open drawer"
+                  edge="start"
+                  onClick={handleDrawerToggle}
+                  sx={{display: { sm: 'none' } }}
                 >
-                  {title}
-                </Button>
-              )
-            })
-            }
-          </Box>
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+              <Grid item xs >
+                <NextLink
+                  href="/" passHref legacyBehavior>
+                  <MUILink sx={{padding:0}}>
+                    <Image src="/logo.svg" width={70} height={70} alt="logo" />
+                  </MUILink>
+                </NextLink>
+              </Grid>
+            </Grid>
+
+            <Grid container item xs={6}
+                  direction="row"
+                  justifyContent="space-evenly"
+                  alignItems="center"
+            >
+              {
+                navigation.map(({id, title, path}) => {
+                  return (
+                    <Grid item xs>
+                    <Button
+                      sx={{ color: '#000' }}
+                      key={id}
+                      component='a'
+                      href={path}
+                      LinkComponent={NextLink}
+                    >
+                      {title}
+                    </Button>
+                    </Grid>
+                  )
+                })
+              }
+            </Grid>
+            <Grid item xs>
+              <Button
+                sx={{ color: '#000' }}
+                component='a'
+                href="/login"
+                LinkComponent={NextLink}
+              >
+                Sign in
+              </Button>
+              <Button
+                sx={{ color: '#000' }}
+                component='a'
+                href="/signup"
+                LinkComponent={NextLink}
+              >
+                Sign up
+              </Button>
+            </Grid>
+          </Grid>
         </Toolbar>
       </AppBar>
       <Box component="nav">

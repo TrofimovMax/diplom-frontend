@@ -1,9 +1,8 @@
 import Heading from '/src/components/Heading';
-import {Container, Box, Paper, Grid, Card, CardContent, Typography, CardActions, Button} from "@mui/material";
+import {Container, Box, Grid} from "@mui/material";
 import Slider from "@/components/Slider";
 import GymsCard from "@/components/GymsCard";
 import cards from '@/helper/gymsCard.json'
-import TitleSection from "@/components/TitleSection";
 
 const Home = () => (
   <Box>
