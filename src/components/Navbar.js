@@ -94,10 +94,10 @@ function NavBar(props) {
               {
                 navigation.map(({id, title, path}) => {
                   return (
-                    <Grid item xs>
+                    <Grid item xs key={id}>
                     <Button
                       sx={{ color: '#000' }}
-                      key={id}
+
                       component='a'
                       href={path}
                       LinkComponent={NextLink}

@@ -2,27 +2,31 @@ import React, {useState} from 'react';
 import {TextField, Button, Container, Stack, Link as MUILink} from '@mui/material';
 import Link from "next/link";
 import NextLink from "next/link";
+import TitleSection from "@/components/TitleSection";
 
 
 const RegisterForm = () => {
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
-  const [dateOfBirth, setDateOfBirth] = useState('')
+  const [nickname, setNickname] = useState('')
   const [password, setPassword] = useState('')
+  const [passwordConfirm, setPasswordConfirm] = useState('')
 
-  function handleSubmit(event) {
+ const  handleSubmit = (event) => {
     event.preventDefault();
-    console.log(firstName, lastName, email, dateOfBirth, password)
+    console.log(firstName, lastName, email, nickname, password, passwordConfirm)
   }
 
   return (
-    <React.Fragment>
-      <h2>Register Form</h2>
+    <>
+      <TitleSection title="Register Form">
+
+      </TitleSection>
       <form onSubmit={handleSubmit}
             action={
               <NextLink
-                href="/signup">
+                href="/login">
               </NextLink>
             }
       >
@@ -60,12 +64,34 @@ const RegisterForm = () => {
           sx={{mb: 4}}
         />
         <TextField
+          type="text"
+          variant='outlined'
+          color='secondary'
+          label="Nickname"
+          onChange={e => setNickname(e.target.value)}
+          value={nickname}
+          fullWidth
+          required
+          sx={{mb: 4}}
+        />
+        <TextField
           type="password"
           variant='outlined'
           color='secondary'
           label="Password"
           onChange={e => setPassword(e.target.value)}
           value={password}
+          required
+          fullWidth
+          sx={{mb: 4}}
+        />
+        <TextField
+          type="password"
+          variant='outlined'
+          color='secondary'
+          label="confirm password"
+          onChange={e => setPasswordConfirm(e.target.value)}
+          value={passwordConfirm}
           required
           fullWidth
           sx={{mb: 4}}
@@ -88,8 +114,7 @@ const RegisterForm = () => {
           </MUILink>
         </NextLink>
       </small>
-
-    </React.Fragment>
+    </>
   )
 }
 

@@ -11,9 +11,6 @@ const getGymById = async (id, url) => {
     return res.json();
   }
 }
-
-
-
 const Edit = () => {
   const router = useRouter();
   const pageNum = router.query.id
