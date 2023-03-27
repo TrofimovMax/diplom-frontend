@@ -6,12 +6,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
 
+export const queryClient = new QueryClient();
 
 
 const theme = createTheme();
 
 const App = ({ Component, pageProps }) => {
-  const [queryClient] = React.useState(() => new QueryClient())
 
   return(
     <QueryClientProvider client={queryClient}>

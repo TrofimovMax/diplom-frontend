@@ -3,8 +3,8 @@ import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography, 
 import React, {useState} from "react";
 import { useRouter } from "next/router";
 import {useMutation, useQueryClient} from "react-query";
-import { login } from "../../networkCalls/index";
 import TitleSection from "@/components/TitleSection";
+import { loginRequest } from "@/api/login";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -14,22 +14,21 @@ const LoginPage = () => {
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
+
+  const userData = {
+    user: {
+      email: email,
+      password: password,
+    }
+  }
+
   const loginHandler = async () => {
-    const res = await fetch("http://localhost:3000/login.json", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        user: {
-          email: email,
-          password: password,
-        }
-      })
-    });
-    if (res.status !== 201) {
-      throw new Error(await res.json());
+    const response = await loginRequest(userData)
+    if (response.status !== 201) {
+      throw new Error(await response.json());
     }
     else {
-      return await res.json();
+      return await response.json();
     }
   };
 
@@ -47,12 +46,7 @@ const LoginPage = () => {
   );
 
   const signIn = () => {
-    mutateAsync({
-      user:{
-        email: {email},
-        password: {password}
-    }
-    })
+    mutateAsync(userData)
   };
 
   if (isLoading) return (<Typography variant='h1'>Loading...</Typography>);

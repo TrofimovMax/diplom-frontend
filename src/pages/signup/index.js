@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import NextLink from "next/link";
-import {useMutation} from "react-query";
-import {useRouter} from "next/router";
-import {TextField, Button, Container, Stack, Link as MUILink, Typography} from '@mui/material';
+import { useMutation } from "react-query";
+import { useRouter } from "next/router";
+import { TextField, Button, Container, Stack, Link as MUILink, Typography} from '@mui/material';
 import TitleSection from "@/components/TitleSection";
+import { signUpRequest } from "@/api/sign-up";
 
 const RegisterForm = () => {
   const router = useRouter();
@@ -27,11 +28,7 @@ const RegisterForm = () => {
   }
 
   const signUpHandler = async () => {
-    const res = await fetch("http://localhost:3000/signup.json", {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify(newUser)
-    });
+    const res = await signUpRequest(newUser);
     if (res.status !== 201) {
       throw new Error(await res.json());
     }
@@ -69,6 +66,7 @@ const RegisterForm = () => {
       <form onSubmit={handleSubmit}
             action={
               <NextLink
+                component = "a"
                 href="/login">
               </NextLink>
             }
