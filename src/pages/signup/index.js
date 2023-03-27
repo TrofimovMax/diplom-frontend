@@ -42,7 +42,7 @@ const RegisterForm = () => {
     signUpHandler,
     {
       onSuccess: (data) => {
-        router.push("/");
+        router.push("/login");
       },
       onError(err, variables, onMutateValue) {
         alert(err)

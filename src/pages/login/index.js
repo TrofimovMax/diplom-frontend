@@ -5,6 +5,8 @@ import { useRouter } from "next/router";
 import {useMutation, useQueryClient} from "react-query";
 import TitleSection from "@/components/TitleSection";
 import { loginRequest } from "@/api/login";
+import useLocalStorage from "@/store/useLocalStorage";
+
 
 const LoginPage = () => {
   const router = useRouter();
@@ -22,13 +24,16 @@ const LoginPage = () => {
     }
   }
 
+  const [user, setUser] = useLocalStorage("user", "");
+
   const loginHandler = async () => {
     const response = await loginRequest(userData)
     if (response.status !== 201) {
       throw new Error(await response.json());
     }
     else {
-      return await response.json();
+      setUser(await response.json())
+      return user;
     }
   };
 
