@@ -1,11 +1,12 @@
 import React, {useState} from 'react';
-import {TextField, Button, Container, Stack, Link as MUILink} from '@mui/material';
-import Link from "next/link";
 import NextLink from "next/link";
+import {useMutation} from "react-query";
+import {useRouter} from "next/router";
+import {TextField, Button, Container, Stack, Link as MUILink, Typography} from '@mui/material';
 import TitleSection from "@/components/TitleSection";
 
-
 const RegisterForm = () => {
+  const router = useRouter();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
@@ -13,10 +14,52 @@ const RegisterForm = () => {
   const [password, setPassword] = useState('')
   const [passwordConfirm, setPasswordConfirm] = useState('')
 
+  const newUser = {
+    user:{
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      nickname: nickname,
+      password: password,
+      password_confirmation: passwordConfirm,
+      role: "user"
+    }
+  }
+
+  const signUpHandler = async () => {
+    const res = await fetch("http://localhost:3000/signup.json", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(newUser)
+    });
+    if (res.status !== 201) {
+      throw new Error(await res.json());
+    }
+    else {
+      return await res.json();
+    }
+  };
+
+  const { isError, error, isLoading, mutateAsync} = useMutation(
+    "signup",
+    signUpHandler,
+    {
+      onSuccess: (data) => {
+        router.push("/");
+      },
+      onError(err, variables, onMutateValue) {
+        alert(err)
+      }
+    }
+  );
+
  const  handleSubmit = (event) => {
     event.preventDefault();
-    console.log(firstName, lastName, email, nickname, password, passwordConfirm)
+    mutateAsync(newUser)
   }
+
+  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>);
+  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>);
 
   return (
     <>
@@ -89,14 +132,22 @@ const RegisterForm = () => {
           type="password"
           variant='outlined'
           color='secondary'
-          label="confirm password"
+          label="Confirm password"
           onChange={e => setPasswordConfirm(e.target.value)}
           value={passwordConfirm}
           required
           fullWidth
           sx={{mb: 4}}
         />
-        <Button variant="outlined" color="secondary" type="submit">Register</Button>
+        <Button
+          variant="contained"
+          color="secondary"
+          type="submit"
+          sx={{
+            ml: "45vw"
+          }}>
+          Register
+        </Button>
       </form>
       <small>
         Already have an account?

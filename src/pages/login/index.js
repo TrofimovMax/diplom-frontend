@@ -1,9 +1,10 @@
-import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography} from "@mui/material";
+import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography, Box} from "@mui/material";
 
 import React, {useState} from "react";
 import { useRouter } from "next/router";
 import {useMutation, useQueryClient} from "react-query";
 import { login } from "../../networkCalls/index";
+import TitleSection from "@/components/TitleSection";
 
 const LoginPage = () => {
   const router = useRouter();
@@ -59,9 +60,17 @@ const LoginPage = () => {
 
   return (
       <Paper sx={{
-        paddingTop:"25vh",
+        paddingTop:"5vh",
         paddingBottom:"25vh"
       }}>
+        <Box sx={{
+          marginBottom: 20
+        }}>
+          <TitleSection title="Login Form">
+
+          </TitleSection>
+        </Box>
+
         <Grid
           container
           spacing={3}
