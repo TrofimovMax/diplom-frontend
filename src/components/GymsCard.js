@@ -49,7 +49,7 @@ const GymsCard = ({image, title, text, link}) => {
             {title}
           </Typography>
 
-          <Typography variant="subtitle1" component="body2">
+          <Typography variant="subtitle1">
             {text}
           </Typography>
         </CardContent>

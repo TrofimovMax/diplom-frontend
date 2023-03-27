@@ -1,51 +1,42 @@
 import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography} from "@mui/material";
 
 import React, {useState} from "react";
-import { useCookies } from "react-cookie";
-import { useMutation } from "react-query";
-import { useRouter } from 'next/router';
-
-import { actionTypes, useStateValue } from "@/store";
+import { useRouter } from "next/router";
+import {useMutation, useQueryClient} from "react-query";
 import { login } from "../../networkCalls/index";
 
-
-
 const LoginPage = () => {
+  const router = useRouter();
   const [checked, setChecked] = React.useState(true);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-
-  function FormHandler (e){
-    e.preventDefault();
-    fetch("http://localhost:3000/login.json", {
-      method: "POST",
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({
-        email: email,
-        password: password,
-      })
-    }).then(res =>{
-      if(res.ok) return res.json()
-      throw Error();
-    }, console.log)
-      .then(console.log)
-  }
-
-  const router = useRouter()
-  const url = `http://localhost:3000/login.json`;
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
-  const [, setCookie] = useCookies(["jwt"]);
-  const [{ token }, dispatch] = useStateValue();
-  console.log(token);
-  const { isError, error, isLoading, mutateAsync } = useMutation(
+  const loginHandler = async () => {
+    const res = await fetch("http://localhost:3000/login.json", {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        user: {
+          email: email,
+          password: password,
+        }
+      })
+    });
+    if (res.status !== 201) {
+      throw new Error(await res.json());
+    }
+    else {
+      return await res.json();
+    }
+  };
+
+  const { isError, error, isLoading, mutateAsync} = useMutation(
     "login",
-    login,
+    loginHandler,
     {
       onSuccess: (data) => {
-        dispatch({ type: actionTypes.SET_TOKEN, value: data.token });
-        setCookie("jwt", data.token);
         router.push("/");
       },
       onError(err, variables, onMutateValue) {
@@ -56,8 +47,10 @@ const LoginPage = () => {
 
   const signIn = () => {
     mutateAsync({
-      email: {email},
-      password: {password}
+      user:{
+        email: {email},
+        password: {password}
+    }
     })
   };
 
@@ -76,7 +69,7 @@ const LoginPage = () => {
           justify={'center'}
           alignItems={'center'}
         >
-          <form id="authentication" onSubmit={FormHandler}>
+          <form id="authentication" onSubmit={signIn}>
           <Grid item xs={12}>
             <TextField
               type="email"
