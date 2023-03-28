@@ -13,6 +13,15 @@ import {
 } from '@mui/material';
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
+import useLocalStorage from "@/store/useLocalStorage";
+import AuthBlock from "@/components/AuthBlock";
+
+import dynamic from 'next/dynamic'
+
+const ComponentWithNoSSR = dynamic(
+  () => import('@/components/AuthBlock'),
+  { ssr: false }
+)
 
 const navigation = [
   {id: 1, title: 'Home', path: '/'},
@@ -52,7 +61,6 @@ function NavBar(props) {
   );
 
   const container = window !== undefined ? () => window().document.body : undefined;
-
   return (
     <Box sx={{ display: 'flex', paddingBottom: "10vh"}}>
       <CssBaseline />
@@ -110,22 +118,7 @@ function NavBar(props) {
               }
             </Grid>
             <Grid item xs>
-              <Button
-                sx={{ color: '#000' }}
-                component='a'
-                href="/login"
-                LinkComponent={NextLink}
-              >
-                Sign in
-              </Button>
-              <Button
-                sx={{ color: '#000' }}
-                component='a'
-                href="/signup"
-                LinkComponent={NextLink}
-              >
-                Sign up
-              </Button>
+              <ComponentWithNoSSR />
             </Grid>
           </Grid>
         </Toolbar>

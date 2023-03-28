@@ -15,14 +15,12 @@ const App = ({ Component, pageProps }) => {
 
   return(
     <QueryClientProvider client={queryClient}>
-      <Hydrate state={pageProps.dehydratedState}>
         <ThemeProvider theme={theme}>
           <CssBaseline />
           <Layout>
             <Component {...pageProps} />
           </Layout>
         </ThemeProvider>
-      </Hydrate>
       <ReactQueryDevtools />
     </QueryClientProvider>
   );
