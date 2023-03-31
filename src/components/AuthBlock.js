@@ -3,8 +3,13 @@ import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
 import useLocalStorage from "@/store/useLocalStorage";
 
+
 const AuthBlock = () => {
   const [user, setUser] = useLocalStorage("user", "");
+
+  const handleSignOut = () => {
+    setUser( "");
+  }
 
   let authButton;
 
@@ -13,9 +18,7 @@ const AuthBlock = () => {
       (
         <Button
           sx={{ color: '#000' }}
-          component='a'
-          href="/login"
-          LinkComponent={NextLink}
+          onClick={handleSignOut}
         >
           Sign out
         </Button>);

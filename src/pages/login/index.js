@@ -25,16 +25,12 @@ const LoginPage = () => {
   }
 
   const [user, setUser] = useLocalStorage("user", "");
+  const [token, setToken] = useLocalStorage("token", "");
 
   const loginHandler = async () => {
-    const response = await loginRequest(userData)
-    if (response.status !== 201) {
-      throw new Error(await response.json());
-    }
-    else {
-      setUser(await response.json())
-      return user;
-    }
+    const response = await loginRequest(userData);
+    setUser(response.data);
+    return user;
   };
 
   const { isError, error, isLoading, mutateAsync} = useMutation(
@@ -44,8 +40,8 @@ const LoginPage = () => {
       onSuccess: (data) => {
         router.push("/");
       },
-      onError(err, variables, onMutateValue) {
-        alert(err)
+      onError(err) {
+        console.log(err.message)
       }
     }
   );
