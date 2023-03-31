@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import { useRouter } from "next/router";
 import {useMutation, useQueryClient} from "react-query";
 import TitleSection from "@/components/TitleSection";
-import { loginRequest } from "@/api/login";
+import {loginRequest, loginRequestFetch} from "@/api/login";
 import useLocalStorage from "@/store/useLocalStorage";
 
 
@@ -27,10 +27,13 @@ const LoginPage = () => {
   const [user, setUser] = useLocalStorage("user", "");
   const [token, setToken] = useLocalStorage("token", "");
 
+  const tokenExpressions = /Bearer /;
+
   const loginHandler = async () => {
-    const response = await loginRequest(userData);
-    setUser(response.data);
-    return user;
+    const response = await loginRequest(userData)
+    setUser(response.data.data)
+    setToken(response.headers.getAuthorization().split(tokenExpressions)[1])
+    return response;
   };
 
   const { isError, error, isLoading, mutateAsync} = useMutation(
@@ -38,7 +41,8 @@ const LoginPage = () => {
     loginHandler,
     {
       onSuccess: (data) => {
-        router.push("/");
+        console.log('>>>')
+        //router.push("/");
       },
       onError(err) {
         console.log(err.message)
