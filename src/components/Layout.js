@@ -1,5 +1,5 @@
-import Header from "@/components/templates/Header/Header";
-import Footer from "@/components/templates/Footer/Footer";
+import Header from "@/components/organisms/Header/Header";
+import Footer from "@/components/organisms/Footer/Footer";
 
 const Layout = ({children}) => (
   <>
