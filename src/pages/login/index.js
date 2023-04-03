@@ -1,10 +1,10 @@
 import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography, Box} from "@mui/material";
 
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
-import {useMutation, useQueryClient} from "react-query";
+import { useMutation } from "react-query";
 import TitleSection from "@/components/TitleSection";
-import {loginRequest, loginRequestFetch} from "@/api/login";
+import { loginRequest } from "@/api/login";
 import useLocalStorage from "@/store/useLocalStorage";
 
 
@@ -27,6 +27,11 @@ const LoginPage = () => {
   const [user, setUser] = useLocalStorage("user", "");
   const [token, setToken] = useLocalStorage("token", "");
 
+  useEffect(() => {
+    if (user !== "" && token !== ""){
+      router.push("/");
+    }
+  }, [])
   const loginHandler = async () => {
     const response = await loginRequest(userData)
     setUser(response.data.data)
@@ -39,7 +44,7 @@ const LoginPage = () => {
     loginHandler,
     {
       onSuccess: (data) => {
-        router.push("/");
+        router.reload();
       },
       onError(err) {
         console.log(err.message)
