@@ -1,6 +1,6 @@
 import React from 'react';
 import {Container, Grid, Paper} from "@mui/material";
-import Heading from "@/components/Heading";
+import Heading from "@/components/atoms/Heading";
 
 const TitleSection = ({title}) => {
   return (

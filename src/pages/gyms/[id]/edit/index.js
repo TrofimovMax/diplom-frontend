@@ -1,6 +1,6 @@
 import React from 'react';
 import {Button, Grid, Typography} from "@mui/material";
-import EditForm from "@/components/EditForm";
+import EditForm from "@/components/templates/gyms/organisms/EditForm";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import NextLink from "next/link";

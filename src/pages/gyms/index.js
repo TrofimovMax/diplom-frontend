@@ -1,9 +1,9 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useQuery } from 'react-query'
-import Heading from "@/components/Heading";
-import {Box, Button, Container, ImageList, ImageListItem, Typography} from "@mui/material";
+import Heading from "@/components/atoms/Heading";
+import { Box, Button, Container, ImageList, ImageListItem, Typography } from "@mui/material";
 import NextLink from "next/link";
-import {useRouter} from "next/router";
+import { useRouter } from "next/router";
 import Images from "@/helper/images.json";
 import Benefits from "@/helper/benefits.json";
 
@@ -23,9 +23,12 @@ export const fetchGymsFromAPI = async () => {
 
 const Gyms = () => {
   const router = useRouter()
-  const {pathname} = useRouter();
-  const { data,status} = useQuery("gyms", fetchGymsFromAPI);
-  if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
+  const { pathname } = useRouter();
+  const { data, isLoading } = useQuery("gyms", fetchGymsFromAPI);
+
+
+  // if (isLoading) return <LinearProgress />
+  if (isLoading) return <Typography variant='h1'>Loading...</Typography>
 
   return (
     <Container>

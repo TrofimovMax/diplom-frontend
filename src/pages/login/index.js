@@ -3,7 +3,7 @@ import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography, 
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import TitleSection from "@/components/TitleSection";
+import TitleSection from "@/components/molecules/TitleSection";
 import { loginRequest } from "@/api/login";
 import useLocalStorage from "@/store/useLocalStorage";
 

@@ -17,7 +17,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import dynamic from 'next/dynamic'
 
 const ComponentWithNoSSR = dynamic(
-  () => import('@/components/AuthBlock'),
+  () => import('@/components/templates/Header/organisms/AuthBlock'),
   { ssr: false }
 )
 

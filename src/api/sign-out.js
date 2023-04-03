@@ -3,7 +3,7 @@ import axios from "axios";
 
 export const signOutRequest = async (token) => {
   try {
-    const response = await axios.delete(
+    return await axios.delete(
       `${API_URI}/logout`,
       {
         headers: {
@@ -11,7 +11,6 @@ export const signOutRequest = async (token) => {
         }
       }
     );
-    return response;
   } catch (error) {
     alert(error);
   }

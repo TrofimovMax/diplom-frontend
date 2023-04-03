@@ -1,4 +1,4 @@
-import Heading from '/src/components/Heading';
+import Heading from '/src/components/atoms/Heading';
 import { Box } from '@mui/material';
 
 const History = () => (

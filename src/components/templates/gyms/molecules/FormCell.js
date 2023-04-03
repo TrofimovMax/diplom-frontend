@@ -11,9 +11,10 @@ const theme = createTheme({
   },
 });
 
-const FormCell = () => (
+const FormCell = ({ gymId, time }) => (
   <ThemeProvider theme={theme}>
     <Box
+      onClick={() => console.log(gymId, time)}
       sx={{
         height: 1,
         width: 1,

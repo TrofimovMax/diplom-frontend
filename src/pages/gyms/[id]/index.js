@@ -1,13 +1,13 @@
 import React from "react";
-import Heading from '/src/components/Heading';
+import Heading from '/src/components/atoms/Heading';
 import {
   Box, Button,
   Container, Grid,
   Typography
 } from '@mui/material';
-import {useQuery} from 'react-query';
-import {useRouter} from "next/router";
-import GymTable from "@/components/GymTable";
+import { useQuery } from 'react-query';
+import { useRouter } from "next/router";
+import GymTable from "@/components/templates/gyms/organisms/GymTable";
 import NextLink from "next/link";
 
 const getGymById = async (id) => {

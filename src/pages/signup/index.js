@@ -3,7 +3,7 @@ import NextLink from "next/link";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { TextField, Button, Container, Stack, Link as MUILink, Typography} from '@mui/material';
-import TitleSection from "@/components/TitleSection";
+import TitleSection from "@/components/molecules/TitleSection";
 import { signUpRequest } from "@/api/sign-up";
 
 const RegisterForm = () => {

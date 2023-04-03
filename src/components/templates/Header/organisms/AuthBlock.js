@@ -69,9 +69,9 @@ const AuthBlock = () => {
     )
   }
 
-return (
-  authButton
-);
+  return (
+    authButton
+  );
 };
 
 export default AuthBlock;

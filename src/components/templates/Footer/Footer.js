@@ -1,4 +1,4 @@
-import Heading from './Heading';
+import Heading from '../../atoms/Heading';
 import {Container, createTheme, Grid, Paper, ThemeProvider, Typography} from "@mui/material";
 import TelegramIcon from '@mui/icons-material/Telegram';
 import InstagramIcon from '@mui/icons-material/Instagram';

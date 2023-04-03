@@ -1,5 +1,5 @@
 import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
-import FormCell from "@/components/FormCell";
+import FormCell from "@/components/templates/gyms/molecules/FormCell";
 import React from "react";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
 
@@ -17,6 +17,7 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
     minHeight: 70,
   },
 }));
+
 const StyledTableRow = styled(TableRow)(({theme}) => ({
   '&:nth-of-type(odd)': {
     backgroundColor: theme.palette.action.hover,
@@ -86,7 +87,7 @@ const GymTable = ({address, raw}) => {
                             return (
                               <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
                                                component="th" scope="row">
-                                <FormCell/>
+                                <FormCell time={time} gymId={3}/>
                               </StyledTableCell>
                             )
                           } else {
