@@ -13,8 +13,6 @@ import {
 } from '@mui/material';
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
-import useLocalStorage from "@/store/useLocalStorage";
-import AuthBlock from "@/components/AuthBlock";
 
 import dynamic from 'next/dynamic'
 

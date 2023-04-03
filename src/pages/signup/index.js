@@ -29,7 +29,7 @@ const RegisterForm = () => {
 
   const signUpHandler = async () => {
     const res = await signUpRequest(newUser);
-    if (res.status !== 201) {
+    if (res.status !== 200) {
       throw new Error(await res.json());
     }
     else {

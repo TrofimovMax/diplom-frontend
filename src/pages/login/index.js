@@ -27,12 +27,10 @@ const LoginPage = () => {
   const [user, setUser] = useLocalStorage("user", "");
   const [token, setToken] = useLocalStorage("token", "");
 
-  const tokenExpressions = /Bearer /;
-
   const loginHandler = async () => {
     const response = await loginRequest(userData)
     setUser(response.data.data)
-    setToken(response.headers.getAuthorization().split(tokenExpressions)[1])
+    setToken(response.headers.getAuthorization())
     return response;
   };
 
@@ -41,8 +39,7 @@ const LoginPage = () => {
     loginHandler,
     {
       onSuccess: (data) => {
-        console.log('>>>')
-        //router.push("/");
+        router.push("/");
       },
       onError(err) {
         console.log(err.message)

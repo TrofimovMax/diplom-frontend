@@ -1,24 +1,48 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
 import useLocalStorage from "@/store/useLocalStorage";
+import {signOutRequest} from "@/api/sign-out";
+import {useMutation} from "react-query";
 
 
 const AuthBlock = () => {
   const [user, setUser] = useLocalStorage("user", "");
+  const [token, setToken] = useLocalStorage("token", "");
+  const signOutHandler = async () => {
+    const response = await signOutRequest(token)
+    if (response?.data?.status === 200){
+      setUser("");
+      setToken("");
+    }
+    return response;
+  };
 
-  const handleSignOut = () => {
-    setUser( "");
-  }
+  const { isError, error, isLoading, mutateAsync} = useMutation(
+    "signOut",
+    signOutHandler,
+    {
+      onSuccess: (data) => {
+
+      },
+      onError(err) {
+        console.log(err.message)
+      }
+    }
+  );
+
+  const signOut = () => {
+    mutateAsync()
+  };
 
   let authButton;
 
-  if (user !== '') {
+  if (user !== '' && token !== '') {
     authButton =
       (
         <Button
           sx={{ color: '#000' }}
-          onClick={handleSignOut}
+          onClick={signOut}
         >
           Sign out
         </Button>);
