@@ -106,6 +106,20 @@ const GymTable = ({address, raw}) => {
               }
             )
           }
+          <TableRow>
+            <StyledTableCell>
+            </StyledTableCell>
+            {
+              times.map(time => {
+                return (
+                  <StyledTableCell key={time} component="th"
+                                   scope="row">
+                    <Box/>
+                  </StyledTableCell>
+                )
+              })
+            }
+          </TableRow>
         </TableBody>
       </Table>
     </TableContainer>
