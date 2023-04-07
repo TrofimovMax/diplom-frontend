@@ -40,15 +40,18 @@ const AuthBlock = () => {
   if (user !== '' && token !== '') {
     authButton =
       (
-        <Button
-          sx={{ color: '#000' }}
-          onClick={signOut}
-        >
-          Sign out
-        </Button>);
+        <Grid>
+          <Button
+            sx={{ color: '#000' }}
+            onClick={signOut}
+          >
+            Sign out
+          </Button>
+        </Grid>
+        );
   } else {
     authButton = (
-      <>
+      <Grid item>
         <Button
           sx={{ color: '#000' }}
           component='a'
@@ -65,7 +68,7 @@ const AuthBlock = () => {
         >
           Sign up
         </Button>
-      </>
+      </Grid>
     )
   }
 

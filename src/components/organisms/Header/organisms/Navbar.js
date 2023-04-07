@@ -100,7 +100,7 @@ function NavBar(props) {
               </Grid>
             </Grid>
 
-            <Grid container item xs={6}
+            <Grid container item xs={5}
                   direction="row"
                   justifyContent="space-evenly"
                   alignItems="center"
@@ -108,7 +108,7 @@ function NavBar(props) {
               {
                 navigation.map(({id, title, path}) => {
                   return (
-                    <Grid item xs key={id}>
+                    <Grid item xs key={id} sx={{ display: { xs: 'none', sm: 'inline' } }}>
                     <Button
                       sx={{ color: '#000' }}
 
@@ -123,7 +123,14 @@ function NavBar(props) {
                 })
               }
             </Grid>
-            <Grid item xs={2}>
+
+            <Grid
+              container
+              item xs={3}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
+            >
               <ComponentWithNoSSR />
             </Grid>
           </Grid>
