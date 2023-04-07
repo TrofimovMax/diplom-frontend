@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {Grid, FormControl, InputLabel, MenuItem, Select, Typography, Box, Button} from "@mui/material";
 import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
+import EditIcon from '@mui/icons-material/Edit';
 
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
@@ -146,8 +147,28 @@ const EditForm = ({data, url}) => {
             )
           })
         }
-      <Grid item xs="auto">
-        <Button onClick={onSave} > Update</Button>
+      <Grid container item
+            xs={12}
+            spacing={3}
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+      >
+        <Grid item xs="auto">
+
+        </Grid>
+        <Grid item xs={4} md={2}>
+          <Button
+            onClick={onSave}
+            variant="outlined"
+            startIcon={<EditIcon />}
+          >
+            Update
+          </Button>
+        </Grid>
+        <Grid item xs="auto">
+
+        </Grid>
       </Grid>
     </Grid>
   )

@@ -1,15 +1,8 @@
 import React from "react";
-import Heading from '/src/components/atoms/Heading';
-import {
-  Box, Button,
-  Container, Grid,
-  Typography
-} from '@mui/material';
+import { Typography } from '@mui/material';
 import { useQuery } from 'react-query';
 import { useRouter } from "next/router";
-import GymTable from "@/components/templates/gyms/organisms/GymTable";
-import NextLink from "next/link";
-
+import GymIdPage from "@/components/pages/gyms/GymIdPage";
 const getGymById = async (id) => {
   if (id) {
     const res = await fetch(`http://localhost:3000/gyms/${id}`);
@@ -18,59 +11,21 @@ const getGymById = async (id) => {
 }
 const Gym = () => {
   const router = useRouter();
-  const pageNum = router.query.id
-  const { status, data, error} = useQuery(
-    ["gyms", pageNum],
-    () => getGymById(pageNum),
+  const idGym = router.query.id
+  const { isLoading,isError, data, error} = useQuery(
+    ["gyms", idGym],
+    () => getGymById(idGym),
   );
-  if (status === "loading") return (<Typography variant='h1'>Loading...</Typography>)
-  if (error) return (<Typography variant='h1'>Error: {error}</Typography>)
+  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>)
+  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>)
   // data?.schedule?.configuration?.raw?.hours path to obj {day:{time: time}, ...}
   //JSON.stringify(data?.schedule?.configuration?.raw?.hours, null, '  ')
   return (
-    <Container>
-        <Box>
-          <>
-            <Heading text={data?.title}/>
-            <Box sx = {{
-              minWidth: '100%',
-              display: 'flex',
-              justifyContent: 'space-between',
-              alignItems: 'center'}}>
-              <Button
-                component='button'
-                LinkComponent={NextLink}
-                onClick={() => router.push('/gyms')}
-              >
-                Back
-              </Button>
-              <Button
-                component='button'
-                LinkComponent={NextLink}
-                onClick={() => router.push('/gyms/' + pageNum + '/edit')}
-              >
-                Edit
-              </Button>
-            </Box>
-          </>
-      {
-        (() => {
-          if(data?.id) {
-            return (
-              <Box sx={{
-                marginTop:2
-              }}>
-                <GymTable
-                  address = {data?.address}
-                  raw = {data?.schedule?.configuration?.raw?.hours}
-                />
-              </Box>
-            )
-          }
-        }) ()
-      }
-        </Box>
-    </Container>
+    <GymIdPage
+    data = {data}
+    router = {router}
+    idGym = {idGym}
+    />
   )
 }
 export default Gym;
