@@ -11,6 +11,7 @@ import {
   ListItemButton,
   ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink, Grid
 } from '@mui/material';
+import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 
@@ -28,8 +29,8 @@ const navigation = [
 ];
 const drawerWidth = 240;
 
-function MenuIcon() {
-  return null;
+function MenuButton() {
+  return (<MenuIcon sx={{ color: '#000' }} />);
 }
 
 function NavBar(props) {
@@ -50,7 +51,14 @@ function NavBar(props) {
         {navigation.map(({id, title, path}) => (
           <ListItem key={id} disablePadding>
             <ListItemButton sx={{ textAlign: 'center' }}>
-              <ListItemText primary={title} />
+              <Button
+                sx={{ color: '#000' }}
+                component='a'
+                href={path}
+                LinkComponent={NextLink}
+              >
+                {title}
+              </Button>
             </ListItemButton>
           </ListItem>
         ))}
@@ -79,13 +87,13 @@ function NavBar(props) {
                   onClick={handleDrawerToggle}
                   sx={{display: { sm: 'none' } }}
                 >
-                  <MenuIcon />
+                  <MenuButton />
                 </IconButton>
               </Grid>
               <Grid item xs >
                 <NextLink
                   href="/" passHref legacyBehavior>
-                  <MUILink sx={{padding:0}}>
+                  <MUILink sx={{padding:2}}>
                     <Image src="/logo.svg" width={70} height={70} alt="logo" />
                   </MUILink>
                 </NextLink>
@@ -115,7 +123,7 @@ function NavBar(props) {
                 })
               }
             </Grid>
-            <Grid item xs>
+            <Grid item xs={2}>
               <ComponentWithNoSSR />
             </Grid>
           </Grid>
