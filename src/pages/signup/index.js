@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import NextLink from "next/link";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
-import { TextField, Button, Container, Stack, Link as MUILink, Typography} from '@mui/material';
-import TitleSection from "@/components/molecules/TitleSection";
+import { Typography } from '@mui/material';
 import { signUpRequest } from "@/api/sign-up";
+import SignupPage from "@/components/pages/signup/SignupPage";
 
-const RegisterForm = () => {
+const SignUp = () => {
   const router = useRouter();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -59,112 +58,22 @@ const RegisterForm = () => {
   if (isError) return (<Typography variant='h1'>Error: {error}</Typography>);
 
   return (
-    <>
-      <TitleSection title="Register Form">
-
-      </TitleSection>
-      <form onSubmit={handleSubmit}
-            action={
-              <NextLink
-                component = "a"
-                href="/login">
-              </NextLink>
-            }
-      >
-        <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
-          <TextField
-            type="text"
-            variant='outlined'
-            color='secondary'
-            label="First Name"
-            onChange={e => setFirstName(e.target.value)}
-            value={firstName}
-            fullWidth
-            required
-          />
-          <TextField
-            type="text"
-            variant='outlined'
-            color='secondary'
-            label="Last Name"
-            onChange={e => setLastName(e.target.value)}
-            value={lastName}
-            fullWidth
-            required
-          />
-        </Stack>
-        <TextField
-          type="email"
-          variant='outlined'
-          color='secondary'
-          label="Email"
-          onChange={e => setEmail(e.target.value)}
-          value={email}
-          fullWidth
-          required
-          sx={{mb: 4}}
-        />
-        <TextField
-          type="text"
-          variant='outlined'
-          color='secondary'
-          label="Nickname"
-          onChange={e => setNickname(e.target.value)}
-          value={nickname}
-          fullWidth
-          required
-          sx={{mb: 4}}
-        />
-        <TextField
-          type="password"
-          variant='outlined'
-          color='secondary'
-          label="Password"
-          onChange={e => setPassword(e.target.value)}
-          value={password}
-          required
-          fullWidth
-          sx={{mb: 4}}
-        />
-        <TextField
-          type="password"
-          variant='outlined'
-          color='secondary'
-          label="Confirm password"
-          onChange={e => setPasswordConfirm(e.target.value)}
-          value={passwordConfirm}
-          required
-          fullWidth
-          sx={{mb: 4}}
-        />
-        <Button
-          variant="contained"
-          color="secondary"
-          type="submit"
-          sx={{
-            ml: "45vw"
-          }}>
-          Register
-        </Button>
-      </form>
-      <small>
-        Already have an account?
-        <NextLink
-          href="/login" passHref legacyBehavior>
-          <MUILink ml={1}
-                   sx={{
-                     color: 'links',
-                     '&:hover': {
-                       color: '&:hover.links_hover'
-                     },
-                   }}
-          >
-            Login here
-          </MUILink>
-        </NextLink>
-      </small>
-    </>
+    <SignupPage
+      handleSubmit = {handleSubmit}
+      firstName = {firstName}
+      setFirstName = {setFirstName}
+      lastName = {lastName}
+      setLastName = {setLastName}
+      email = {email}
+      setEmail = {setEmail}
+      nickname = {nickname}
+      setNickname = {setNickname}
+      password = {password}
+      setPassword = {setPassword}
+      passwordConfirm = {passwordConfirm}
+      setPasswordConfirm = {setPasswordConfirm}
+    />
   )
 }
 
-export default RegisterForm;
+export default SignUp;

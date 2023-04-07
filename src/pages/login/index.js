@@ -1,16 +1,15 @@
-import {Button, Checkbox, Grid, Paper, FormControlLabel, TextField, Typography, Box} from "@mui/material";
-
+import {Typography} from "@mui/material";
 import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import TitleSection from "@/components/molecules/TitleSection";
 import { loginRequest } from "@/api/login";
 import useLocalStorage from "@/store/useLocalStorage";
+import LoginPage from "@/components/pages/login/LoginPage";
 
 
-const LoginPage = () => {
+const Login = () => {
   const router = useRouter();
-  const [checked, setChecked] = React.useState(true);
+  const [checked, setChecked] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const handleChange = (event) => {
@@ -60,72 +59,16 @@ const LoginPage = () => {
   if (isError) return (<Typography variant='h1'>Error: {error}</Typography>);
 
   return (
-      <Paper sx={{
-        paddingTop:"5vh",
-        paddingBottom:"25vh"
-      }}>
-        <Box sx={{
-          marginBottom: 20
-        }}>
-          <TitleSection title="Login Form">
-
-          </TitleSection>
-        </Box>
-
-        <Grid
-          container
-          spacing={3}
-          direction={'column'}
-          justify={'center'}
-          alignItems={'center'}
-        >
-          <form id="authentication" onSubmit={signIn}>
-          <Grid item xs={12}>
-            <TextField
-              type="email"
-              variant='outlined'
-              color='secondary'
-              label="Email"
-              onChange={e => setEmail(e.target.value)}
-              value={email}
-              fullWidth
-              required
-              sx={{mb: 4}}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              type="password"
-              variant='outlined'
-              color='secondary'
-              label="Password"
-              onChange={e => setPassword(e.target.value)}
-              value={password}
-              required
-              fullWidth
-              sx={{mb: 4}}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  label={'Keep me logged in'}
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-              }
-              label="Keep me logged in"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" fullWidth> Login </Button>
-          </Grid>
-          </form>
-        </Grid>
-      </Paper>
+    <LoginPage
+    signIn = {signIn}
+    email = {email}
+    setEmail = {setEmail}
+    password = {password}
+    setPassword = {setPassword}
+    checked = {checked}
+    handleChange = {handleChange}
+    />
   );
 };
 
-export default LoginPage;
+export default Login;
