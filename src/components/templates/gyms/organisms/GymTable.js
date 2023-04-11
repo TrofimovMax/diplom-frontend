@@ -2,6 +2,9 @@ import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRo
 import FormCell from "@/components/templates/gyms/molecules/FormCell";
 import React from "react";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
+import moment from 'moment';
+import keys from 'lodash/keys';
+
 
 const END_DAY = 24;
 const times = [...Array(END_DAY).keys()].map(x => ++x);
@@ -28,9 +31,11 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
   },
 }));
 
-const timeInit = (obj, time) => {
+const timeInit = (day, time, schedule) => {
   /*
-  obj = {
+  day = 'fri' ...
+  time = start_at
+  schedule = {
     fri: { 12:00: '20:00' },
     mon: { 09:00: '17:00' },
     sat: { 11:00: '18:00' },
@@ -39,22 +44,34 @@ const timeInit = (obj, time) => {
     wed: { 09:00: '17:00' }
   }
   */
-  const re = /:\d\d/;
-  const findTime = time + ":00";
-  const arrInterval = Object.entries(obj[1]) //[Array(2)]0:(2) ['12:00', '20:00']length:1[[Prototype]]:Array(0)
-  let startInterval = Number(arrInterval[0][0].split(re, 1)[0]);
-  let endInterval = Number(arrInterval[0][1].split(re, 1)[0]);
-  let popped = []
-  for (startInterval ; startInterval < endInterval; startInterval++) {
-    popped.push(startInterval + ":00");// добавляет в массив интервалов только начало занятий
+  const start = keys(schedule[day])[0]; // key - fri
+  const obj = schedule[day]; //object day by key - { 12:00: '20:00' }
+  const end = obj[start]; // value of key
+  if(time >= Number(start.split(/:\d\d/)[0]) && time < Number(end.split(/:\d\d/)[0])){
+    return true
   }
-  return popped.includes(findTime) ? true : null;
+  return false
 }
 
+const createWeekSchedule = () => {
+  let curr = new Date;
+  let week = [];
+
+  for (let i = 1; i <= 6; i++) {
+    let first = curr.getDate() - curr.getDay() + i;
+    let day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
+    week.push(day);
+  }
+
+  console.log(week)
+  return week;
+}
 
 const GymTable = ({address, raw}) => {
   if (!raw) return (<Typography variant='h1'>Error</Typography>)
-  const tableArr = Object.entries(raw);
+  const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat']
+  // console.log('raw[mon]', raw['mon'])
+  console.log('moment', createWeekSchedule().map( i => moment(i).format('ddd DD/MM')))
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 1200}} aria-label="customized table">
@@ -75,37 +92,30 @@ const GymTable = ({address, raw}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {
-            tableArr.map((dayArr) => {
-                return (
-                  <StyledTableRow key={dayArr[0]}>
-                    <StyledTableCell sx={{border: 1}}>{dayArr[0]}</StyledTableCell>
-                    {
-                      times.map(time => {
-                        {
-                          if (timeInit(dayArr, time - 1)) {
-                            return (
-                              <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
-                                               component="th" scope="row">
-                                <FormCell time={time} gymId={3}/>
-                              </StyledTableCell>
-                            )
-                          } else {
-                            return (
-                              <StyledTableCell sx={{border: 1, height: 1, width: 1,}} key={time} component="th"
-                                               scope="row">
-                                <Box/>
-                              </StyledTableCell>
-                            )
-                          }
-                        }
-                      })
-                    }
-                  </StyledTableRow>
-                )
+          {weekDays.map(day => (
+            <StyledTableRow key={day}>
+              <StyledTableCell sx={{border: 1}}>{day}</StyledTableCell>
+              {
+                times.map(time => {
+                  if(timeInit(day, time-1, raw)){
+                    return (
+                      <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
+                                       component="th" scope="row">
+                        <FormCell time={time} gymId={3}/>
+                      </StyledTableCell>
+                    )
+                  } else {
+                    return (
+                      <StyledTableCell sx={{border: 1, height: 1, width: 1,}} key={time} component="th"
+                                       scope="row">
+                        <Box/>
+                      </StyledTableCell>
+                    )
+                  }
+                })
               }
-            )
-          }
+            </StyledTableRow>
+          ))}
           <TableRow>
             <StyledTableCell>
             </StyledTableCell>
