@@ -8,12 +8,12 @@ import EditIcon from '@mui/icons-material/Edit';
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
 export const DAY_TITLE_MAP = {
-  "fri": "Friday",
   "mon": "Monday",
-  "sat": "Monday",
-  "thu": "Monday",
-  "tue": "Monday",
-  "wed": "Monday"
+  "tue": "Tuesday",
+  "wed": "Wednesday",
+  "thu": "Thursday",
+  "fri": "Friday",
+  "sat": "Saturday",
 }
 
 const getDayStartTime = (day) => first(keys(day))
@@ -57,7 +57,7 @@ const EditForm = ({data, url}) => {
       alert("Update schedule!");
     },
     onError: (error) => {
-      console.log(error);
+      alert(error);
     }
   })
 

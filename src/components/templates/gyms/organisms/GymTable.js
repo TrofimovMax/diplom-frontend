@@ -31,9 +31,10 @@ const StyledTableRow = styled(TableRow)(({theme}) => ({
   },
 }));
 
-const timeInit = (day, time, schedule) => {
+const timeInit = (dayDate, time, schedule) => {
   /*
-  day = 'fri' ...
+  dayDate = 'Mon 10/04' ...
+  day = 'mon'
   time = start_at
   schedule = {
     fri: { 12:00: '20:00' },
@@ -44,6 +45,7 @@ const timeInit = (day, time, schedule) => {
     wed: { 09:00: '17:00' }
   }
   */
+  const day = dayDate.substring(0,3).toLowerCase(); // change this str 'Mon 10/04' to 'mon'
   const start = keys(schedule[day])[0]; // key - fri
   const obj = schedule[day]; //object day by key - { 12:00: '20:00' }
   const end = obj[start]; // value of key
@@ -63,15 +65,15 @@ const createWeekSchedule = () => {
     week.push(day);
   }
 
-  console.log(week)
   return week;
 }
 
 const GymTable = ({address, raw}) => {
   if (!raw) return (<Typography variant='h1'>Error</Typography>)
-  const weekDays = ['mon', 'tue', 'wed', 'thu', 'fri', 'sat']
-  // console.log('raw[mon]', raw['mon'])
-  console.log('moment', createWeekSchedule().map( i => moment(i).format('ddd DD/MM')))
+
+  // weekDateDay is array => ['Mon 10/04', 'Tue 11/04', 'Wed 12/04', 'Thu 13/04', 'Fri 14/04', 'Sat 15/04']
+  const weekDateDay = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{minWidth: 1200}} aria-label="customized table">
@@ -92,7 +94,7 @@ const GymTable = ({address, raw}) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {weekDays.map(day => (
+          { weekDateDay.map(day => (
             <StyledTableRow key={day}>
               <StyledTableCell sx={{border: 1}}>{day}</StyledTableCell>
               {
@@ -101,7 +103,7 @@ const GymTable = ({address, raw}) => {
                     return (
                       <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
                                        component="th" scope="row">
-                        <FormCell time={time} gymId={3}/>
+                        <FormCell date={day.substring(4)} time={time} gymId={3}/>
                       </StyledTableCell>
                     )
                   } else {
