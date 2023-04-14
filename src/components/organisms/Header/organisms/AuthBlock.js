@@ -7,12 +7,11 @@ import {useMutation} from "react-query";
 
 
 const AuthBlock = () => {
-  const [user, setUser] = useLocalStorage("user", "");
   const [token, setToken] = useLocalStorage("token", "");
   const signOutHandler = async () => {
-    const response = await signOutRequest(token)
+    const response = await signOutRequest(token, setToken)
+    console.log(response)
     if (response?.data?.status === 200){
-      setUser("");
       setToken("");
     }
     return response;
@@ -26,7 +25,8 @@ const AuthBlock = () => {
 
       },
       onError(err) {
-        console.log(err.message)
+        alert(err.message)
+
       }
     }
   );
@@ -37,7 +37,7 @@ const AuthBlock = () => {
 
   let authButton;
 
-  if (user !== '' && token !== '') {
+  if (token !== '') {
     authButton =
       (
         <Grid>

@@ -1,7 +1,7 @@
 import {API_URI} from "@/api/constants";
 import axios from "axios";
 
-export const signOutRequest = async (token) => {
+export const signOutRequest = async (token, setToken) => {
   try {
     return await axios.delete(
       `${API_URI}/logout`,
@@ -12,6 +12,12 @@ export const signOutRequest = async (token) => {
       }
     );
   } catch (error) {
-    alert(error);
+    if (error.response.status === 401) {
+      alert('401 Unauthorized: Couldn\'t find an active session. Please login again.')
+      setToken("");
+    }
+    else {
+      alert(error);
+    }
   }
 };

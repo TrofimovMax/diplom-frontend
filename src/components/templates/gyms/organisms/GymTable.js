@@ -1,5 +1,5 @@
 import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
-import FormCell from "@/components/templates/gyms/molecules/FormCell";
+import BookingCell from "@/components/templates/gyms/organisms/BookingCell";
 import React from "react";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
 import moment from 'moment';
@@ -103,7 +103,7 @@ const GymTable = ({address, raw}) => {
                     return (
                       <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
                                        component="th" scope="row">
-                        <FormCell date={day.substring(4)} time={time} gymId={3}/>
+                        <BookingCell date={day.substring(4)} time={time} gymId={3}/>
                       </StyledTableCell>
                     )
                   } else {

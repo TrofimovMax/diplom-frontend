@@ -53,7 +53,6 @@ const EditForm = ({data, url}) => {
     })
   },{
     onSuccess: (res) => {
-      console.log('>>>>>>>')
       alert("Update schedule!");
     },
     onError: (error) => {

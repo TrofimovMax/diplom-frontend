@@ -23,17 +23,15 @@ const Login = () => {
     }
   }
 
-  const [user, setUser] = useLocalStorage("user", "");
   const [token, setToken] = useLocalStorage("token", "");
 
   useEffect(() => {
-    if (user !== "" && token !== ""){
+    if (token !== ""){
       router.push("/");
     }
   }, [])
   const loginHandler = async () => {
     const response = await loginRequest(userData)
-    setUser(response.data.data)
     setToken(response.headers.getAuthorization())
     return response;
   };
@@ -46,7 +44,8 @@ const Login = () => {
         router.reload();
       },
       onError(err) {
-        console.log(err.message)
+        alert(err.message);
+        router.reload();
       }
     }
   );

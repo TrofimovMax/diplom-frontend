@@ -16,7 +16,8 @@ const CarouselItem = ({item}) => {
 
   const styles = {
     paperContainer: {
-      backgroundImage: `url(${item.image})`
+      backgroundImage: `url(${item.image})`,
+      backgroundRepeat: 'no-repeat',
     },
     button: {
       marginTop: 30,
@@ -31,7 +32,8 @@ const CarouselItem = ({item}) => {
       <CssBaseline/>
       <Grid container spacing={3} style={styles.paperContainer} sx={
         {
-          width: 1,
+          mx: 'auto',
+          width: 0.9,
           minHeight: '50vw'
         }
       }>
