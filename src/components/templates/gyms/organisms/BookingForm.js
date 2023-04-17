@@ -1,4 +1,4 @@
-import {Box, ThemeProvider, createTheme, Typography} from "@mui/material";
+import {Box, ThemeProvider, createTheme, Typography, Snackbar, Alert} from "@mui/material";
 import {createBooking} from "@/api/booking/createBooking";
 import {useMutation, useQuery} from "react-query";
 import useLocalStorage from "@/store/useLocalStorage";
@@ -33,25 +33,43 @@ const createDataTimeUTC = (date, time) => {
 
 const BookingForm = ({gymId, time, date, capacity}) => {
   const [token, setToken] = useLocalStorage("token", "");
+  const [currentBooking, setCurrentBooking] = useState(999);
+  const [responseMessage, setResponseMessage] = useState("");
+  const [severity, setSeverity] = useState("error");
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, open } = state;
+
   const start_at = (time - 1) + ':00';
   const end_at = time + ':00';
-  const [currentBooking, setCurrentBooking] = useState(999);
-
-  const bookingHandler = async (data) => {
-    const response = await createBooking(data, token)
-    return response;
+  const handleClick = (newState) => () => {
+    setState({ open: true, ...newState });
   };
 
-  const {mutateAsync} = useMutation("booking", (data) => {
-      bookingHandler(data);
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const bookingHandler = async (data) => {
+    return await createBooking(data, token, handleClick(), setResponseMessage, setSeverity)
+  };
+
+  const { mutateAsync } = useMutation("booking", (request) => {
+      bookingHandler(request);
     },
     {
-      onSuccess: (res) => {
-        alert("Booking was successfully!")
+      onSuccess: () => {
         getCurrentBookings()
       },
       onError: (error) => {
-        alert(error);
+        setResponseMessage(error.message)
+        handleClick({
+          vertical: 'top',
+          horizontal: 'center',
+        })
       }
     }
   );
@@ -155,6 +173,15 @@ const BookingForm = ({gymId, time, date, capacity}) => {
 
   return (
     <ThemeProvider theme={theme}>
+      <Snackbar
+        anchorOrigin={{ vertical: 'top',
+          horizontal: 'center', }}
+        open={open}
+        onClose={handleClose}
+        key={vertical + horizontal}
+      >
+        <Alert severity={severity}>{responseMessage}</Alert>
+      </Snackbar>
       {createColorCell(gymId, start_at, end_at,date, token, currentBooking, capacity)}
     </ThemeProvider>
   );
