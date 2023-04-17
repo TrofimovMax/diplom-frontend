@@ -31,27 +31,12 @@ const createDataTimeUTC = (date, time) => {
   return new Date().getFullYear() + "-" + date.substring(3, 5) + "-" + date.substring(0, 2) + ' ' + time;
 }
 
-const BookingForm = ({gymId, time, date, capacity}) => {
+const BookingForm = ({gymId, time, date, capacity, handleClick, setResponseMessage, setSeverity}) => {
   const [token, setToken] = useLocalStorage("token", "");
   const [currentBooking, setCurrentBooking] = useState(999);
-  const [responseMessage, setResponseMessage] = useState("");
-  const [severity, setSeverity] = useState("error");
-  const [state, setState] = React.useState({
-    open: false,
-    vertical: 'top',
-    horizontal: 'center',
-  });
-  const { vertical, horizontal, open } = state;
 
   const start_at = (time - 1) + ':00';
   const end_at = time + ':00';
-  const handleClick = (newState) => () => {
-    setState({ open: true, ...newState });
-  };
-
-  const handleClose = () => {
-    setState({ ...state, open: false });
-  };
 
   const bookingHandler = async (data) => {
     return await createBooking(data, token, handleClick(), setResponseMessage, setSeverity)
@@ -173,15 +158,6 @@ const BookingForm = ({gymId, time, date, capacity}) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Snackbar
-        anchorOrigin={{ vertical: 'top',
-          horizontal: 'center', }}
-        open={open}
-        onClose={handleClose}
-        key={vertical + horizontal}
-      >
-        <Alert severity={severity}>{responseMessage}</Alert>
-      </Snackbar>
       {createColorCell(gymId, start_at, end_at,date, token, currentBooking, capacity)}
     </ThemeProvider>
   );

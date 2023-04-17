@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useState} from "react";
 import { Typography } from '@mui/material';
 import { useQuery } from 'react-query';
 import { useRouter } from "next/router";
 import GymIdPage from "@/components/pages/gyms/GymIdPage";
+import NoticesService from "@/components/organisms/NoticesService";
 const getGymById = async (id) => {
   if (id) {
     const res = await fetch(`http://localhost:3000/gyms/${id}`);
@@ -11,21 +12,52 @@ const getGymById = async (id) => {
 }
 const Gym = () => {
   const router = useRouter();
-  const idGym = router.query.id
+  const idGym = router.query.id;
+
+  const [responseMessage, setResponseMessage] = useState("");
+  const [severity, setSeverity] = useState("error");
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, open } = state;
+  const handleClick = (newState) => () => {
+    setState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
   const { isLoading,isError, data, error} = useQuery(
     ["gyms", idGym],
     () => getGymById(idGym),
   );
+
   if (isLoading) return (<Typography variant='h1'>Loading...</Typography>)
   if (isError) return (<Typography variant='h1'>Error: {error}</Typography>)
   // data?.schedule?.configuration?.raw?.hours path to obj {day:{time: time}, ...}
   //JSON.stringify(data?.schedule?.configuration?.raw?.hours, null, '  ')
   return (
-    <GymIdPage
-    data = {data}
-    router = {router}
-    idGym = {idGym}
-    />
+    <>
+      <NoticesService
+        vertical={vertical}
+        horizontal={horizontal}
+        open={open}
+        handleClose={handleClose}
+        severity={severity}
+        responseMessage={responseMessage}
+      />
+      <GymIdPage
+        data={data}
+        router={router}
+        idGym={idGym}
+        setResponseMessage = {setResponseMessage}
+        setSeverity = {setSeverity}
+        handleClick = {handleClick}
+      />
+    </>
   )
 }
 export default Gym;

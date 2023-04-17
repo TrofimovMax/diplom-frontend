@@ -68,7 +68,7 @@ const createWeekSchedule = () => {
   return week;
 }
 
-const GymTable = ({address, raw, capacity}) => {
+const GymTable = ({address, raw, capacity, handleClick, setResponseMessage, setSeverity}) => {
   if (!raw) return (<Typography variant='h1'>Error</Typography>)
   // weekDateDay is array => ['Mon 10/04', 'Tue 11/04', 'Wed 12/04', 'Thu 13/04', 'Fri 14/04', 'Sat 15/04']
   const weekDateDay = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
@@ -102,7 +102,13 @@ const GymTable = ({address, raw, capacity}) => {
                     return (
                       <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
                                        component="th" scope="row">
-                        <BookingForm date={day.substring(4)} time={time} gymId={3} capacity={capacity} />
+                        <BookingForm date={day.substring(4)}
+                                     time={time}
+                                     gymId={3}
+                                     capacity={capacity}
+                                     setResponseMessage={setResponseMessage}
+                                     setSeverity={setSeverity}
+                                     handleClick={handleClick} />
                       </StyledTableCell>
                     )
                   } else {
