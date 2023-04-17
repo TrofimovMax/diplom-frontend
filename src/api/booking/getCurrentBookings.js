@@ -1,6 +1,7 @@
 import {API_URI} from "@/api/constants";
 import axios from "axios";
 export const getCurrentBookings = (params) => {
+  console.log(params)
  return axios.get(
     `${API_URI}/bookings_datatime`,
     params,

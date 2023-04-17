@@ -1,5 +1,5 @@
 import {Box, Paper, styled, Table, TableBody, TableContainer, TableHead, TableRow, Typography} from "@mui/material";
-import BookingCell from "@/components/templates/gyms/organisms/BookingCell";
+import BookingForm from "@/components/templates/gyms/organisms/BookingForm";
 import React from "react";
 import TableCell, {tableCellClasses} from "@mui/material/TableCell";
 import moment from 'moment';
@@ -68,9 +68,8 @@ const createWeekSchedule = () => {
   return week;
 }
 
-const GymTable = ({address, raw}) => {
+const GymTable = ({address, raw, capacity}) => {
   if (!raw) return (<Typography variant='h1'>Error</Typography>)
-
   // weekDateDay is array => ['Mon 10/04', 'Tue 11/04', 'Wed 12/04', 'Thu 13/04', 'Fri 14/04', 'Sat 15/04']
   const weekDateDay = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
 
@@ -86,7 +85,7 @@ const GymTable = ({address, raw}) => {
               times.map(time => {
                 return (
                   <StyledTableCell key={time}>
-                    {time - 1}:00 - {time}:00
+                    {time - 1}:00/{time}:00
                   </StyledTableCell>
                 )
               })
@@ -103,7 +102,7 @@ const GymTable = ({address, raw}) => {
                     return (
                       <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={time}
                                        component="th" scope="row">
-                        <BookingCell date={day.substring(4)} time={time} gymId={3}/>
+                        <BookingForm date={day.substring(4)} time={time} gymId={3} capacity={capacity} />
                       </StyledTableCell>
                     )
                   } else {

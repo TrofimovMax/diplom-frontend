@@ -34,6 +34,7 @@ const GymIdPage = ({ data, router, idGym }) => {
                   marginTop:2
                 }}>
                   <GymTable
+                    capacity = {data?.capacity}
                     address = {data?.address}
                     raw = {data?.schedule?.configuration?.raw?.hours}
                   />
