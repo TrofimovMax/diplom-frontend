@@ -38,6 +38,20 @@ const BookingForm = ({gymId, time, date, capacity, handleClick, setResponseMessa
   const start_at = (time - 1) + ':00';
   const end_at = time + ':00';
 
+  const getCurrentBookings = () => {
+    axios.get(`${API_URI}/current_bookings`,
+      {
+        params: {gym_id: gymId, start_at: createDataTimeUTC(date, start_at)},
+        headers: {
+          "Content-type": "application/json"
+        },
+        crossDomain: true
+      }
+    ).then((res) => {
+      setCurrentBooking(res?.data?.current_bookings)
+    })
+  }
+
   const bookingHandler = async (data) => {
     return await createBooking(data, token, handleClick(), setResponseMessage, setSeverity)
   };
@@ -69,20 +83,6 @@ const BookingForm = ({gymId, time, date, capacity, handleClick, setResponseMessa
     }
     mutateAsync(bookingRequest)
   };
-
-  const getCurrentBookings = () => {
-    axios.get(`${API_URI}/current_bookings`,
-      {
-        params: {gym_id: gymId, start_at: createDataTimeUTC(date, start_at)},
-        headers: {
-          "Content-type": "application/json"
-        },
-        crossDomain: true
-      }
-    ).then((res) => {
-      setCurrentBooking(res?.data?.current_bookings)
-    })
-  }
 
   useEffect(() => {
     // Runs ONCE after initial rendering
