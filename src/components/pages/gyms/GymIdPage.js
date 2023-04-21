@@ -5,7 +5,7 @@ import GymTable from "@/components/templates/gyms/organisms/GymTable";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
-const GymIdPage = ({ data, router, idGym, handleClick, setResponseMessage, setSeverity }) => {
+const GymIdPage = ({ data, router, gymId, handleClick, setResponseMessage, setSeverity }) => {
   return (
     <Container>
       <Box>
@@ -20,7 +20,7 @@ const GymIdPage = ({ data, router, idGym, handleClick, setResponseMessage, setSe
             <Button
               component = 'button'
               LinkComponent = { NextLink }
-              onClick={() => router.push('/gyms/' + idGym + '/edit')}
+              onClick={() => router.push('/gyms/' + gymId + '/edit')}
             >
               Edit
             </Button>
@@ -34,6 +34,7 @@ const GymIdPage = ({ data, router, idGym, handleClick, setResponseMessage, setSe
                   marginTop:2
                 }}>
                   <GymTable
+                    gymId={data.id}
                     capacity={data?.capacity}
                     address={data?.address}
                     raw={data?.schedule?.configuration?.raw?.hours}

@@ -3,7 +3,6 @@ import React, {useState, useEffect} from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { loginRequest } from "@/api/login";
-import useLocalStorage from "@/store/useLocalStorage";
 import LoginPage from "@/components/pages/login/LoginPage";
 
 
@@ -23,16 +22,15 @@ const Login = () => {
     }
   }
 
-  const [token, setToken] = useLocalStorage("token", "");
-
   useEffect(() => {
-    if (token !== ""){
+    if (localStorage.getItem("token")){
       router.push("/");
     }
   }, [])
+
   const loginHandler = async () => {
     const response = await loginRequest(userData)
-    setToken(response.headers.getAuthorization())
+    localStorage.setItem("token", response.headers.getAuthorization())
     return response;
   };
 

@@ -12,7 +12,7 @@ const getGymById = async (id) => {
 }
 const Gym = () => {
   const router = useRouter();
-  const idGym = router.query.id;
+  const gymId = router.query.id;
 
   const [responseMessage, setResponseMessage] = useState("");
   const [severity, setSeverity] = useState("error");
@@ -31,8 +31,8 @@ const Gym = () => {
   };
 
   const { isLoading,isError, data, error} = useQuery(
-    ["gyms", idGym],
-    () => getGymById(idGym),
+    ["gyms", gymId],
+    () => getGymById(gymId),
   );
 
   if (isLoading) return (<Typography variant='h1'>Loading...</Typography>)
@@ -52,7 +52,7 @@ const Gym = () => {
       <GymIdPage
         data={data}
         router={router}
-        idGym={idGym}
+        gymId={gymId}
         setResponseMessage = {setResponseMessage}
         setSeverity = {setSeverity}
         handleClick = {handleClick}

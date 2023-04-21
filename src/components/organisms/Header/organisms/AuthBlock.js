@@ -1,18 +1,18 @@
+"use client";
+
 import React from 'react';
 import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
-import useLocalStorage from "@/store/useLocalStorage";
 import {signOutRequest} from "@/api/sign-out";
 import {useMutation} from "react-query";
 
 
 const AuthBlock = () => {
-  const [token, setToken] = useLocalStorage("token", "");
   const signOutHandler = async () => {
-    const response = await signOutRequest(token, setToken)
+    const response = await signOutRequest()
     console.log(response)
     if (response?.data?.status === 200){
-      setToken("");
+      localStorage.removeItem("token");
     }
     return response;
   };
@@ -37,7 +37,7 @@ const AuthBlock = () => {
 
   let authButton;
 
-  if (token !== '') {
+  if (localStorage.getItem("token")) {
     authButton =
       (
         <Grid>
