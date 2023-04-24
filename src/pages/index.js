@@ -6,11 +6,16 @@ import cards from '@/helper/gymsCard.json'
 
 const Home = () => (
   <Box>
-    <Container>
-      <Box>
+    <Grid
+      container
+      direction="row"
+      justifyContent="center"
+      alignItems="center"
+    >
+      <Grid item xs={12} sm={12} md={10} lg={8} xl={8} >
         <Slider/>
-      </Box>
-    </Container>
+      </Grid>
+    </Grid>
 
     <Container>
       <Grid container >

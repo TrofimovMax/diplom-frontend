@@ -30,14 +30,14 @@ const CarouselItem = ({item}) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
-      <Grid container spacing={3} style={styles.paperContainer} sx={
+      <Grid container item style={styles.paperContainer} sx={
         {
           mx: 'auto',
           width: 0.9,
           minHeight: '50vw'
         }
       }>
-        <Grid container spacing={5}>
+        <Grid container item>
           <Grid item xs={12} sx={{
             marginTop: '15vh',
             marginLeft: '5vw'
