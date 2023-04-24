@@ -1,13 +1,11 @@
 import {
   Box,
-  LinearProgress,
   Paper,
   Table,
   TableBody,
   TableContainer,
   TableHead,
   TableRow,
-  Typography
 } from "@mui/material";
 import BookingForm from "@/components/templates/gyms/organisms/BookingForm";
 import React from "react";

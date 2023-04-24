@@ -1,5 +1,4 @@
 import React from 'react';
-import {Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import EditGymPage from "@/components/pages/gyms/EditGymPage";

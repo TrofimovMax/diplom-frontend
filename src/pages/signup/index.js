@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
-import { Typography } from '@mui/material';
 import { signUpRequest } from "@/api/sign-up";
 import SignupPage from "@/components/pages/signup/SignupPage";
-import IsLoading from "@/components/molecules/isLoading;
+import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
 const SignUp = () => {
