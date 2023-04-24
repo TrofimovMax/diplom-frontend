@@ -3,6 +3,8 @@ import {Typography} from "@mui/material";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import EditGymPage from "@/components/pages/gyms/EditGymPage";
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
 
 const getGymById = async (id, url) => {
   if (id) {
@@ -22,8 +24,9 @@ const Edit = () => {
       staleTime: 80000
     }
   );
-  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>)
-  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>)
+
+  if (isLoading) return (<IsLoading/>)
+  if (isError) return (<IsError message={error}/>)
 
   return (
     <EditGymPage

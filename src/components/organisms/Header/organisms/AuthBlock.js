@@ -1,10 +1,12 @@
 "use client";
 
 import React from 'react';
-import {Button, Grid} from "@mui/material";
+import {Button, Grid, Typography} from "@mui/material";
 import NextLink from "next/link";
 import {signOutRequest} from "@/api/sign-out";
 import {useMutation} from "react-query";
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
 
 
 const AuthBlock = () => {
@@ -31,6 +33,8 @@ const AuthBlock = () => {
     }
   );
 
+  if (isLoading) return (<IsLoading/>);
+  if (isError) return (<IsError message={error}/>);
   const signOut = () => {
     mutateAsync()
   };

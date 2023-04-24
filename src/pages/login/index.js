@@ -4,7 +4,8 @@ import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { loginRequest } from "@/api/login";
 import LoginPage from "@/components/pages/login/LoginPage";
-
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
 
 const Login = () => {
   const router = useRouter();
@@ -52,8 +53,8 @@ const Login = () => {
     mutateAsync(userData)
   };
 
-  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>);
-  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>);
+  if (isLoading) return (<IsLoading/>);
+  if (isError) return (<IsError message={error}/>);
 
   return (
     <LoginPage

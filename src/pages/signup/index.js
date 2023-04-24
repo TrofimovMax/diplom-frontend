@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 import { Typography } from '@mui/material';
 import { signUpRequest } from "@/api/sign-up";
 import SignupPage from "@/components/pages/signup/SignupPage";
+import IsLoading from "@/components/molecules/isLoading;
+import IsError from "@/components/molecules/IsError";
 
 const SignUp = () => {
   const router = useRouter();
@@ -54,8 +56,8 @@ const SignUp = () => {
     mutateAsync(newUser)
   }
 
-  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>);
-  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>);
+  if (isLoading) return (<IsLoading/>);
+  if (isError) return (<IsError message={error}/>);
 
   return (
     <SignupPage

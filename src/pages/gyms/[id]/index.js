@@ -1,9 +1,10 @@
 import React, {useState} from "react";
-import { Typography } from '@mui/material';
 import { useQuery } from 'react-query';
 import { useRouter } from "next/router";
 import GymIdPage from "@/components/pages/gyms/GymIdPage";
 import NoticesService from "@/components/organisms/NoticesService";
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
 const getGymById = async (id) => {
   if (id) {
     const res = await fetch(`http://localhost:3000/gyms/${id}`);
@@ -35,10 +36,9 @@ const Gym = () => {
     () => getGymById(gymId),
   );
 
-  if (isLoading) return (<Typography variant='h1'>Loading...</Typography>)
-  if (isError) return (<Typography variant='h1'>Error: {error}</Typography>)
-  // data?.schedule?.configuration?.raw?.hours path to obj {day:{time: time}, ...}
-  //JSON.stringify(data?.schedule?.configuration?.raw?.hours, null, '  ')
+  if (isLoading) return (<IsLoading/>)
+  if (isError) return (<IsError message={error}/>)
+
   return (
     <>
       <NoticesService

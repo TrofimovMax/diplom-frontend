@@ -4,7 +4,6 @@ import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 
-
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
 export const DAY_TITLE_MAP = {
@@ -26,21 +25,21 @@ const EditForm = ({data, url}) => {
   raw !== undefined ? array = Object.entries(raw): array = [];
 
   const [startTimes, setStartTimes] = useState({
-    "fri": getDayStartTime(raw['fri']),
     "mon": getDayStartTime(raw['mon']),
-    "sat": getDayStartTime(raw['sat']),
-    "thu": getDayStartTime(raw['thu']),
     "tue": getDayStartTime(raw['tue']),
-    "wed": getDayStartTime(raw['wed'])
+    "wed": getDayStartTime(raw['wed']),
+    "thu": getDayStartTime(raw['thu']),
+    "fri": getDayStartTime(raw['fri']),
+    "sat": getDayStartTime(raw['sat'])
   });
 
   const [endTime, setEndTime] = useState({
-    "fri": getDayEndTime(raw['fri']),
     "mon": getDayEndTime(raw['mon']),
-    "sat": getDayEndTime(raw['sat']),
-    "thu": getDayEndTime(raw['thu']),
     "tue": getDayEndTime(raw['tue']),
-    "wed": getDayEndTime(raw['wed'])
+    "wed": getDayEndTime(raw['wed']),
+    "thu": getDayEndTime(raw['thu']),
+    "fri": getDayEndTime(raw['fri']),
+    "sat": getDayEndTime(raw['sat'])
   });
 
   const { mutate } = useMutation((data) => {
@@ -65,24 +64,24 @@ const EditForm = ({data, url}) => {
       title: data.title,
       address: data.address,
       hours: {
-        "fri": {
-          [startTimes['fri']]: endTime['fri']
-        },
         "mon": {
           [startTimes['mon']]: endTime['mon']
-        },
-        "sat": {
-          [startTimes['sat']]: endTime['sat']
-        },
-        "thu": {
-          [startTimes['thu']]: endTime['thu']
         },
         "tue": {
           [startTimes['tue']]: endTime['tue']
         },
         "wed": {
           [startTimes['wed']]: endTime['wed']
-        }
+        },
+        "thu": {
+          [startTimes['thu']]: endTime['thu']
+        },
+        "fri": {
+          [startTimes['fri']]: endTime['fri']
+        },
+        "sat": {
+          [startTimes['sat']]: endTime['sat']
+        },
       }
     })
   }

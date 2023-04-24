@@ -1,14 +1,11 @@
-import {API_URI} from "@/api/constants";
-import axios from "axios";
-
+import axiosClient from "@/api/axiosClient";
 export const loginRequest = async (params) => {
   try {
-    const response = await axios.post(
-      `${API_URI}/login`,
+    const response = await axiosClient.post(
+      `/login`,
       JSON.stringify(params),
       {
         headers: {
-          'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*'
         },
         crossDomain: true
@@ -16,6 +13,6 @@ export const loginRequest = async (params) => {
     );
     return response;
   } catch (error) {
-    alert(error);
+    console.log(error);
   }
 };

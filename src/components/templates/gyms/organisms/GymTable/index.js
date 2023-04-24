@@ -18,6 +18,8 @@ import { StyledTableCell, StyledTableRow } from './styles';
 import { hours } from './constants';
 import { useQuery } from "react-query";
 import { getByQueryKey } from "@/api/getByQueryKey";
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
 
 const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessage, setSeverity}) => {
   const { isLoading, isError, data, refetch } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
@@ -36,9 +38,9 @@ const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessag
     const bookingsByTime = filter(preparedBookings, { start })
     return bookingsByTime.length
   }
+  if (isLoading) return (<IsLoading />)
+  if (isError) return (<IsError message={error}/>)
 
-  if (isLoading) return (<LinearProgress />)
-  if (!raw || isError) return (<Typography variant='h1'>Error</Typography>)
   const days = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
 
   return (
