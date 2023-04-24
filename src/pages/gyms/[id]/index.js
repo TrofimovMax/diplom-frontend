@@ -5,12 +5,7 @@ import GymIdPage from "@/components/pages/gyms/GymIdPage";
 import NoticesService from "@/components/organisms/NoticesService";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
-const getGymById = async (id) => {
-  if (id) {
-    const res = await fetch(`http://localhost:3000/gyms/${id}`);
-    return res.json();
-  }
-}
+import {getByQueryKey} from "@/api/getByQueryKey";
 const Gym = () => {
   const router = useRouter();
   const gymId = router.query.id;
@@ -26,15 +21,11 @@ const Gym = () => {
   const handleClick = (newState) => () => {
     setState({ open: true, ...newState });
   };
-
   const handleClose = () => {
     setState({ ...state, open: false });
   };
 
-  const { isLoading,isError, data, error} = useQuery(
-    ["gyms", gymId],
-    () => getGymById(gymId),
-  );
+  const { isLoading,isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
   if (isError) return (<IsError message={error}/>)
@@ -50,7 +41,7 @@ const Gym = () => {
         responseMessage={responseMessage}
       />
       <GymIdPage
-        data={data}
+        data={data.data}
         router={router}
         gymId={gymId}
         setResponseMessage = {setResponseMessage}

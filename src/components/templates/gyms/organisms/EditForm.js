@@ -3,6 +3,7 @@ import {Grid, FormControl, InputLabel, MenuItem, Select, Typography, Box, Button
 import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
+import IsError from "@/components/molecules/IsError";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -20,7 +21,8 @@ const getDayStartTime = (day) => first(keys(day))
 const getDayEndTime = (day) => first(values(day))
 
 const EditForm = ({data, url}) => {
-  const raw = data?.schedule.configuration.raw.hours;
+  if (data === undefined) return <IsError/>
+  const raw = {...data?.schedule?.configuration?.raw?.hours};
   let array = [];
   raw !== undefined ? array = Object.entries(raw): array = [];
 

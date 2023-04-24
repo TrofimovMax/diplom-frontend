@@ -5,6 +5,7 @@ import {useQuery} from "react-query";
 import EditGymPage from "@/components/pages/gyms/EditGymPage";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
+import {getByQueryKey} from "@/api/getByQueryKey";
 
 const getGymById = async (id, url) => {
   if (id) {
@@ -16,21 +17,14 @@ const Edit = () => {
   const router = useRouter();
   const gymId = router.query.id
   const url = `http://localhost:3000/gyms/${gymId}`
-  const { isLoading, isError, data, error} = useQuery(
-    ["gyms", gymId],
-    () => getGymById(gymId, url),
-    {
-      keepPreviousData: true,
-      staleTime: 80000
-    }
-  );
+  const { isLoading, isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
   if (isError) return (<IsError message={error}/>)
 
   return (
     <EditGymPage
-    data = {data}
+    data = {data.data}
     url = {url}
     router = {router}
     gymId = {gymId}
