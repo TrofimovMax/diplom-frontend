@@ -48,7 +48,6 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
   );
 
   const booking = (gymId, start_at, end_at, date) => () => {
-
     mutate({
       start_at: createDataTimeUTC(date, start_at),
       end_at: createDataTimeUTC(date, end_at),
