@@ -1,4 +1,4 @@
-import React, {useContext} from "react";
+import React, {useContext, useState} from "react";
 import {Box, ThemeProvider, createTheme, Typography} from "@mui/material";
 import { useMutation } from "react-query";
 import { createDataTimeUTC } from "@/components/templates/gyms/utils";
@@ -26,6 +26,7 @@ const theme = createTheme({
 });
 
 const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
+  const [counter, setCouter] = useState(count);
   const start_at = (time - 1) + ':00';
   const end_at = time + ':00';
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
@@ -35,6 +36,7 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
     {
       onSuccess: (response) => {
         refetchBookings()
+        setCouter(counter + 1);
         handleClick();
         setResponseMessage("Your successfully crated your booking!");
         setSeverity("success");
@@ -81,7 +83,7 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
             opacity: [0.9, 0.8, 0.7],
           },
         }}>
-        <Typography variant="caption">{count} / {capacity}</Typography>
+        <Typography variant="caption">{counter} / {capacity}</Typography>
       </Box>
     </ThemeProvider>
   );
