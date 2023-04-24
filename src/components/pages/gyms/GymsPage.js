@@ -18,7 +18,7 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
             router={router}
             link={'/'}
           />
-          {data.props.gyms.map(({id, title, address}) => {
+          {data?.map(({id, title, address}) => {
             return (
               <Button
                 variant = "text"
