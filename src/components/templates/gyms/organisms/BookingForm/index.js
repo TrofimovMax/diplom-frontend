@@ -1,8 +1,9 @@
-import React from "react";
+import React, {useContext} from "react";
 import {Box, ThemeProvider, createTheme, Typography} from "@mui/material";
 import { useMutation } from "react-query";
 import { createDataTimeUTC } from "@/components/templates/gyms/utils";
 import axiosClient from "@/api/axiosClient";
+import NoticeContext from "@/api/NoticeContext";
 
 const theme = createTheme({
   palette: {
@@ -24,34 +25,30 @@ const theme = createTheme({
   },
 });
 
-const BookingForm = ({gymId, time, date, capacity, handleClick, setResponseMessage, setSeverity, count, refetchBookings}) => {
+const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
   const start_at = (time - 1) + ':00';
   const end_at = time + ':00';
-
-  const { mutate } = useMutation(["create_bookings"], (params) => {
+  const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
+  const { data, mutate } = useMutation(["create_bookings"], (params) => {
       axiosClient.post(`/gyms/${gymId}/bookings`, params)
     },
     {
       onSuccess: (response) => {
         refetchBookings()
-        setSeverity("success")
-        setResponseMessage("CAPUT")
-        handleClick({
-          vertical: 'top',
-          horizontal: 'center',
-        })
+        handleClick();
+        setResponseMessage("Your successfully crated your booking!");
+        setSeverity("success");
       },
       onError: (error) => {
-        setResponseMessage(error.message)
-        handleClick({
-          vertical: 'top',
-          horizontal: 'center',
-        })
+        handleClick();
+        setResponseMessage(error?.message);
+        setSeverity("error");
       }
     }
   );
 
   const booking = (gymId, start_at, end_at, date) => () => {
+
     mutate({
       start_at: createDataTimeUTC(date, start_at),
       end_at: createDataTimeUTC(date, end_at),

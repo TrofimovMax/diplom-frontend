@@ -5,7 +5,7 @@ import GymTable from "@/components/templates/gyms/organisms/GymTable";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
-const GymIdPage = ({ data, router, gymId, handleClick, setResponseMessage, setSeverity }) => {
+const GymIdPage = ({ data, router, gymId}) => {
   return (
     <Container>
       <Box>
@@ -38,9 +38,6 @@ const GymIdPage = ({ data, router, gymId, handleClick, setResponseMessage, setSe
                     capacity={data?.capacity}
                     address={data?.address}
                     raw={data?.schedule?.configuration?.raw?.hours}
-                    setResponseMessage={setResponseMessage}
-                    setSeverity={setSeverity}
-                    handleClick={handleClick}
                   />
                 </Box>
               )

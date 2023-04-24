@@ -1,10 +1,10 @@
 import keys from "lodash/keys";
 
-export const timeInit = (dayDate, time, schedule) => {
+export const hasHourInSchedule = (dayDate, hour, schedule) => {
   /*
   dayDate = 'Mon 10/04' ...
   day = 'mon'
-  time = start_at
+  hour = start_at
   schedule = {
     fri: { 12:00: '20:00' },
     mon: { 09:00: '17:00' },
@@ -18,7 +18,7 @@ export const timeInit = (dayDate, time, schedule) => {
   const start = keys(schedule[day])[0]; // key - fri
   const obj = schedule[day]; //object day by key - { 12:00: '20:00' }
   const end = obj[start]; // value of key
-  if(time >= Number(start.split(/:\d\d/)[0]) && time < Number(end.split(/:\d\d/)[0])){
+  if(hour > Number(start.split(/:\d\d/)[0]) && hour <= Number(end.split(/:\d\d/)[0])){
     return true
   }
   return false
@@ -33,6 +33,5 @@ export const createWeekSchedule = () => {
     let day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
     week.push(day);
   }
-
   return week;
 }

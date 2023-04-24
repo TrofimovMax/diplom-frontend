@@ -11,7 +11,7 @@ import BookingForm from "@/components/templates/gyms/organisms/BookingForm";
 import React from "react";
 import moment from 'moment';
 import filter from 'lodash/filter';
-import { timeInit, createWeekSchedule } from './utils';
+import { createWeekSchedule, hasHourInSchedule} from './utils';
 import { StyledTableCell, StyledTableRow } from './styles';
 import { hours } from './constants';
 import { useQuery } from "react-query";
@@ -19,7 +19,7 @@ import { getByQueryKey } from "@/api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
-const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessage, setSeverity}) => {
+const GymTable = ({address, gymId, raw, capacity}) => {
   const { isLoading, isError, data, refetch } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
 
   const bookings = data?.data || []
@@ -27,7 +27,7 @@ const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessag
   const preparedBookings = bookings.map((item) => {
     return {
       ...item,
-      start: moment(item.start_at).format('ddd DD/MM h')
+      start: moment(item.start_at).utc().format('ddd DD/MM h')
     }
   })
 
@@ -66,7 +66,7 @@ const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessag
               <StyledTableCell sx={{border: 1}}>{day}</StyledTableCell>
               {
                 hours.map(hour => {
-                  if(timeInit(day, hour-1, raw)){
+                  if(hasHourInSchedule(day, hour, raw)){
                     return (
                       <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
                                        component="th" scope="row">
@@ -74,11 +74,9 @@ const GymTable = ({address, gymId, raw, capacity, handleClick, setResponseMessag
                                      time={hour}
                                      gymId={gymId}
                                      capacity={capacity}
-                                     count={getBookingsCountByTime(bookings, day, hour)}
+                                     count={getBookingsCountByTime(bookings, day, hour-1)}
                                      refetchBookings={refetch}
-                                     setResponseMessage={setResponseMessage}
-                                     setSeverity={setSeverity}
-                                     handleClick={handleClick} />
+                        />
                       </StyledTableCell>
                     )
                   } else {

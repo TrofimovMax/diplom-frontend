@@ -6,11 +6,12 @@ import NoticesService from "@/components/organisms/NoticesService";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import {getByQueryKey} from "@/api/getByQueryKey";
+import NoticeContext from "@/api/NoticeContext";
 const Gym = () => {
   const router = useRouter();
   const gymId = router.query.id;
 
-  const [responseMessage, setResponseMessage] = useState("");
+  const [responseMessage, setResponseMessage] = useState("Something has gone wrong");
   const [severity, setSeverity] = useState("error");
   const [state, setState] = React.useState({
     open: false,
@@ -23,6 +24,8 @@ const Gym = () => {
   };
   const handleClose = () => {
     setState({ ...state, open: false });
+    setSeverity("error");
+    setResponseMessage("Something has gone wrong");
   };
 
   const { isLoading,isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
@@ -32,22 +35,25 @@ const Gym = () => {
 
   return (
     <>
-      <NoticesService
-        vertical={vertical}
-        horizontal={horizontal}
-        open={open}
-        handleClose={handleClose}
-        severity={severity}
-        responseMessage={responseMessage}
-      />
-      <GymIdPage
-        data={data.data}
-        router={router}
-        gymId={gymId}
-        setResponseMessage = {setResponseMessage}
-        setSeverity = {setSeverity}
-        handleClick = {handleClick}
-      />
+      <NoticeContext.Provider value={{
+        setResponseMessage:setResponseMessage,
+        setSeverity: setSeverity,
+        handleClick: handleClick()
+      }}>
+        <NoticesService
+          vertical={vertical}
+          horizontal={horizontal}
+          open={open}
+          handleClose={handleClose}
+          severity={severity}
+          responseMessage={responseMessage}
+        />
+        <GymIdPage
+          data={data.data}
+          router={router}
+          gymId={gymId}
+        />
+      </NoticeContext.Provider>
     </>
   )
 }
