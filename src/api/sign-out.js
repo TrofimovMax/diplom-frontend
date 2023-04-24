@@ -1,16 +1,7 @@
-import {API_URI} from "@/api/constants";
-import axios from "axios";
-
+import axiosClient from "@/api/axiosClient";
 export const signOutRequest = async (token) => {
   try {
-    return await axios.delete(
-      `${API_URI}/logout`,
-      {
-        headers: {
-          Authorization: localStorage.getItem('token')
-        }
-      }
-    );
+    return await axiosClient.delete(`/logout`);
   } catch (error) {
     if (error.response.status === 401) {
       alert('401 Unauthorized: Couldn\'t find an active session. Please login again.')

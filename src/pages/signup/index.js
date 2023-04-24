@@ -28,13 +28,7 @@ const SignUp = () => {
   }
 
   const signUpHandler = async () => {
-    const res = await signUpRequest(newUser);
-    if (res.status !== 200) {
-      throw new Error(await res.json());
-    }
-    else {
-      return await res.json();
-    }
+    return await signUpRequest(newUser);
   };
 
   const { isError, error, isLoading, mutateAsync} = useMutation(

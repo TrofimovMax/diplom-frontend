@@ -1,9 +1,18 @@
-import { API_URI } from "@/api/constants";
-
-export const signUpRequest = (params) => {
-  return fetch(`${API_URI}/signup`, {
-    method: 'POST',
-    headers: {'Content-Type': 'application/json'},
-    body: JSON.stringify(params)
-  })
-}
+import axiosClient from "@/api/axiosClient";
+export const signUpRequest = async (params) => {
+  try {
+    const response = await axiosClient.post(
+      `/signup`,
+      JSON.stringify(params),
+      {
+        headers: {
+          'Access-Control-Allow-Origin': '*'
+        },
+        crossDomain: true
+      }
+    );
+    return response.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
