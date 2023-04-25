@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import BookingForm from "@/components/templates/gyms/organisms/BookingForm";
+import BookingForm from "@/components/templates/GymIdTemplate/organisms/BookingForm";
 import React from "react";
 import moment from 'moment';
 import filter from 'lodash/filter';

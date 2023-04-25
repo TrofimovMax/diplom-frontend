@@ -10,7 +10,7 @@ import {
   DialogActions, Button, DialogContentText
 } from "@mui/material";
 import {useMutation} from "react-query";
-import {createDataTimeUTC} from "@/components/templates/gyms/utils";
+import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import axiosClient from "@/api/axiosClient";
 import NoticeContext from "@/api/NoticeContext";
 

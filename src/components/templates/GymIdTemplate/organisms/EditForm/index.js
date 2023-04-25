@@ -4,7 +4,7 @@ import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import IsError from "@/components/molecules/IsError";
-import GymTable from "@/components/templates/gyms/organisms/GymTable";
+import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTable";
 import IsLoading from "@/components/molecules/isLoading";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Container, Grid} from "@mui/material";
-import EditForm from "@/components/templates/gyms/organisms/EditForm";
+import EditForm from "@/components/templates/GymIdTemplate/organisms/EditForm";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
