@@ -1,7 +1,7 @@
 import React from "react";
 import { useQuery } from 'react-query';
 import { useRouter } from "next/router";
-import GymIdPage from "@/components/pages/gyms/GymIdPage";
+import Index from "@/components/pages/gyms/GymIdPage";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import {getByQueryKey} from "@/api/getByQueryKey";
@@ -16,7 +16,7 @@ const Gym = () => {
 
   return (
     <>
-      <GymIdPage
+      <Index
         data={data.data}
         router={router}
         gymId={gymId}

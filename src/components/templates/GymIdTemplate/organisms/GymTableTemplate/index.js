@@ -17,15 +17,17 @@ import { getByQueryKey } from "@/api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
+import CellEditContent from "@/components/templates/GymIdTemplate/molecules/CellEditContent";
 
-const GymTable = ({address, gymId, raw, capacity}) => {
-
+const GymTable = ({address, gymId, raw, capacity, isEdit}) => {
   const { isLoading, isError, data, refetch } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, refetch: refetchWishes } = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
 
-  const bookings = data?.data || []
+  const bookings = data?.data || [];
+  const wishes = dataWishes?.data || [];
 
-  if (isLoading) return (<IsLoading />)
-  if (isError) return (<IsError message={error}/>)
+  if (isLoading && loadingWishes) return (<IsLoading />)
+  if (isError || isErrorWishes) return (<IsError message="something has gone wrong"/>)
 
   const days = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
 
@@ -54,18 +56,35 @@ const GymTable = ({address, gymId, raw, capacity}) => {
               <StyledTableCell sx={{border: 1}}>{day}</StyledTableCell>
               {
                 hours.map(hour => {
-                  return (
-                    <CellContent
-                      key = {hour}
-                      gymId = {gymId}
-                      day = {day}
-                      hour = {hour}
-                      capacity = {capacity}
-                      bookings = {bookings}
-                      refetch = {refetch}
-                      schedule = {raw}
-                    />
-                  )
+                  if (isEdit){
+                    return (
+                      <CellEditContent
+                        key = {hour}
+                        gymId = {gymId}
+                        day = {day}
+                        hour = {hour}
+                        capacity = {capacity}
+                        bookings = {bookings}
+                        wishes = {wishes}
+                        refetch = {refetch}
+                        schedule = {raw}
+                      />
+                    )
+                  }
+                  else {
+                    return (
+                      <CellContent
+                        key = {hour}
+                        gymId = {gymId}
+                        day = {day}
+                        hour = {hour}
+                        capacity = {capacity}
+                        bookings = {bookings}
+                        refetch = {refetch}
+                        schedule = {raw}
+                      />
+                    )
+                  }
                 })
               }
             </StyledTableRow>

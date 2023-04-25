@@ -29,6 +29,8 @@ const EditForm = ({data, url, gymId}) => {
   let array = [];
   raw !== undefined ? array = Object.entries(raw): array = [];
 
+  const isEdit = true;
+
   const [startTimes, setStartTimes] = useState({
     "mon": getDayStartTime(raw['mon']),
     "tue": getDayStartTime(raw['tue']),
@@ -144,6 +146,7 @@ const EditForm = ({data, url, gymId}) => {
                 capacity={data?.capacity}
                 address={data?.address}
                 raw={data?.schedule?.configuration?.raw?.hours}
+                isEdit = {isEdit}
               /> :
               <IsLoading />
           }

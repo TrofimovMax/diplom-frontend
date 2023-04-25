@@ -2,9 +2,9 @@ import React from 'react';
 import {Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
 import {DAY_TITLE_MAP} from "@/components/templates/GymIdTemplate/organisms/EditForm";
 
-const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endTime, startTimes,hours, key}) => {
+const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endTime, startTimes,hours}) => {
   return (
-    <Grid item key={key} xs={2} sm={4} md={4}>
+    <Grid item key={item} xs={2} sm={4} md={4}>
       <Box m={1}>
         <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
           <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>

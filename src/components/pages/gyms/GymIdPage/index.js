@@ -5,7 +5,9 @@ import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTem
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
+
 const GymIdPage = ({ data, router, gymId}) => {
+  const isEdit = false;
   return (
     <Container>
       <Box>
@@ -38,6 +40,7 @@ const GymIdPage = ({ data, router, gymId}) => {
                     capacity={data?.capacity}
                     address={data?.address}
                     raw={data?.schedule?.configuration?.raw?.hours}
+                    isEdit = {isEdit}
                   />
                 </Box>
               )
