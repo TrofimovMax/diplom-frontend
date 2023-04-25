@@ -7,10 +7,8 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import BookingForm from "@/components/templates/GymIdTemplate/organisms/BookingForm";
 import React from "react";
 import moment from 'moment';
-import filter from 'lodash/filter';
 import { createWeekSchedule, hasHourInSchedule} from './utils';
 import { StyledTableCell, StyledTableRow } from './styles';
 import { hours } from './constants';
@@ -18,24 +16,14 @@ import { useQuery } from "react-query";
 import { getByQueryKey } from "@/api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
+import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
 
 const GymTable = ({address, gymId, raw, capacity}) => {
+
   const { isLoading, isError, data, refetch } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
 
   const bookings = data?.data || []
 
-  const preparedBookings = bookings.map((item) => {
-    return {
-      ...item,
-      start: moment(item.start_at).utc().format('ddd DD/MM h')
-    }
-  })
-
-  const getBookingsCountByTime = (bookingWeeks, day, hour) => {
-    const start = `${day} ${hour}`
-    const bookingsByTime = filter(preparedBookings, { start })
-    return bookingsByTime.length
-  }
   if (isLoading) return (<IsLoading />)
   if (isError) return (<IsError message={error}/>)
 
@@ -66,27 +54,18 @@ const GymTable = ({address, gymId, raw, capacity}) => {
               <StyledTableCell sx={{border: 1}}>{day}</StyledTableCell>
               {
                 hours.map(hour => {
-                  if(hasHourInSchedule(day, hour, raw)){
-                    return (
-                      <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
-                                       component="th" scope="row">
-                        <BookingForm date={day.substring(4)}
-                                     time={hour}
-                                     gymId={gymId}
-                                     capacity={capacity}
-                                     count={getBookingsCountByTime(bookings, day, hour-1)}
-                                     refetchBookings={refetch}
-                        />
-                      </StyledTableCell>
-                    )
-                  } else {
-                    return (
-                      <StyledTableCell sx={{border: 1, height: 1, width: 1,}} key={hour} component="th"
-                                       scope="row">
-                        <Box/>
-                      </StyledTableCell>
-                    )
-                  }
+                  return (
+                    <CellContent
+                      key = {hour}
+                      gymId = {gymId}
+                      day = {day}
+                      hour = {hour}
+                      capacity = {capacity}
+                      bookings = {bookings}
+                      refetch = {refetch}
+                      schedule = {raw}
+                    />
+                  )
                 })
               }
             </StyledTableRow>

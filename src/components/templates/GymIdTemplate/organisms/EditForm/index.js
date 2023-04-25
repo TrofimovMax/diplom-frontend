@@ -4,8 +4,9 @@ import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import IsError from "@/components/molecules/IsError";
-import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTable";
+import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import IsLoading from "@/components/molecules/isLoading";
+import SelectorIntervalHours from "@/components/templates/GymIdTemplate/molecules/SelectorIntervalHours";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -123,49 +124,15 @@ const EditForm = ({data, url, gymId}) => {
         {
           array.map(item => {
             return (
-              <Grid item key={item} xs={2} sm={4} md={4}>
-              <Box m={1}>
-                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                  <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>
-                </FormControl>
-                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                  <InputLabel id="demo-simple-select-label">From</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={startTimes[item[0]]}
-                    label="endTime"
-                    onChange={(e) => handleChangeStartTimes(e, item[0]) }
-                  >
-                    {
-                      hours.map(time => {
-                        return(
-                          <MenuItem key={time} value={time}>{time}</MenuItem>
-                        )
-                      })
-                    }
-                  </Select>
-                </FormControl>
-                <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-                  <InputLabel id="demo-simple-select-label">To</InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    value={endTime[item[0]]}
-                    label="endTime"
-                    onChange={(e) => handleChange(e, item[0])}
-                  >
-                    {
-                      hours.map(time => {
-                        return (
-                          <MenuItem key={time} value={time}>{time}</MenuItem>
-                        )
-                      })
-                    }
-                  </Select>
-                </FormControl>
-              </Box>
-              </Grid>
+              <SelectorIntervalHours
+                key={item}
+                item ={item}
+                handleChange = {handleChange}
+                handleChangeStartTimes = {handleChangeStartTimes}
+                startTimes = {startTimes}
+                endTime = {endTime}
+                hours = {hours}
+              />
             )
           })
         }

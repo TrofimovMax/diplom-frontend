@@ -1,7 +1,7 @@
 import React from 'react';
 import {Box, Button, Container} from "@mui/material";
 import NextLink from "next/link";
-import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTable";
+import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
