@@ -5,6 +5,7 @@ import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 
 const EditGymPage = ({ data, url, router, gymId }) => {
+  const title = `Edit Form ${data?.title}`;
   return (
     <Container>
       <Grid container spacing={1}
@@ -14,7 +15,7 @@ const EditGymPage = ({ data, url, router, gymId }) => {
       >
         <Grid container item xs={12}>
           <Grid item xs={12}>
-            <TitleSection title='Edit Form' />
+            <TitleSection title={title} />
           </Grid>
         </Grid>
 

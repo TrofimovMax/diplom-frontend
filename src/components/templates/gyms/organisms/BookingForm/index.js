@@ -51,7 +51,7 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const {data, mutate} = useMutation(["create_bookings"], (params) => {
+  const { mutate } = useMutation(["create_bookings"], (params) => {
       axiosClient.post(`/gyms/${gymId}/bookings`, params)
     },
     {
@@ -59,7 +59,7 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
         refetchBookings()
         setCounter(counter + 1);
         handleClick();
-        setResponseMessage("Your successfully crated your booking!");
+        setResponseMessage("Your successfully created your booking!");
         setSeverity("success");
       },
       onError: (error) => {
@@ -73,6 +73,31 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
   const booking = (gymId, start_at, end_at, date) => () => {
     handleDialogClose();
     mutate({
+      start_at: createDataTimeUTC(date, start_at),
+      end_at: createDataTimeUTC(date, end_at),
+    })
+  };
+
+  const { mutateAsync } = useMutation(["create_wishes"], (params) => {
+      axiosClient.post(`/gyms/${gymId}/wishes`, params)
+    },
+    {
+      onSuccess: (response) => {
+        handleClick();
+        setResponseMessage("Your successfully created your wish in list!");
+        setSeverity("success");
+      },
+      onError: (error) => {
+        handleClick();
+        setResponseMessage(error?.message);
+        setSeverity("error");
+      }
+    }
+  );
+
+  const wishing = (gymId, start_at, end_at, date) => () => {
+    handleDialogClose();
+    mutateAsync({
       start_at: createDataTimeUTC(date, start_at),
       end_at: createDataTimeUTC(date, end_at),
     })
@@ -123,7 +148,7 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
         </DialogContent>
         <DialogActions>
           <Button onClick={handleDialogClose}>Cancel</Button>
-          <Button onClick={handleDialogClose}>
+          <Button onClick={wishing(gymId, start_at, end_at, date)}>
             Add wish list
           </Button>
           <Button onClick={booking(gymId, start_at, end_at, date)} autoFocus>

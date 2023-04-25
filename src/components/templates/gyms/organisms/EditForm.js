@@ -4,6 +4,7 @@ import {times, keys, values, first} from "lodash";
 import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import IsError from "@/components/molecules/IsError";
+import GymTable from "@/components/templates/gyms/organisms/GymTable";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -147,6 +148,14 @@ const EditForm = ({data, url}) => {
             )
           })
         }
+        <Grid item xs={12} sx={{paddingBottom: 5}}>
+          <GymTable
+            gymId={data?.id}
+            capacity={data?.capacity}
+            address={data?.address}
+            raw={data?.schedule?.configuration?.raw?.hours}
+          />
+        </Grid>
       <Grid container item
             xs={12}
             spacing={3}
