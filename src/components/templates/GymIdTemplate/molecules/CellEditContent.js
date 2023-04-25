@@ -3,7 +3,6 @@ import moment from "moment";
 import filter from "lodash/filter";
 import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
-import BookingForm from "@/components/templates/GymIdTemplate/organisms/BookingForm";
 import {Box} from "@mui/material";
 
 const CellEditContent = ({gymId, day, hour, capacity, bookings, wishes, refetch, schedule}) => {

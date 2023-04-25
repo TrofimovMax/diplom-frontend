@@ -4,8 +4,6 @@ import NextLink from "next/link";
 import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
-
-
 const GymIdPage = ({ data, router, gymId}) => {
   const isEdit = false;
   return (
