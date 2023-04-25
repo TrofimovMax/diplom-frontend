@@ -31,6 +31,7 @@ const EditGymPage = ({ data, url, router, gymId }) => {
         <Grid container item xs={12} marginTop={3}>
           { data && (
             <EditForm
+              gymId = {gymId}
               data = {data}
               url = {url}
             />

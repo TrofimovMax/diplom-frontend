@@ -5,6 +5,7 @@ import {useMutation} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import IsError from "@/components/molecules/IsError";
 import GymTable from "@/components/templates/gyms/organisms/GymTable";
+import IsLoading from "@/components/molecules/isLoading";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -21,7 +22,7 @@ const getDayStartTime = (day) => first(keys(day))
 
 const getDayEndTime = (day) => first(values(day))
 
-const EditForm = ({data, url}) => {
+const EditForm = ({data, url, gymId}) => {
   if (data === undefined) return <IsError/>
   const raw = {...data?.schedule?.configuration?.raw?.hours};
   let array = [];
@@ -63,6 +64,26 @@ const EditForm = ({data, url}) => {
   })
 
   const onSave = () => {
+    console.log({hours: {
+        "mon": {
+          [startTimes['mon']]: endTime['mon']
+        },
+        "tue": {
+          [startTimes['tue']]: endTime['tue']
+        },
+        "wed": {
+          [startTimes['wed']]: endTime['wed']
+        },
+        "thu": {
+          [startTimes['thu']]: endTime['thu']
+        },
+        "fri": {
+          [startTimes['fri']]: endTime['fri']
+        },
+        "sat": {
+          [startTimes['sat']]: endTime['sat']
+        },
+      }})
     mutate({
       title: data.title,
       address: data.address,
@@ -149,12 +170,16 @@ const EditForm = ({data, url}) => {
           })
         }
         <Grid item xs={12} sx={{paddingBottom: 5}}>
-          <GymTable
-            gymId={data?.id}
-            capacity={data?.capacity}
-            address={data?.address}
-            raw={data?.schedule?.configuration?.raw?.hours}
-          />
+          {
+            gymId !== undefined ?
+              <GymTable
+                gymId={gymId}
+                capacity={data?.capacity}
+                address={data?.address}
+                raw={data?.schedule?.configuration?.raw?.hours}
+              /> :
+              <IsLoading />
+          }
         </Grid>
       <Grid container item
             xs={12}

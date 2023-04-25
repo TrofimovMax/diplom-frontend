@@ -14,8 +14,8 @@ const getGymById = async (id, url) => {
 }
 const Edit = () => {
   const router = useRouter();
-  const gymId = router.query.id
-  const url = `http://localhost:3000/gyms/${gymId}`
+  const gymId = router.query.id;
+  const url = `http://localhost:3000/gyms/${gymId}`;
   const { isLoading, isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
