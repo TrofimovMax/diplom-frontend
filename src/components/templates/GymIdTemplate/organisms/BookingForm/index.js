@@ -94,19 +94,6 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
 
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        onClick={handleDialogOpen}
-        sx={{
-          height: 1,
-          width: 1,
-          backgroundColor: activeBackgroundColor,
-          '&:hover': {
-            backgroundColor: secondaryBackgroundColor,
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}>
-        <Typography variant="caption">{counter} / {capacity}</Typography>
-      </Box>
       <Grid
         container
         direction="row"
@@ -116,39 +103,41 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
         sx={{
           height: 1,
           width: 1,
-          backgroundColor: 'primary.main',
+          backgroundColor: activeBackgroundColor,
           '&:hover': {
-            backgroundColor: 'secondary.main',
+            backgroundColor: secondaryBackgroundColor,
             opacity: [0.9, 0.8, 0.7],
           },
         }}
         spacing={0}
       >
-        <Grid item xs>
-
+        <Grid item xs sx={{
+          mx: 'auto'
+        }}>
+          <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>
         </Grid>
+        <Dialog
+          open={open}
+          onClose={handleDialogClose}
+          aria-labelledby="alert-dialog-title"
+          aria-describedby="alert-dialog-description"
+        >
+          <DialogTitle id="alert-dialog-title">
+            {`Do you want to book from ${start_at} to ${end_at} on ${date}?`}
+          </DialogTitle>
+          <DialogContent>
+            <DialogContentText id="alert-dialog-description">
+              book message
+            </DialogContentText>
+          </DialogContent>
+          <DialogActions>
+            <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
+            <Button variant="contained" color="success" autoFocus onClick={booking(gymId, start_at, end_at, date)}>
+              Book
+            </Button>
+          </DialogActions>
+        </Dialog>
       </Grid>
-      <Dialog
-        open={open}
-        onClose={handleDialogClose}
-        aria-labelledby="alert-dialog-title"
-        aria-describedby="alert-dialog-description"
-      >
-        <DialogTitle id="alert-dialog-title">
-          {`Do you want to book from ${start_at} to ${end_at} on ${date}?`}
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText id="alert-dialog-description">
-            book message
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
-          <Button variant="contained" color="success" autoFocus onClick={booking(gymId, start_at, end_at, date)}>
-            Book
-          </Button>
-        </DialogActions>
-      </Dialog>
     </ThemeProvider>
   );
 }
