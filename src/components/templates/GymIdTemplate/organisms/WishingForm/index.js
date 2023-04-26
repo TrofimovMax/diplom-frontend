@@ -1,44 +1,35 @@
-import React, {useContext, useState} from "react";
+import React, {useContext, useState} from 'react';
 import {
-  Box,
-  ThemeProvider,
-  createTheme,
-  Typography,
+  Button, createTheme,
   Dialog,
-  DialogTitle,
+  DialogActions,
   DialogContent,
-  DialogActions, Button, DialogContentText, Grid
+  DialogContentText,
+  DialogTitle, Grid, ThemeProvider,
 } from "@mui/material";
 import {useMutation} from "react-query";
-import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import axiosClient from "@/api/axiosClient";
+import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import NoticeContext from "@/api/NoticeContext";
+import { pink } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#00A36C'
+      main: '#FFFFFF'
     },
     secondary: {
-      main: '#7CFC00'
-    },
-    yellow: {
-      main: '#FFEA00'
-    },
-    orange: {
-      main: '#FFBF00'
-    },
-    red: {
-      main: '#FF0000'
+      main: '#e5e5e5'
     }
   },
 });
-
-const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
-  const [counter, setCounter] = useState(count);
+const WishingForm = ({gymId, time, date, refetchBookings}) => {
+  //const [counter, setCounter] = useState(count);
   const [open, setOpen] = React.useState(false);
 
+  const color = pink[500];
   const handleDialogOpen = () => {
+    console.log(">>>")
     setOpen(true);
   };
 
@@ -51,15 +42,13 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const { mutate } = useMutation(["create_bookings"], (params) => {
-      axiosClient.post(`/gyms/${gymId}/bookings`, params)
+  const { mutateAsync } = useMutation(["create_wishes"], (params) => {
+      axiosClient.post(`/gyms/${gymId}/wishes`, params)
     },
     {
       onSuccess: (response) => {
-        refetchBookings()
-        setCounter(counter + 1);
         handleClick();
-        setResponseMessage("Your successfully created your booking!");
+        setResponseMessage("Your successfully created your wish in list!");
         setSeverity("success");
       },
       onError: (error) => {
@@ -70,43 +59,16 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
     }
   );
 
-  const booking = (gymId, start_at, end_at, date) => () => {
+  const wishing = (gymId, start_at, end_at, date) => () => {
     handleDialogClose();
-    mutate({
+    mutateAsync({
       start_at: createDataTimeUTC(date, start_at),
       end_at: createDataTimeUTC(date, end_at),
     })
   };
 
-  let activeBackgroundColor = 'primary.main'
-  let secondaryBackgroundColor = 'secondary.main'
-
-  if (count >= capacity) {
-    activeBackgroundColor = 'red.main'
-    secondaryBackgroundColor = 'red.main'
-  } else if (count >= capacity * 0.75) {
-    activeBackgroundColor = 'orange.main'
-    secondaryBackgroundColor = 'orange.main'
-  } else if (count >= capacity * 0.5) {
-    activeBackgroundColor = 'yellow.main'
-    secondaryBackgroundColor = 'yellow.main'
-  }
-
   return (
     <ThemeProvider theme={theme}>
-      <Box
-        onClick={handleDialogOpen}
-        sx={{
-          height: 1,
-          width: 1,
-          backgroundColor: activeBackgroundColor,
-          '&:hover': {
-            backgroundColor: secondaryBackgroundColor,
-            opacity: [0.9, 0.8, 0.7],
-          },
-        }}>
-        <Typography variant="caption">{counter} / {capacity}</Typography>
-      </Box>
       <Grid
         container
         direction="row"
@@ -135,22 +97,22 @@ const BookingForm = ({gymId, time, date, capacity, count, refetchBookings}) => {
         aria-describedby="alert-dialog-description"
       >
         <DialogTitle id="alert-dialog-title">
-          {`Do you want to book from ${start_at} to ${end_at} on ${date}?`}
+          {`Do you want to add in wish list from ${start_at} to ${end_at} on ${date}?`}
         </DialogTitle>
         <DialogContent>
           <DialogContentText id="alert-dialog-description">
-            book message
+            Add the time when you would like to come to the lesson and we will take it into account when scheduling
           </DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
-          <Button variant="contained" color="success" autoFocus onClick={booking(gymId, start_at, end_at, date)}>
-            Book
+          <Button variant="contained" color="success" autoFocus onClick={wishing(gymId, start_at, end_at, date)}>
+            Add wish list
           </Button>
         </DialogActions>
       </Dialog>
     </ThemeProvider>
   );
-}
+};
 
-export default BookingForm;
+export default WishingForm;

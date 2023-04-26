@@ -2,11 +2,11 @@ import React from 'react';
 import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import BookingForm from "@/components/templates/GymIdTemplate/organisms/BookingForm";
-import {Box} from "@mui/material";
 import moment from "moment/moment";
 import filter from "lodash/filter";
+import WishingForm from "@/components/templates/GymIdTemplate/organisms/WishingForm";
 
-const CellContent = ({key,gymId, day, hour, capacity, bookings, refetch, schedule}) => {
+const CellContent = ({gymId, day, hour, capacity, bookings, refetch, schedule}) => {
   const preparedBookings = bookings.map((item) => {
     return {
       ...item,
@@ -21,7 +21,7 @@ const CellContent = ({key,gymId, day, hour, capacity, bookings, refetch, schedul
   }
   if(hasHourInSchedule(day, hour, schedule)){
     return (
-      <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={key}
+      <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
                        component="th" scope="row">
         <BookingForm date={day.substring(4)}
                      time={hour}
@@ -34,9 +34,14 @@ const CellContent = ({key,gymId, day, hour, capacity, bookings, refetch, schedul
     )
   } else {
     return (
-      <StyledTableCell sx={{border: 1, height: 1, width: 1,}} key={hour} component="th"
+      <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour} component="th"
                        scope="row">
-        <Box/>
+        <WishingForm
+          date={day.substring(4)}
+          time={hour}
+          gymId={gymId}
+          refetchBookings={refetch}
+        />
       </StyledTableCell>
     )
   }
