@@ -11,7 +11,6 @@ import {useMutation} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import NoticeContext from "@/api/NoticeContext";
-import { pink } from '@mui/material/colors';
 
 const theme = createTheme({
   palette: {
@@ -24,12 +23,10 @@ const theme = createTheme({
   },
 });
 const WishingForm = ({gymId, time, date, refetchBookings}) => {
-  //const [counter, setCounter] = useState(count);
+  
   const [open, setOpen] = React.useState(false);
 
-  const color = pink[500];
   const handleDialogOpen = () => {
-    console.log(">>>")
     setOpen(true);
   };
 
