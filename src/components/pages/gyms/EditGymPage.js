@@ -6,6 +6,7 @@ import BackButton from "@/components/atoms/BackButton";
 
 const EditGymPage = ({ data, url, router, gymId }) => {
   const title = `Edit Form ${data?.title}`;
+
   return (
     <Container>
       <Grid container spacing={1}
@@ -32,7 +33,7 @@ const EditGymPage = ({ data, url, router, gymId }) => {
           { data && (
             <EditForm
               gymId = {gymId}
-              data = {data}
+              gym = {data}
               url = {url}
             />
           ) }

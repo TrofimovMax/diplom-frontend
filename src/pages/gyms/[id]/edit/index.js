@@ -6,12 +6,6 @@ import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import {getByQueryKey} from "@/api/getByQueryKey";
 
-const getGymById = async (id, url) => {
-  if (id) {
-    const res = await fetch(url);
-    return res.json();
-  }
-}
 const Edit = () => {
   const router = useRouter();
   const gymId = router.query.id;

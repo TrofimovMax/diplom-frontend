@@ -5,7 +5,7 @@ import moment from "moment/moment";
 import filter from "lodash/filter";
 import {CellForm} from "@/components/templates/GymIdTemplate/organisms/CellForm";
 
-const CellContent = ({gymId, day, hour, capacity, bookings, refetch, schedule}) => {
+const CellContent = ({gymId, day, hour, capacity, bookings, schedule}) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, schedule);
   const preparedBookings = bookings.map((item) => {
     return {
@@ -28,7 +28,6 @@ const CellContent = ({gymId, day, hour, capacity, bookings, refetch, schedule}) 
                 gymId={gymId}
                 capacity={capacity}
                 count={getBookingsCountByTime(bookings, day, hour-1)}
-                refetchBookings={refetch}
                 isOpenGymByHour = {isOpenGymByHour}
       />
     </StyledTableCell>

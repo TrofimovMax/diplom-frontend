@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import {Grid, Button} from "@mui/material";
 import {times, keys, values, first} from "lodash";
-import {useMutation} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import IsError from "@/components/molecules/IsError";
 import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import IsLoading from "@/components/molecules/isLoading";
 import SelectorIntervalHours from "@/components/templates/GymIdTemplate/molecules/SelectorIntervalHours";
+import { GreedyAlgorithm } from "@/api/GreedyAlgorithm";
+import {getByQueryKey} from "@/api/getByQueryKey";
+import {getDayEndTime, getDayStartTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -19,17 +22,21 @@ export const DAY_TITLE_MAP = {
   "sat": "Saturday",
 }
 
-const getDayStartTime = (day) => first(keys(day))
-
-const getDayEndTime = (day) => first(values(day))
-
-const EditForm = ({data, url, gymId}) => {
-  if (data === undefined) return <IsError/>
-  const raw = {...data?.schedule?.configuration?.raw?.hours};
+const EditForm = ({gym, url, gymId}) => {
+  if (gym === undefined) return <IsError/>
+  const raw = {...gym?.schedule?.configuration?.raw?.hours};
   let array = [];
   raw !== undefined ? array = Object.entries(raw): array = [];
-
+  const capacity = gym?.capacity;
   const isEdit = true;
+
+  const [generatedSchedule, SetGeneratedSchedule] = useState(null);
+
+  const { isLoading, isError, data} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes } = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
+
+  const bookings = data?.data || [];
+  const wishes = dataWishes?.data || [];
 
   const [startTimes, setStartTimes] = useState({
     "mon": getDayStartTime(raw['mon']),
@@ -49,10 +56,10 @@ const EditForm = ({data, url, gymId}) => {
     "sat": getDayEndTime(raw['sat'])
   });
 
-  const { mutate } = useMutation((data) => {
+  const { mutate } = useMutation((gym) => {
     fetch(url, {
       method: 'PATCH',
-      body: JSON.stringify(data),
+      body: JSON.stringify(gym),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
       },
@@ -67,29 +74,9 @@ const EditForm = ({data, url, gymId}) => {
   })
 
   const onSave = () => {
-    console.log({hours: {
-        "mon": {
-          [startTimes['mon']]: endTime['mon']
-        },
-        "tue": {
-          [startTimes['tue']]: endTime['tue']
-        },
-        "wed": {
-          [startTimes['wed']]: endTime['wed']
-        },
-        "thu": {
-          [startTimes['thu']]: endTime['thu']
-        },
-        "fri": {
-          [startTimes['fri']]: endTime['fri']
-        },
-        "sat": {
-          [startTimes['sat']]: endTime['sat']
-        },
-      }})
     mutate({
-      title: data.title,
-      address: data.address,
+      title: gym.title,
+      address: gym.address,
       hours: {
         "mon": {
           [startTimes['mon']]: endTime['mon']
@@ -113,6 +100,10 @@ const EditForm = ({data, url, gymId}) => {
     })
   }
 
+  const onGenerate = () => {
+    return SetGeneratedSchedule(GreedyAlgorithm(raw, capacity, bookings, wishes));
+  }
+
   const handleChangeStartTimes = (event, day) => {
     setStartTimes({...startTimes, [day]: event.target.value});
   };
@@ -121,6 +112,9 @@ const EditForm = ({data, url, gymId}) => {
     setEndTime({...endTime, [day]: event.target.value});
   };
 
+
+  if (isLoading && loadingWishes) return (<IsLoading />)
+  if (isError || isErrorWishes) return (<IsError message="something has gone wrong"/>)
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {
@@ -143,10 +137,11 @@ const EditForm = ({data, url, gymId}) => {
             gymId !== undefined ?
               <GymTable
                 gymId={gymId}
-                capacity={data?.capacity}
-                address={data?.address}
-                raw={data?.schedule?.configuration?.raw?.hours}
+                capacity={capacity}
+                address={gym?.address}
+                raw={raw}
                 isEdit = {isEdit}
+                newSchedule = {generatedSchedule}
               /> :
               <IsLoading />
           }
@@ -168,6 +163,15 @@ const EditForm = ({data, url, gymId}) => {
             startIcon={<EditIcon />}
           >
             Update
+          </Button>
+        </Grid>
+        <Grid item xs={4} md={2}>
+          <Button
+            onClick={onGenerate}
+            variant="outlined"
+            startIcon={<EditIcon />}
+          >
+            Generate
           </Button>
         </Grid>
         <Grid item xs="auto">

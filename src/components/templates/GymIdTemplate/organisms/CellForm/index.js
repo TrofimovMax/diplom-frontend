@@ -38,7 +38,7 @@ const theme = createTheme({
     }
   },
 });
-export const CellForm = ({date,time, gymId,capacity,count,refetchBookings,isOpenGymByHour}) => {
+export const CellForm = ({date,time, gymId,capacity,count,isOpenGymByHour}) => {
   const [counter, setCounter] = useState(count);
   const [open, setOpen] = React.useState(false);
 
@@ -68,7 +68,6 @@ export const CellForm = ({date,time, gymId,capacity,count,refetchBookings,isOpen
     },
     {
       onSuccess: (response) => {
-        refetchBookings()
         setCounter(counter + 1);
         handleClick();
         setResponseMessage("Your successfully created your booking!");

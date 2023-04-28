@@ -8,10 +8,8 @@ import {
   TableRow,
 } from "@mui/material";
 import React from "react";
-import moment from 'moment';
-import { createWeekSchedule, hasHourInSchedule} from './utils';
 import { StyledTableCell, StyledTableRow } from './styles';
-import { hours } from './constants';
+import { hours, days } from './constants';
 import { useQuery } from "react-query";
 import { getByQueryKey } from "@/api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
@@ -19,17 +17,15 @@ import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
 import CellEditContent from "@/components/templates/GymIdTemplate/molecules/CellEditContent";
 
-const GymTable = ({address, gymId, raw, capacity, isEdit}) => {
-  const { isLoading, isError, data, refetch } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
-  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, refetch: refetchWishes } = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
+const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
+  const { isLoading, isError, data } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
 
   const bookings = data?.data || [];
   const wishes = dataWishes?.data || [];
 
   if (isLoading && loadingWishes) return (<IsLoading />)
   if (isError || isErrorWishes) return (<IsError message="something has gone wrong"/>)
-
-  const days = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
 
   return (
     <TableContainer component={Paper}>
@@ -66,8 +62,8 @@ const GymTable = ({address, gymId, raw, capacity, isEdit}) => {
                         capacity = {capacity}
                         bookings = {bookings}
                         wishes = {wishes}
-                        refetch = {refetch}
                         schedule = {raw}
+                        newSchedule={newSchedule}
                       />
                     )
                   }
@@ -80,7 +76,6 @@ const GymTable = ({address, gymId, raw, capacity, isEdit}) => {
                         hour = {hour}
                         capacity = {capacity}
                         bookings = {bookings}
-                        refetch = {refetch}
                         schedule = {raw}
                       />
                     )
