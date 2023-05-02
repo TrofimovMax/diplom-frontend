@@ -42,9 +42,14 @@ const hasHourInNewSchedule = (dayDate, hour, newSchedule) => {
   return false;
 }
 const CellEditContent = ({day, hour, capacity, bookings, wishes, schedule, newSchedule}) => {
-  const count = getEntityCountByTime(bookings, day, hour-1);
-  const countWishes = getEntityCountByTime(wishes, day, hour-1);
-
+  console.log("booking")
+  const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
+  console.log("wishes")
+  const countWishes = wishes? getEntityCountByTime(wishes, day, hour-1): null;
+  // console.log("wishes", wishes)
+  // console.log("day", day)
+  // console.log("hour", hour-1)
+  // console.log("countWishes", countWishes)
   if(newSchedule && hasHourInNewSchedule(day, hour, newSchedule)){
     return (
       <ThemeProvider theme={theme}>

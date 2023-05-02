@@ -3,6 +3,7 @@ import { Container, Grid} from "@mui/material";
 import EditForm from "@/components/templates/GymIdTemplate/organisms/EditForm";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
+import IsLoading from "@/components/molecules/isLoading";
 
 const EditGymPage = ({ data, url, router, gymId }) => {
   const title = `Edit Form ${data?.title}`;
@@ -30,13 +31,15 @@ const EditGymPage = ({ data, url, router, gymId }) => {
         </Grid>
 
         <Grid container item xs={12} marginTop={3}>
-          { data && (
+          {
+            gymId !== undefined ?
             <EditForm
               gymId = {gymId}
               gym = {data}
               url = {url}
-            />
-          ) }
+            /> :
+              <IsLoading />
+           }
         </Grid>
       </Grid>
     </Container>
