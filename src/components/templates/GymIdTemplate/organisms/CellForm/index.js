@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {
   Button,
   createTheme,
@@ -10,12 +10,10 @@ import {
   Grid, ThemeProvider,
   Typography
 } from "@mui/material";
-import DeleteIcon from '@mui/icons-material/Delete';
 import NoticeContext from "@/api/NoticeContext";
 import {useMutation, useQuery} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
-import {getByQueryKey} from "@/api/getByQueryKey";
 import RemoveBookingButton from "@/components/templates/GymIdTemplate/organisms/RemoveBookingButton";
 
 const theme = createTheme({
@@ -42,8 +40,8 @@ const theme = createTheme({
   },
 });
 
-export const CellForm = ({ date, hour, gymId, capacity, count, isOpenGymByHour, userId, getBookingsByUserId }) => {
-  const [counter, setCounter] = useState(count);
+export const CellForm = ({ date, hour, gymId, capacity, counter, setCounter, isOpenGymByHour, userId, getBookingIdByUserId }) => {
+
   const [open, setOpen] = React.useState(false);
 
   const start_at = (hour - 1) + ':00';
@@ -122,22 +120,22 @@ export const CellForm = ({ date, hour, gymId, capacity, count, isOpenGymByHour, 
     wishing(gymId, start_at, end_at, date);
 
   const initMainColor = () =>{
-    if (count >= capacity) {
+    if (counter >= capacity) {
       return 'red.main';
-    } else if (count >= capacity * 0.75) {
+    } else if (counter >= capacity * 0.75) {
       return 'orange.main';
-    } else if (count >= capacity * 0.5) {
+    } else if (counter >= capacity * 0.5) {
       return 'yellow.main';
     } else {
       return 'primary.main';
     }
   }
   const initSecondaryColor = () =>{
-    if (count >= capacity) {
+    if (counter >= capacity) {
       return 'red.main';
-    } else if (count >= capacity * 0.75) {
+    } else if (counter >= capacity * 0.75) {
       return 'orange.main';
-    } else if (count >= capacity * 0.5) {
+    } else if (counter >= capacity * 0.5) {
       return 'yellow.main';
     } else {
       return 'secondary.main';
@@ -189,7 +187,9 @@ export const CellForm = ({ date, hour, gymId, capacity, count, isOpenGymByHour, 
           text = {deleteButtonText}
           userId = {userId}
           gymId = {gymId}
-          getBookingsByUserId = {getBookingsByUserId}
+          getBookingIdByUserId = {getBookingIdByUserId}
+          counter = {counter}
+          setCounter = {setCounter}
           />
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
           <Button variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>

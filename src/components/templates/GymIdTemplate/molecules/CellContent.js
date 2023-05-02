@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import moment from "moment/moment";
@@ -21,11 +21,13 @@ const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) =
     return bookingsByTime.length
   }
 
-  const getBookingsByUserId = (id) => {
+  const getBookingIdByUserId = (id) => {
     const bookingByTime = getEntityByTime(bookings, day, hour-1);
     const bookingById = bookingByTime.filter(book => book.user_id === id)
     return bookingById[0]?.id || null;
   }
+
+  const [counter, setCounter] = useState(getBookingsCountByTime(bookings, day, hour-1));
 
   return(
     <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
@@ -34,10 +36,11 @@ const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) =
                 hour={hour}
                 gymId={gymId}
                 capacity={capacity}
-                count={getBookingsCountByTime(bookings, day, hour-1)}
+                counter={counter}
+                setCounter = {setCounter}
                 isOpenGymByHour = {isOpenGymByHour}
                 userId = {userId}
-                getBookingsByUserId = {getBookingsByUserId}
+                getBookingIdByUserId = {getBookingIdByUserId}
       />
     </StyledTableCell>
   )

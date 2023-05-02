@@ -1,17 +1,18 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Button} from "@mui/material";
 import {useMutation} from "react-query";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import axiosClient from "@/api/axiosClient";
+import NoticeContext from "@/api/NoticeContext";
 
-const RemoveBookingButton = ({ text, gymId,userId, getBookingsByUserId }) => {
+const RemoveBookingButton = ({ text, gymId,userId, getBookingIdByUserId, counter, setCounter }) => {
+  const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const RemoveBookHandler = () => {
-    const bookingId = getBookingsByUserId(userId);
+    const bookingId = getBookingIdByUserId(userId);
     if(bookingId === null) return null;
     const response = axiosClient.delete(`/gyms/${gymId}/bookings/${bookingId}`)
-    console.log(response)
     return response;
   };
 
@@ -20,10 +21,15 @@ const RemoveBookingButton = ({ text, gymId,userId, getBookingsByUserId }) => {
     RemoveBookHandler,
     {
       onSuccess: (data) => {
-
+        setCounter(counter - 1);
+        handleClick();
+        setResponseMessage("Your successfully remove your booking!");
+        setSeverity("success");
       },
       onError(err) {
-        alert(err.message)
+        handleClick();
+        setResponseMessage(error?.message);
+        setSeverity("error");
       }
     }
   );
