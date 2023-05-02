@@ -10,10 +10,13 @@ import {
   Grid, ThemeProvider,
   Typography
 } from "@mui/material";
+import DeleteIcon from '@mui/icons-material/Delete';
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation} from "react-query";
+import {useMutation, useQuery} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
+import {getByQueryKey} from "@/api/getByQueryKey";
+import RemoveBookingButton from "@/components/templates/GymIdTemplate/organisms/RemoveBookingButton";
 
 const theme = createTheme({
   palette: {
@@ -38,18 +41,20 @@ const theme = createTheme({
     }
   },
 });
-export const CellForm = ({date,time, gymId,capacity,count,isOpenGymByHour}) => {
+
+export const CellForm = ({ date, hour, gymId, capacity, count, isOpenGymByHour, userId, getBookingsByUserId }) => {
   const [counter, setCounter] = useState(count);
   const [open, setOpen] = React.useState(false);
 
-  const start_at = (time - 1) + ':00';
-  const end_at = time + ':00';
+  const start_at = (hour - 1) + ':00';
+  const end_at = hour + ':00';
 
   const dialogTitle = isOpenGymByHour ? `Do you want to book from ${start_at} to ${end_at} on ${date}?`:
     `Do you want to add in wish list from ${start_at} to ${end_at} on ${date}?`;
   const dialogContentText = isOpenGymByHour ? 'some book':
     'Add the time when you would like to come to the lesson and we will take it into account when scheduling';
   const submitButtonText = isOpenGymByHour ? "Book": "Add wish list";
+  const deleteButtonText = isOpenGymByHour ? "Delete book": "Remove from wish list";
 
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:
     null;
@@ -115,6 +120,7 @@ export const CellForm = ({date,time, gymId,capacity,count,isOpenGymByHour}) => {
 
   const submitButtonOnClick = isOpenGymByHour ? booking(gymId, start_at, end_at, date):
     wishing(gymId, start_at, end_at, date);
+
   const initMainColor = () =>{
     if (count >= capacity) {
       return 'red.main';
@@ -179,6 +185,12 @@ export const CellForm = ({date,time, gymId,capacity,count,isOpenGymByHour}) => {
           </DialogContentText>
         </DialogContent>
         <DialogActions>
+          <RemoveBookingButton
+          text = {deleteButtonText}
+          userId = {userId}
+          gymId = {gymId}
+          getBookingsByUserId = {getBookingsByUserId}
+          />
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
           <Button variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
             {submitButtonText}

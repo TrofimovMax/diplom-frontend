@@ -4,8 +4,9 @@ import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/Gy
 import moment from "moment/moment";
 import filter from "lodash/filter";
 import {CellForm} from "@/components/templates/GymIdTemplate/organisms/CellForm";
+import {getEntityByTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 
-const CellContent = ({gymId, day, hour, capacity, bookings, schedule}) => {
+const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, schedule);
   const preparedBookings = bookings.map((item) => {
     return {
@@ -20,15 +21,23 @@ const CellContent = ({gymId, day, hour, capacity, bookings, schedule}) => {
     return bookingsByTime.length
   }
 
+  const getBookingsByUserId = (id) => {
+    const bookingByTime = getEntityByTime(bookings, day, hour-1);
+    const bookingById = bookingByTime.filter(book => book.user_id === id)
+    return bookingById[0]?.id || null;
+  }
+
   return(
     <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
                      component="th" scope="row">
       <CellForm date={day.substring(4)}
-                time={hour}
+                hour={hour}
                 gymId={gymId}
                 capacity={capacity}
                 count={getBookingsCountByTime(bookings, day, hour-1)}
                 isOpenGymByHour = {isOpenGymByHour}
+                userId = {userId}
+                getBookingsByUserId = {getBookingsByUserId}
       />
     </StyledTableCell>
   )

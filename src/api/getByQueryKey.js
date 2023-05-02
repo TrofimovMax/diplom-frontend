@@ -5,7 +5,8 @@ export const getByQueryKey = ({ queryKey }) => {
     `${API_URI}/${queryKey.join('/')}`,
     {
       headers: {
-        "Content-type": "application/json"
+        "Content-type": "application/json",
+        "Authorization": typeof localStorage === 'object' ? localStorage.getItem('token') : null
       },
     }
   )

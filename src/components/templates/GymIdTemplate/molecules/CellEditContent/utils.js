@@ -4,7 +4,8 @@ import {first, keys, values} from "lodash";
 export const getDayStartTime = (day) => first(keys(day))
 
 export const getDayEndTime = (day) => first(values(day))
-export const getEntityCountByTime = (entityWeeks, day, hour) => {
+
+export const getEntityByTime = (entityWeeks, day, hour) => {
   const hourFormat = moment(hour, 'HH:mm:ss').format('HH:mm:ss')
   const start = `${day} ${hourFormat}`;
   const preparedEntity = entityWeeks.map((item) => {
@@ -14,5 +15,8 @@ export const getEntityCountByTime = (entityWeeks, day, hour) => {
     }
   })
   const entitiesByTime = filter( preparedEntity, { start })
-  return entitiesByTime.length
+  return entitiesByTime;
+}
+export const getEntityCountByTime = (entityWeeks, day, hour) => {
+  return getEntityByTime(entityWeeks, day, hour).length
 }

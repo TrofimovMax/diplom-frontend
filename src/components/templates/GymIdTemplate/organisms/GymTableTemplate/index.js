@@ -20,7 +20,9 @@ import CellEditContent from "@/components/templates/GymIdTemplate/molecules/Cell
 const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
   const { isLoading, isError, data } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
   const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
+  const { data: userData } = useQuery(["current_user"], getByQueryKey);
 
+  const userId = userData?.data?.id || null;
   const bookings = data?.data || [];
   const wishes = dataWishes?.data || [];
 
@@ -55,6 +57,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
                   if (isEdit){
                     return (
                       <CellEditContent
+                        userId = {userId}
                         key = {hour}
                         gymId = {gymId}
                         day = {day}
@@ -70,6 +73,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
                   else {
                     return (
                       <CellContent
+                        userId = {userId}
                         key = {hour}
                         gymId = {gymId}
                         day = {day}

@@ -12,7 +12,6 @@ import IsError from "@/components/molecules/IsError";
 const AuthBlock = () => {
   const signOutHandler = async () => {
     const response = await signOutRequest()
-    console.log(response)
     if (response?.data?.status === 200){
       localStorage.removeItem("token");
     }
