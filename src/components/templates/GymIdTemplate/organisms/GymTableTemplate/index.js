@@ -80,6 +80,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
                         hour = {hour}
                         capacity = {capacity}
                         bookings = {bookings}
+                        wishes = {wishes}
                         schedule = {raw}
                       />
                     )

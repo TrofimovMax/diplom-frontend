@@ -6,7 +6,7 @@ import filter from "lodash/filter";
 import {CellForm} from "@/components/templates/GymIdTemplate/organisms/CellForm";
 import {getEntityByTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 
-const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) => {
+const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, userId}) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, schedule);
   const preparedBookings = bookings.map((item) => {
     return {
@@ -27,6 +27,12 @@ const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) =
     return bookingById[0]?.id || null;
   }
 
+  const getWishingIdByUserId = (id) => {
+    const wishingByTime = getEntityByTime(wishes, day, hour-1);
+    const wishingById = wishingByTime.filter(wish => wish.user_id === id)
+    return wishingById[0]?.id || null;
+  }
+
   const [counter, setCounter] = useState(getBookingsCountByTime(bookings, day, hour-1));
 
   return(
@@ -41,6 +47,7 @@ const CellContent = ({gymId, day, hour, capacity, bookings, schedule, userId}) =
                 isOpenGymByHour = {isOpenGymByHour}
                 userId = {userId}
                 getBookingIdByUserId = {getBookingIdByUserId}
+                getWishingIdByUserId = {getWishingIdByUserId}
       />
     </StyledTableCell>
   )

@@ -15,6 +15,7 @@ import {useMutation, useQuery} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveBookingButton from "@/components/templates/GymIdTemplate/organisms/RemoveBookingButton";
+import RemoveWishButton from "@/components/templates/GymIdTemplate/organisms/RemoveWishButton";
 
 const theme = createTheme({
   palette: {
@@ -40,7 +41,20 @@ const theme = createTheme({
   },
 });
 
-export const CellForm = ({ date, hour, gymId, capacity, counter, setCounter, isOpenGymByHour, userId, getBookingIdByUserId }) => {
+export const CellForm = (
+  {
+    date,
+    hour,
+    gymId,
+    capacity,
+    counter,
+    setCounter,
+    isOpenGymByHour,
+    userId,
+    getBookingIdByUserId,
+    getWishingIdByUserId
+  }
+) => {
 
   const [open, setOpen] = React.useState(false);
 
@@ -53,7 +67,21 @@ export const CellForm = ({ date, hour, gymId, capacity, counter, setCounter, isO
     'Add the time when you would like to come to the lesson and we will take it into account when scheduling';
   const submitButtonText = isOpenGymByHour ? "Book": "Add wish list";
   const deleteButtonText = isOpenGymByHour ? "Delete book": "Remove from wish list";
-
+  const deleteButton = isOpenGymByHour ? <RemoveBookingButton
+    text = {deleteButtonText}
+    userId = {userId}
+    gymId = {gymId}
+    getBookingIdByUserId = {getBookingIdByUserId}
+    counter = {counter}
+    setCounter = {setCounter}
+  />: <RemoveWishButton
+    text = {deleteButtonText}
+    userId = {userId}
+    gymId = {gymId}
+    getWishingIdByUserId = {getWishingIdByUserId}
+    counter = {counter}
+    setCounter = {setCounter}
+  />;
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:
     null;
   const handleDialogOpen = () => {
@@ -183,14 +211,7 @@ export const CellForm = ({ date, hour, gymId, capacity, counter, setCounter, isO
           </DialogContentText>
         </DialogContent>
         <DialogActions>
-          <RemoveBookingButton
-          text = {deleteButtonText}
-          userId = {userId}
-          gymId = {gymId}
-          getBookingIdByUserId = {getBookingIdByUserId}
-          counter = {counter}
-          setCounter = {setCounter}
-          />
+          { deleteButton }
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
           <Button variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
             {submitButtonText}
