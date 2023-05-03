@@ -36,7 +36,6 @@ const EditGymPage = ({ data, url, router, gymId }) => {
             <EditForm
               gymId = {gymId}
               gym = {data}
-              url = {url}
             /> :
               <IsLoading />
            }

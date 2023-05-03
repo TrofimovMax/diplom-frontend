@@ -10,6 +10,7 @@ import SelectorIntervalHours from "@/components/templates/GymIdTemplate/molecule
 import { GreedyAlgorithm } from "@/api/GreedyAlgorithm";
 import {getByQueryKey} from "@/api/getByQueryKey";
 import {getDayEndTime, getDayStartTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+import axiosClient from "@/api/axiosClient";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -20,9 +21,10 @@ export const DAY_TITLE_MAP = {
   "thu": "Thursday",
   "fri": "Friday",
   "sat": "Saturday",
+  "sun": "Sunday"
 }
 
-const EditForm = ({gym, url, gymId}) => {
+const EditForm = ({gym, gymId}) => {
   if (gym === undefined) return <IsError/>
   const raw = {...gym?.schedule?.configuration?.raw?.hours};
   let array = [];
@@ -44,7 +46,8 @@ const EditForm = ({gym, url, gymId}) => {
     "wed": getDayStartTime(raw['wed']),
     "thu": getDayStartTime(raw['thu']),
     "fri": getDayStartTime(raw['fri']),
-    "sat": getDayStartTime(raw['sat'])
+    "sat": getDayStartTime(raw['sat']),
+    "sun": getDayStartTime(raw['sun']),
   });
 
   const [endTime, setEndTime] = useState({
@@ -53,16 +56,17 @@ const EditForm = ({gym, url, gymId}) => {
     "wed": getDayEndTime(raw['wed']),
     "thu": getDayEndTime(raw['thu']),
     "fri": getDayEndTime(raw['fri']),
-    "sat": getDayEndTime(raw['sat'])
+    "sat": getDayEndTime(raw['sat']),
+    "sun": getDayEndTime(raw['sun']),
   });
 
-  const { mutate } = useMutation((gym) => {
-    fetch(url, {
-      method: 'PATCH',
-      body: JSON.stringify(gym),
+  const { mutate } = useMutation(["update schedule"], (params) => {
+    axiosClient.patch(`/gyms/${gymId}`, params, {
       headers: {
-        'Content-type': 'application/json; charset=UTF-8',
+        "Authorization": typeof localStorage === 'object' ? localStorage.getItem('token') : null,
+        'Access-Control-Allow-Origin': '*'
       },
+      crossDomain: true
     })
   },{
     onSuccess: (res) => {
@@ -95,6 +99,9 @@ const EditForm = ({gym, url, gymId}) => {
         },
         "sat": {
           [startTimes['sat']]: endTime['sat']
+        },
+        "sun": {
+          [startTimes['sun']]: endTime['sun']
         },
       }
     })

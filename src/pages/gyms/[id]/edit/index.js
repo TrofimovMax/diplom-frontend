@@ -9,7 +9,6 @@ import {getByQueryKey} from "@/api/getByQueryKey";
 const Edit = () => {
   const router = useRouter();
   const gymId = router.query.id;
-  const url = `http://localhost:3000/gyms/${gymId}`;
   const { isLoading, isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
@@ -18,7 +17,6 @@ const Edit = () => {
   return (
     <EditGymPage
     data = {data.data}
-    url = {url}
     router = {router}
     gymId = {gymId}
     />
