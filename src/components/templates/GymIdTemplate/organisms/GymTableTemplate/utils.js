@@ -1,4 +1,5 @@
 import keys from "lodash/keys";
+import moment from "moment";
 
 export const hasHourInSchedule = (dayDate, hour, schedule) => {
   /*
@@ -25,13 +26,12 @@ export const hasHourInSchedule = (dayDate, hour, schedule) => {
 }
 
 export const createWeekSchedule = () => {
-  let curr = new Date;
-  let week = [];
-
-  for (let i = 1; i <= 6; i++) {
-    let first = curr.getDate() - curr.getDay() + i;
-    let day = new Date(curr.setDate(first)).toISOString().slice(0, 10);
-    week.push(day);
+  const today = moment().utc();
+  const startWeek = today.weekday();
+  const endWeek = startWeek + 7;
+  const arrayWeek = [];
+  for (let i = startWeek; i < endWeek; i++) {
+    arrayWeek.push(today.weekday(i).format('ddd DD/MM'));
   }
-  return week;
+  return arrayWeek;
 }

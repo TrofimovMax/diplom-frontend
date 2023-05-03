@@ -2,4 +2,4 @@ import {createWeekSchedule} from "@/components/templates/GymIdTemplate/organisms
 import moment from "moment/moment";
 
 export const hours = [...Array(24).keys()].map(x => ++x);
-export const days = createWeekSchedule().map( i => moment(i).format('ddd DD/MM'))
+export const days = createWeekSchedule()

@@ -50,7 +50,7 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWis
   const handleRemoveWish = () =>{
     mutate();
   }
-  
+
   if (counterWishes === 0) {
     return (
       <Button disabled variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveWish}>
