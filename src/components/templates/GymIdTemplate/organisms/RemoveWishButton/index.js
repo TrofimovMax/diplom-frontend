@@ -7,14 +7,23 @@ import {useMutation} from "react-query";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
-const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counter, setCounter }) => {
+const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWishes, setCounterWishes }) => {
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
-
+  const RemoveWishingMessage = () => {
+    handleClick();
+    setResponseMessage("you hasn't book for this time or you are unauthorized ");
+    setSeverity("error");
+  }
   const RemoveWishHandler = () => {
     const wishingId = getWishingIdByUserId(userId);
     if(wishingId === null) return null;
-    const response = axiosClient.delete(`/gyms/${gymId}/wishes/${wishingId}`)
-    return response;
+    if(wishingId === null){
+      RemoveWishingMessage();
+      return null;
+    }
+    else {
+      return axiosClient.delete(`/gyms/${gymId}/wishes/${wishingId}`)
+    }
   };
 
   const { isError, error, isLoading, mutate} = useMutation(
@@ -22,7 +31,7 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counter, s
     RemoveWishHandler,
     {
       onSuccess: (data) => {
-        setCounter(counter - 1);
+        setCounterWishes(counterWishes - 1);
         handleClick();
         setResponseMessage("Your successfully remove your wishing from wish list!");
         setSeverity("success");
@@ -41,11 +50,20 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counter, s
   const handleRemoveWish = () =>{
     mutate();
   }
-  return (
-    <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveWish}>
-      {text}
-    </Button>
-  );
+  
+  if (counterWishes === 0) {
+    return (
+      <Button disabled variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveWish}>
+        {text}
+      </Button>
+    );
+  } else {
+    return (
+      <Button variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveWish}>
+        {text}
+      </Button>
+    );
+  }
 };
 
 export default RemoveWishButton;

@@ -49,6 +49,8 @@ export const CellForm = (
     capacity,
     counter,
     setCounter,
+    counterWishes,
+    setCounterWishes,
     isOpenGymByHour,
     userId,
     getBookingIdByUserId,
@@ -79,8 +81,8 @@ export const CellForm = (
     userId = {userId}
     gymId = {gymId}
     getWishingIdByUserId = {getWishingIdByUserId}
-    counter = {counter}
-    setCounter = {setCounter}
+    counterWishes = {counterWishes}
+    setCounterWishes = {setCounterWishes}
   />;
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:
     null;

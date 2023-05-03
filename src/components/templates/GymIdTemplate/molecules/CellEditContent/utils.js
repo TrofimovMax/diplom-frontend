@@ -20,3 +20,8 @@ export const getEntityByTime = (entityWeeks, day, hour) => {
 export const getEntityCountByTime = (entityWeeks, day, hour) => {
   return getEntityByTime(entityWeeks, day, hour).length
 }
+export const getEntityIdByUserId = (id, entity, day, hour) => {
+  const entityByTime = getEntityByTime(entity, day, hour-1);
+  const entityById = entityByTime.filter(book => book.user_id === id)
+  return entityById[0]?.id || null;
+}
