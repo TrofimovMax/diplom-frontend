@@ -19,8 +19,8 @@ const Home = () => (
 
     <Container>
       <Grid container >
-        <Grid item xs={12} md={2} sx={{mx: 'auto'}}>
-          <Heading text='Our gyms'/>
+        <Grid item xs={12} md={3} sx={{mx: 'auto'}}>
+          <Heading text='Наши клубы'/>
         </Grid>
       </Grid>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 6, md: 12 }}>

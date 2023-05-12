@@ -72,7 +72,7 @@ const CarouselItem = ({item}) => {
                   },
                 }}
                 style={styles.button}>
-                GET STARTED
+                НАЧАТЬ
               </Button>
             </Grid>
 

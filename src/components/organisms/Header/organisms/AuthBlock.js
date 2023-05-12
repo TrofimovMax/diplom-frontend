@@ -48,7 +48,7 @@ const AuthBlock = () => {
             sx={{ color: '#000' }}
             onClick={signOut}
           >
-            Sign out
+            ВЫЙТИ
           </Button>
         </Grid>
         );
@@ -61,7 +61,7 @@ const AuthBlock = () => {
           href="/login"
           LinkComponent={NextLink}
         >
-          Sign in
+          ВОЙТИ
         </Button>
         <Button
           sx={{ color: '#000' }}
@@ -69,7 +69,7 @@ const AuthBlock = () => {
           href="/signup"
           LinkComponent={NextLink}
         >
-          Sign up
+          ЗАРЕГИСТРИРОВАТЬСЯ
         </Button>
       </Grid>
     )

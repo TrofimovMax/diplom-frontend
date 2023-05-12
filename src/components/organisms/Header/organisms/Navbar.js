@@ -23,9 +23,9 @@ const ComponentWithNoSSR = dynamic(
 )
 
 const navigation = [
-  {id: 1, title: 'Home', path: '/'},
-  {id: 2, title: 'History', path: '/history'},
-  {id: 3, title: 'Gyms', path: '/gyms'},
+  {id: 1, title: 'Главная', path: '/'},
+  {id: 2, title: 'Контакты', path: '/history'},
+  {id: 3, title: 'Клубы', path: '/gyms'},
 ];
 const drawerWidth = 240;
 
@@ -44,7 +44,7 @@ function NavBar(props) {
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
       <Typography variant="h6" sx={{ my: 2 }}>
-        MUI
+        ДВОРЕЦ СПОРТА
       </Typography>
       <Divider />
       <List>

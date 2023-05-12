@@ -71,7 +71,7 @@ const GymsCard = ({image, title, text, link}) => {
             LinkComponent={NextLink}
             href={link}
           >
-            Learn More
+            Узнать больше
           </Button>
         </CardActions>
       </Card>

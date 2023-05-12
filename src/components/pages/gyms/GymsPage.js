@@ -13,7 +13,7 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
         justifyContent: 'center',
         alignItems: 'center'
       }}>
-        <TitleSection title = 'Gyms'/>
+        <TitleSection title = 'КЛУБЫ'/>
         <Box>
           <BackButton
             router={router}
@@ -45,10 +45,10 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
             </ImageListItem>
           ))}
         </ImageList>
-        <Typography variant='h6' gutterBottom={true}>We all know that going to the gym is good for your health and we
-          are all aware
-          that we should be a bit more active. Joining a gym makes doing these things a lot easier but if you needed
-          some more motivation
+        <Typography variant='h6' gutterBottom={true}>
+          Поход в спортзал - такая странная штука, когда человек на полчаса застревает в пробке ради того,
+          чтобы покататься на велотренажере.
+          Спортзал имеет ряд преимуществ и способен привести в равновесие тело, разум и душу.
         </Typography>
         <Grid container>
         {

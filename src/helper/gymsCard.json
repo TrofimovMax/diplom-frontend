@@ -1,23 +1,23 @@
 [
   {
     "id": 1,
-    "image": "\thttps://livedemo00.template-help.com/wt_58939/images/index-03.jpg",
-    "title": "YOGA",
-    "text": "Yoga classes are a great way to unwind and develop your mind and body.",
+    "image": "https://livedemo00.template-help.com/wt_58939/images/index-03.jpg",
+    "title": "ЙОГА",
+    "text": "Держите йогу в повседневной жизни, чтобы оставаться в форме.",
     "link": "/gyms/1"
   },
   {
     "id": 2,
     "image": "https://livedemo00.template-help.com/wt_58939/images/index-04.jpg",
-    "title": "BODYBUILDING",
-    "text": "The discipline of bodybuilding may be harsh, but it pays off...",
+    "title": "БОДИБИЛДИНГ",
+    "text": "Бодибилдинг важен для построения здоровой нации.",
     "link": "/gyms/2"
   },
   {
     "id": 3,
     "image": "https://livedemo00.template-help.com/wt_58939/images/index-05.jpg",
-    "title": "FITNESS",
-    "text": "Our fitness and CrossFit program is designed for universal scalability.",
+    "title": "ФИТНЕСС",
+    "text": "Тем, кто не находит время для упражнений, придется искать время для болезни.",
     "link": "/gyms/3"
   }
 ]

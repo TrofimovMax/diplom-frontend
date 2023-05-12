@@ -43,14 +43,13 @@ const Footer = () => (
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
-                  <Heading text='About US' tag={"h4"}/>
+                  <Heading text='О НАС' tag={"h4"}/>
                 </Grid>
 
                 <Grid item xs={1}>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
-                    Our gym is a perfect place for everyone to enjoy sports, bodybuilding, and fitness. With us youcan
-                    reach
-                    your top physical condition!
+                    Наш тренажерный зал - идеальное место для всех, кто занимается спортом, бодибилдингом и фитнесом.
+                    С нами вы сможете достичь наилучшей физической формы!
                   </Typography>
                 </Grid>
                 <Grid container item>
@@ -105,7 +104,7 @@ const Footer = () => (
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
-                  <Heading text='CONTACT INFO' tag={"h4"}/>
+                  <Heading text='КОНТАКТЫ' tag={"h4"}/>
                 </Grid>
 
                 <Grid item xs={1}>
@@ -120,7 +119,7 @@ const Footer = () => (
                                },
                              }}
                     >
-                      Main office: Petrovskaya 51
+                      Главный офис: Петровская 51
                     </MUILink>
                   </NextLink>
                 </Grid>
@@ -186,14 +185,15 @@ const Footer = () => (
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
-                  <Heading text='booking system' tag={"h4"}/>
+                  <Heading text='Система записи' tag={"h4"}/>
                 </Grid>
 
                 <Grid item xs={1}>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
-                    You have access to tons of equipment, allowing you to keep your routine fresh and exciting.
-                    An online booking system makes it simple for YOU to book and pay for your tours and activities
-                    online.
+                    У вас есть доступ к огромному количеству оборудования,
+                    позволяющего сделать вашу рутину свежей и увлекательной.
+                    Система онлайн-бронирования позволяет ВАМ легко бронировать ваши тренировки и мероприятия отдаха
+                    в Интернете.
                   </Typography>
                 </Grid>
 
@@ -203,22 +203,22 @@ const Footer = () => (
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
-                  <Heading text='main line of business' tag={"h4"}/>
+                  <Heading text='основное направление деятельности' tag={"h4"}/>
                 </Grid>
 
                 <Grid item xs={1}>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
-                    YOGA
+                    ЙОГА
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
-                    BODYBUILDING
+                    БОДИБИЛДИНГ
                   </Typography>
                 </Grid>
                 <Grid item xs={1}>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
-                    FITNESS
+                    ФИТНЕСС
                   </Typography>
                 </Grid>
               </Grid>
