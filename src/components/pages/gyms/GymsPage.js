@@ -33,9 +33,15 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
             )
           })}
         </Box>
-        <ImageList sx={{width: 1200, height: 450}} cols={3} rowHeight={400}>
+        <ImageList
+          gap={12}
+          sx={{
+            mb: 8,
+            gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
+        }}
+        >
           {Images.Images.map((item) => (
-            <ImageListItem key={item.img}>
+            <ImageListItem key={item.img} sx={{height: '100% !important'}}>
               <img
                 src={`${item.img}?w=400&h=400&fit=crop&auto=format`}
                 srcSet={`${item.img}?w=800&h=800&fit=crop&auto=format&dpr=2 2x`}
