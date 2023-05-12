@@ -18,6 +18,8 @@ const CarouselItem = ({item}) => {
     paperContainer: {
       backgroundImage: `url(${item.image})`,
       backgroundRepeat: 'no-repeat',
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
     },
     button: {
       marginTop: 30,

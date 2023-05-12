@@ -39,7 +39,7 @@ const Footer = () => (
         >
           <Container>
             <Grid container spacing={{xs: 1, md: 2}}>
-              <Grid container item xs={3} spacing={2}
+              <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
@@ -101,7 +101,7 @@ const Footer = () => (
                 </Grid>
               </Grid>
 
-              <Grid container item xs={3} spacing={2}
+              <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
@@ -182,7 +182,7 @@ const Footer = () => (
                 </Grid>
               </Grid>
 
-              <Grid container item xs={3} spacing={2}
+              <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
@@ -199,7 +199,7 @@ const Footer = () => (
 
               </Grid>
 
-              <Grid container item xs={3} spacing={2}
+              <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
                 <Grid item xs={1} sx={{textTransform: 'uppercase'}}>

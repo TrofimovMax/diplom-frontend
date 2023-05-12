@@ -1,8 +1,9 @@
 import React from 'react';
-import {Box, Button, Container, ImageList, ImageListItem, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, ImageList, ImageListItem, Typography} from "@mui/material";
 import NextLink from "next/link";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
+import Heading from "@/components/atoms/Heading";
 const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
   return (
     <Container>
@@ -49,20 +50,24 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
           that we should be a bit more active. Joining a gym makes doing these things a lot easier but if you needed
           some more motivation
         </Typography>
+        <Grid container>
         {
           Benefits.Benefits.map((block, index) => {
             return (
-              <Box key = {index}>
-                <Typography variant='body1' gutterBottom sx={{fontWeight: 'bold'}}>
-                  {block.caption}
-                </Typography>
-                <Typography variant='body2' gutterBottom>
-                  {block.description}
-                </Typography>
-              </Box>
+              <Grid container item key = {index} spacing={0}>
+                <Grid item xs={8} md={6} sd={4} sx={{textTransform: 'uppercase'}}>
+                  <Heading text={block?.caption} tag={"h4"}/>
+                </Grid>
+                <Grid item xs={8}>
+                  <Typography variant='body2' gutterBottom>
+                    {block.description}
+                  </Typography>
+                </Grid>
+              </Grid>
             );
           })
         }
+        </Grid>
       </Box>
     </Container>
   );

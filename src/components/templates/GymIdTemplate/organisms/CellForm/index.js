@@ -20,10 +20,10 @@ import RemoveWishButton from "@/components/templates/GymIdTemplate/organisms/Rem
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#00A36C'
+      main: '#4F9DE9'
     },
     secondary: {
-      main: '#7CFC00'
+      main: '#B3D4F4'
     },
     yellow: {
       main: '#FFEA00'

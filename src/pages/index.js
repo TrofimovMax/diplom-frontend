@@ -12,7 +12,7 @@ const Home = () => (
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item xs={12} sm={12} md={10} lg={8} xl={8} >
+      <Grid item xs={12} >
         <Slider/>
       </Grid>
     </Grid>
@@ -23,11 +23,11 @@ const Home = () => (
           <Heading text='Our gyms'/>
         </Grid>
       </Grid>
-      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 6, md: 12 }}>
         {
           cards.map(({id, image, title, text, link}) => {
             return(
-          <Grid item key={id} xs={2} sm={4} md={4}>
+          <Grid item key={id} xs={12} sm={8} md={4}>
           <GymsCard
           image = {image}
           title = {title}
