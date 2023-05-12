@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import {Grid, Button} from "@mui/material";
 import {times} from "lodash";
 import {useMutation, useQuery} from "react-query";
@@ -11,6 +11,7 @@ import { GreedyAlgorithm } from "@/api/GreedyAlgorithm";
 import {getByQueryKey} from "@/api/getByQueryKey";
 import {getDayEndTime, getDayStartTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import axiosClient from "@/api/axiosClient";
+import NoticeContext from "@/api/NoticeContext";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
@@ -33,10 +34,12 @@ const EditForm = ({gym, gymId}) => {
   const isEdit = true;
 
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
+  const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const { isLoading, isError, data} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
-  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes } = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
+  const { isLoading, isError, data, error: errorBooking} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error: errorWishes} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
 
+  const message = errorBooking?.message || errorWishes?.message || "Что-то пошло не так.";
   const bookings = data?.data || [];
   const wishes = dataWishes?.data || [];
 
@@ -70,10 +73,14 @@ const EditForm = ({gym, gymId}) => {
     })
   },{
     onSuccess: (res) => {
-      alert("Update schedule!");
+      setResponseMessage("Расписание было успешно обновленно");
+      setSeverity("success");
+      handleClick();
     },
     onError: (error) => {
-      alert(error);
+      setResponseMessage("Что-то пошло не так: ", error?.message);
+      setSeverity("error");
+      handleClick();
     }
   })
 
@@ -119,9 +126,9 @@ const EditForm = ({gym, gymId}) => {
     setEndTime({...endTime, [day]: event.target.value});
   };
 
-
   if (isLoading && loadingWishes) return (<IsLoading />)
-  if (isError || isErrorWishes) return (<IsError message="something has gone wrong"/>)
+  if (isError || isErrorWishes) return (<IsError message={message} />)
+
   return (
     <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
         {

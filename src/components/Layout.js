@@ -20,7 +20,7 @@ const Layout = ({children}) => {
   const handleClose = () => {
     setState({ ...state, open: false });
     setSeverity("error");
-    setResponseMessage("Something has gone wrong");
+    setResponseMessage("Что-то пошло не так");
   };
 
   return (

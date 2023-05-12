@@ -9,25 +9,13 @@ import NoticeContext from "@/api/NoticeContext";
 
 const RemoveBookingButton = ({ text, gymId,userId, getBookingIdByUserId, counter, setCounter }) => {
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
-  const RemoveBookingMessage = () => {
-    handleClick();
-    setResponseMessage("you hasn't book for this time or you are unauthorized ");
-    setSeverity("error");
-  }
-  const RemoveBookHandler = () => {
-    const bookingId = userId === null? null : getBookingIdByUserId(userId);
-    if(bookingId === null){
-      RemoveBookingMessage();
-      return null;
-    }
-    else {
-      return axiosClient.delete(`/gyms/${gymId}/bookings/${bookingId}`)
-    }
+  const RemoveBookHandler = (id) => {
+    return axiosClient.delete(`/gyms/${gymId}/bookings/${id}`)
   };
 
   const { isError, error, isLoading, mutate} = useMutation(
     "removeBooking",
-    RemoveBookHandler,
+    (params) => RemoveBookHandler,
     {
       onSuccess: (data) => {
         setCounter(counter - 1);
@@ -46,8 +34,22 @@ const RemoveBookingButton = ({ text, gymId,userId, getBookingIdByUserId, counter
   if (isLoading) return (<IsLoading/>);
   if (isError) return (<IsError message={error}/>);
   const handleRemoveBook = () =>{
-    mutate();
+    const bookingId = userId === null? null : getBookingIdByUserId(userId);
+    if(userId !== null){
+      if(bookingId !== null){
+        mutate(bookingId);
+      } else {
+        setResponseMessage("Вы ещё не записаны на это занятие");
+        setSeverity("info");
+        handleClick();
+      }
+    } else {
+      setResponseMessage("Вы не можете убрать запись на занятие, пожалуйста авторизуйтесь");
+      setSeverity("info");
+      handleClick();
+    }
   }
+  console.log(counter)
   if (counter === 0){
     return (
       <Button disabled variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveBook}>

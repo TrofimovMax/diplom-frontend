@@ -11,7 +11,7 @@ import {
   Typography
 } from "@mui/material";
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation, useQuery} from "react-query";
+import {useMutation} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveBookingButton from "@/components/templates/GymIdTemplate/organisms/RemoveBookingButton";
@@ -57,7 +57,6 @@ export const CellForm = (
     getWishingIdByUserId
   }
 ) => {
-
   const [open, setOpen] = React.useState(false);
 
   const start_at = (hour - 1) + ':00';
@@ -102,23 +101,36 @@ export const CellForm = (
     {
       onSuccess: (response) => {
         setCounter(counter + 1);
-        handleClick();
-        setResponseMessage("Your successfully created your booking!");
+        setResponseMessage("Вы успешно записались на занятие!");
         setSeverity("success");
+        handleClick();
       },
       onError: (error) => {
-        handleClick();
         setResponseMessage(error?.message);
         setSeverity("error");
+        handleClick();
       }
     }
   );
   const booking = (gymId, start_at, end_at, date) => () => {
-    handleDialogClose();
-    mutate({
-      start_at: createDataTimeUTC(date, start_at),
-      end_at: createDataTimeUTC(date, end_at),
-    })
+    if(userId !== null) {
+      if (counter < capacity) {
+        handleDialogClose();
+        mutate({
+          start_at: createDataTimeUTC(date, start_at),
+          end_at: createDataTimeUTC(date, end_at),
+        })
+      } else {
+        setResponseMessage("Мест для записи больше нет");
+        setSeverity("error");
+        handleClick();
+      }
+    } else {
+      setResponseMessage("Вы не можете записаться, пожалуйста авторизуйтесь");
+      setSeverity("info");
+      handleClick();
+    }
+
   };
 
   const { mutateAsync } = useMutation(["create_wishes"], (params) => {
@@ -126,8 +138,9 @@ export const CellForm = (
     },
     {
       onSuccess: (response) => {
+        setCounterWishes(counterWishes + 1);
         handleClick();
-        setResponseMessage("Your successfully created your wish in list!");
+        setResponseMessage("Занятие успешно добавлено в ваш список желаемого");
         setSeverity("success");
       },
       onError: (error) => {
@@ -139,11 +152,17 @@ export const CellForm = (
   );
 
   const wishing = (gymId, start_at, end_at, date) => () => {
-    handleDialogClose();
-    mutateAsync({
-      start_at: createDataTimeUTC(date, start_at),
-      end_at: createDataTimeUTC(date, end_at),
-    })
+    if(userId !== null) {
+      handleDialogClose();
+      mutateAsync({
+        start_at: createDataTimeUTC(date, start_at),
+        end_at: createDataTimeUTC(date, end_at),
+      })
+    } else {
+      setResponseMessage("Вы не можете добавить занятие в список желаемого, пожалуйста авторизуйтесь");
+      setSeverity("info");
+      handleClick();
+    }
   };
 
   const submitButtonOnClick = isOpenGymByHour ? booking(gymId, start_at, end_at, date):

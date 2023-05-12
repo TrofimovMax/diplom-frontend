@@ -12,11 +12,11 @@ const Edit = () => {
   const { isLoading, isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
-  if (isError) return (<IsError message={error}/>)
+  if (isError) return (<IsError message={error.message}/>)
 
   return (
     <EditGymPage
-    data = {data.data}
+    data = {data?.data}
     router = {router}
     gymId = {gymId}
     />

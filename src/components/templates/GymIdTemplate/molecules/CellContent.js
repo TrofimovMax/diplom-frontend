@@ -14,10 +14,10 @@ const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, us
   const getWishingIdByUserId = (id) => {
     return getEntityIdByUserId(id, wishes, day, hour);
   }
-
-  const [counter, setCounter] = useState(getEntityCountByTime(bookings, day, hour-1));
-  const [counterWishes, setCounterWishes] = useState(getEntityCountByTime(wishes, day, hour-1))
-
+  const countWishes = !wishes.length? null: getEntityCountByTime(wishes, day, hour-1);
+  const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
+  const [counter, setCounter] = useState(count);
+  const [counterWishes, setCounterWishes] = useState(countWishes);
   return(
     <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
                      component="th" scope="row">
@@ -27,7 +27,7 @@ const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, us
                 capacity = {capacity}
                 counter = {counter}
                 setCounter = {setCounter}
-                counterWishes = {counterWishes}
+                counterWishes = {countWishes}
                 setCounterWishes = {setCounterWishes}
                 isOpenGymByHour = {isOpenGymByHour}
                 userId = {userId}

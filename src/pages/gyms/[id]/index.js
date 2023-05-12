@@ -12,7 +12,7 @@ const Gym = () => {
   const { isLoading,isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
 
   if (isLoading) return (<IsLoading/>)
-  if (isError) return (<IsError message={error}/>)
+  if (isError) return (<IsError message={error.message}/>)
 
   return (
     <>

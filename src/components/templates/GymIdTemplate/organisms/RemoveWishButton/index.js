@@ -8,27 +8,15 @@ import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
 const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWishes, setCounterWishes }) => {
+  console.log(counterWishes)
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
-  const RemoveWishingMessage = () => {
-    handleClick();
-    setResponseMessage("you hasn't book for this time or you are unauthorized ");
-    setSeverity("error");
-  }
-  const RemoveWishHandler = () => {
-    const wishingId = getWishingIdByUserId(userId);
-    if(wishingId === null) return null;
-    if(wishingId === null){
-      RemoveWishingMessage();
-      return null;
-    }
-    else {
-      return axiosClient.delete(`/gyms/${gymId}/wishes/${wishingId}`)
-    }
+  const RemoveWishHandler = (id) => {
+    return axiosClient.delete(`/gyms/${gymId}/wishes/${id}`)
   };
 
   const { isError, error, isLoading, mutate} = useMutation(
     "removeWish",
-    RemoveWishHandler,
+    (params) => RemoveWishHandler,
     {
       onSuccess: (data) => {
         setCounterWishes(counterWishes - 1);
@@ -48,10 +36,23 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWis
   if (isError) return (<IsError message={error}/>);
 
   const handleRemoveWish = () =>{
-    mutate();
+    const wishingId = userId === null? null : getWishingIdByUserId(userId);
+    if(userId !== null){
+      if(wishingId !== null){
+        mutate(wishingId);
+      } else {
+        setResponseMessage("Вы ещё не добавили это занятие в ваш список желаемого");
+        setSeverity("info");
+        handleClick();
+      }
+    } else {
+      setResponseMessage("Вы не можете убрать запись на занятие из списка желаемого, пожалуйста авторизуйтесь");
+      setSeverity("info");
+      handleClick();
+    }
   }
 
-  if (counterWishes === 0) {
+  if (counterWishes === 0 || counterWishes === null) {
     return (
       <Button disabled variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveWish}>
         {text}
