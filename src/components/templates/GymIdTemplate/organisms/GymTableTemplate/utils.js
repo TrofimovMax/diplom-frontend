@@ -26,12 +26,13 @@ export const hasHourInSchedule = (dayDate, hour, schedule) => {
 }
 
 export const createWeekSchedule = () => {
-  const today = moment().utc();
-  const startWeek = today.weekday();
-  const endWeek = startWeek + 7;
+  const mom = moment().utc();
+  const today = mom.weekday(); // number current day
+  const START_WEEK = 0;
+  const END_WEEK = 7;
   const arrayWeek = [];
-  for (let i = startWeek; i < endWeek; i++) {
-    arrayWeek.push(today.weekday(i).format('ddd DD/MM'));
+  for (let i = START_WEEK; i < END_WEEK; i++) {
+    arrayWeek.push(moment().day(i + today).format('ddd DD/MM'));
   }
   return arrayWeek;
 }
