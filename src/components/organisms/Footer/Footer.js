@@ -42,7 +42,7 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
+                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
                   <Heading text='О НАС' tag={"h4"}/>
                 </Grid>
 
@@ -103,7 +103,7 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
+                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
                   <Heading text='КОНТАКТЫ' tag={"h4"}/>
                 </Grid>
 
@@ -184,7 +184,7 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
+                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
                   <Heading text='Система записи' tag={"h4"}/>
                 </Grid>
 
@@ -202,7 +202,7 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase'}}>
+                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
                   <Heading text='основное направление деятельности' tag={"h4"}/>
                 </Grid>
 

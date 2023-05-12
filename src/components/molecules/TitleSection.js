@@ -18,7 +18,7 @@ const TitleSection = ({title}) => {
     >
       <Container fixed>
         <Grid container>
-          <Grid item md={6}>
+          <Grid item md={6} sx={{fontWeight: '600'}}>
             <Heading text={title} tag="h2"/>
           </Grid>
         </Grid>

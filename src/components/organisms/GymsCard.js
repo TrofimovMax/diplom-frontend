@@ -40,6 +40,7 @@ const GymsCard = ({image, title, text, link}) => {
           <Typography variant="h4" component="h6"
                       sx={
                         {
+                          fontWeight: '600',
                           color: "#fff",
                           lineHeight: "normal",
                         }

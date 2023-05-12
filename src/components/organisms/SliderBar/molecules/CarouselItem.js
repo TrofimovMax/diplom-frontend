@@ -47,7 +47,11 @@ const CarouselItem = ({item}) => {
             <Grid item xs={4}>
               <Typography variant="h4"
                           component="h5"
-                          color="common.white">
+                          color="common.white"
+                          sx={{
+                            fontWeight: '600'
+                          }}
+              >
                 {item.title}
               </Typography>
             </Grid>
