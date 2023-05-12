@@ -9,7 +9,11 @@ import { ReactQueryDevtools } from 'react-query/devtools';
 export const queryClient = new QueryClient();
 
 
-const theme = createTheme();
+const theme = createTheme({
+  typography: {fontFamily:
+      ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(',')
+  }
+});
 
 const App = ({ Component, pageProps }) => {
 
