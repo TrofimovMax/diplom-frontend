@@ -8,11 +8,11 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword, checked, ha
       minHeight: '80vh'
     }}
       >
-      <Box sx={{
+      <Grid sx={{
         marginBottom: 20
       }}>
-        <TitleSection title="Login Form"/>
-      </Box>
+        <TitleSection title="Авторизация"/>
+      </Grid>
 
       <Grid
         container
@@ -40,7 +40,7 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword, checked, ha
               type="password"
               variant='outlined'
               color='secondary'
-              label="Password"
+              label="Пароль"
               onChange={e => setPassword(e.target.value)}
               value={password}
               required
@@ -49,20 +49,7 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword, checked, ha
             />
           </Grid>
           <Grid item xs={12}>
-            <FormControlLabel
-              control={
-                <Checkbox
-                  checked={checked}
-                  onChange={handleChange}
-                  label={'Keep me logged in'}
-                  inputProps={{ 'aria-label': 'primary checkbox' }}
-                />
-              }
-              label="Keep me logged in"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <Button type="submit" fullWidth> Login </Button>
+            <Button type="submit" fullWidth> ВОЙТИ </Button>
           </Grid>
         </form>
       </Grid>

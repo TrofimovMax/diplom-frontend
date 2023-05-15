@@ -18,7 +18,7 @@ const SignupPage = ({ handleSubmit,
                       setPasswordConfirm }) => {
   return (
     <Container>
-      <TitleSection title="Register Form"/>
+      <TitleSection title="Регистрация"/>
       <form onSubmit={handleSubmit}
             action={
               <NextLink
@@ -32,7 +32,7 @@ const SignupPage = ({ handleSubmit,
             type="text"
             variant='outlined'
             color='secondary'
-            label="First Name"
+            label="Имя"
             onChange={e => setFirstName(e.target.value)}
             value={firstName}
             fullWidth
@@ -42,7 +42,7 @@ const SignupPage = ({ handleSubmit,
             type="text"
             variant='outlined'
             color='secondary'
-            label="Last Name"
+            label="Фамилия"
             onChange={e => setLastName(e.target.value)}
             value={lastName}
             fullWidth
@@ -64,7 +64,7 @@ const SignupPage = ({ handleSubmit,
           type="text"
           variant='outlined'
           color='secondary'
-          label="Nickname"
+          label="Псевдоним"
           onChange={e => setNickname(e.target.value)}
           value={nickname}
           fullWidth
@@ -75,7 +75,7 @@ const SignupPage = ({ handleSubmit,
           type="password"
           variant='outlined'
           color='secondary'
-          label="Password"
+          label="Пароль"
           onChange={e => setPassword(e.target.value)}
           value={password}
           required
@@ -86,7 +86,7 @@ const SignupPage = ({ handleSubmit,
           type="password"
           variant='outlined'
           color='secondary'
-          label="Confirm password"
+          label="Подтвердите пароль"
           onChange={e => setPasswordConfirm(e.target.value)}
           value={passwordConfirm}
           required
@@ -98,11 +98,11 @@ const SignupPage = ({ handleSubmit,
           color="secondary"
           type="submit"
           >
-          Register
+          Зарегистрироваться
         </Button>
       </form>
       <small>
-        Already have an account?
+        У вас уже есть аккаунт?
         <NextLink
           href="/login" passHref legacyBehavior>
           <MUILink ml={1}
@@ -113,7 +113,7 @@ const SignupPage = ({ handleSubmit,
                      },
                    }}
           >
-            Login here
+            Авторизируйтесь здесь.
           </MUILink>
         </NextLink>
       </small>
