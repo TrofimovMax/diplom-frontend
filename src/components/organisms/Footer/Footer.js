@@ -1,5 +1,5 @@
 import Heading from '../../atoms/Heading';
-import {Container, createTheme, Grid, Paper, ThemeProvider, Typography} from "@mui/material";
+import {Container, createTheme, Grid, Paper, Typography} from "@mui/material";
 import TelegramIcon from '@mui/icons-material/Telegram';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import EmailIcon from '@mui/icons-material/Email';
@@ -9,22 +9,11 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import {Link as MUILink} from '@mui/material';
 import NextLink from 'next/link';
 import React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
-
-const theme = createTheme({
-  palette: {
-    links: "#fff",
-    '&:hover': {
-      links_hover: "#f4576c",
-    }
-  },
-});
+import LinkAtom from "@/components/atoms/LinkAtom";
 
 const Footer = () => (
   <>
     <footer>
-      <ThemeProvider theme={theme}>
-        <CssBaseline/>
         <Paper style={{backgroundImage: 'url(https://livedemo00.template-help.com/wt_58939/images/footer-01.jpg)'}}
                sx={
                  {
@@ -54,48 +43,22 @@ const Footer = () => (
                 </Grid>
                 <Grid container item>
                   <Grid item xs={1}>
-                    <NextLink
-                      href="https://web.telegram.org/" passHref legacyBehavior>
-                      <MUILink sx={{
-                        color: 'links',
-                        '&:hover': {
-                          color: '&:hover.links_hover'
-                        },
-                      }}
-                      >
-                        <TelegramIcon/>
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                      children={<TelegramIcon/>}
+                      href={"https://web.telegram.org/"}
+                    />
                   </Grid>
                   <Grid item xs={1} ml={1}>
-                    <NextLink
-                      href="https://www.instagram.com/" passHref legacyBehavior>
-                      <MUILink
-                        sx={{
-                          color: 'links',
-                          '&:hover': {
-                            color: '&:hover.links_hover'
-                          },
-                        }}
-                      >
-                        <InstagramIcon/>
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                    children={<InstagramIcon/>}
+                    href={"https://www.instagram.com/"}
+                    />
                   </Grid>
                   <Grid item xs={1} ml={1}>
-                    <NextLink
-                      href="https://www.google.com/intl/ru/gmail/about/" passHref legacyBehavior>
-                      <MUILink
-                        sx={{
-                          color: 'links',
-                          '&:hover': {
-                            color: '&:hover.links_hover'
-                          },
-                        }}
-                      >
-                        <EmailIcon/>
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                      children={<EmailIcon/>}
+                      href={"https://www.google.com/intl/ru/gmail/about/"}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -109,19 +72,10 @@ const Footer = () => (
 
                 <Grid item xs={1}>
                   <RoomOutlinedIcon/>
-                  <NextLink
-                    href="/" passHref legacyBehavior>
-                    <MUILink ml={1}
-                             sx={{
-                               color: 'links',
-                               '&:hover': {
-                                 color: '&:hover.links_hover'
-                               },
-                             }}
-                    >
-                      Главный офис: Петровская 51
-                    </MUILink>
-                  </NextLink>
+                  <LinkAtom
+                    children={"Главный офис: Петровская 51"}
+                    href={"/"}
+                  />
                 </Grid>
                 <Grid container item spacing={1} direction="row"
                       justifyContent="flex-start"
@@ -130,33 +84,16 @@ const Footer = () => (
                     <PhoneAndroidOutlinedIcon/>
                   </Grid>
                   <Grid item>
-                    <NextLink
-                      href="callto:#" ml={2} passHref legacyBehavior>
-                      <MUILink
-                        sx={{
-                        color: 'links',
-                        '&:hover': {
-                          color: '&:hover.links_hover'
-                        },
-                      }}>
-                        +1 (409) 987–5874
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                      children={"+1 (409) 987–5874"}
+                      href={"callto:#"}
+                    />
                   </Grid>
                   <Grid item ml={4}>
-                    <NextLink
-                      href="callto:#" passHref legacyBehavior>
-                      <MUILink
-                        sx={{
-                          color: 'links',
-                          '&:hover': {
-                            color: '&:hover.links_hover'
-                          },
-                        }}
-                      >
-                        +1 (409) 987–5874
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                      children={"+1 (409) 987–5874"}
+                      href={"callto:#"}
+                    />
                   </Grid>
                 </Grid>
                 <Grid container item xs={2}>
@@ -164,19 +101,10 @@ const Footer = () => (
                     <MailOutlineOutlinedIcon/>
                   </Grid>
                   <Grid item ml={1}>
-                    <NextLink
-                      href="sport.palace@gmail.com" passHref legacyBehavior>
-                      <MUILink
-                        sx={{
-                          color: 'links',
-                          '&:hover': {
-                            color: '&:hover.links_hover'
-                          },
-                        }}
-                      >
-                        sport.palace@gmail.com
-                      </MUILink>
-                    </NextLink>
+                    <LinkAtom
+                      children={"sport.palace@gmail.com"}
+                      href={"sport.palace@gmail.com"}
+                    />
                   </Grid>
                 </Grid>
               </Grid>
@@ -225,7 +153,6 @@ const Footer = () => (
             </Grid>
           </Container>
         </Paper>
-      </ThemeProvider>
     </footer>
   </>
 );

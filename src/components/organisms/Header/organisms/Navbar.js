@@ -24,7 +24,7 @@ const ComponentWithNoSSR = dynamic(
 
 const navigation = [
   {id: 1, title: 'Главная', path: '/'},
-  {id: 2, title: 'Контакты', path: '/history'},
+  {id: 2, title: 'Контакты', path: '/about-us'},
   {id: 3, title: 'Клубы', path: '/gyms'},
 ];
 const drawerWidth = 240;
