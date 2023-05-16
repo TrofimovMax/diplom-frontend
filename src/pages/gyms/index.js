@@ -1,9 +1,9 @@
 import React from 'react';
 import { useQuery } from 'react-query';
-import {Typography } from "@mui/material";
 import { useRouter } from "next/router";
 import Images from "@/helper/images.json";
 import Benefits from "@/helper/benefits.json";
+import gymIdCard from "@/helper/GymIdCard.json";
 import GymsPage from "@/components/pages/gyms/GymsPage";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
@@ -20,6 +20,7 @@ const Gyms = () => {
     data = {data.data}
     Images = {Images}
     Benefits = {Benefits}
+    gymIdCard = {gymIdCard}
     router = {router}
     pathname ={pathname}
     >

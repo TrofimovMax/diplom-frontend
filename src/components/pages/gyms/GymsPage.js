@@ -1,10 +1,10 @@
 import React from 'react';
-import {Box, Button, Container, Grid, ImageList, ImageListItem, Typography} from "@mui/material";
+import {Box, Button, Container, Grid, ImageList, ImageListItem, ImageListItemBar, Typography} from "@mui/material";
 import NextLink from "next/link";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 import Heading from "@/components/atoms/Heading";
-const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
+const GymsPage = ({ data, Images, Benefits, router, pathname, gymIdCard}) => {
   return (
     <Container>
       <Box sx = {{
@@ -52,10 +52,57 @@ const GymsPage = ({ data, Images, Benefits, router, pathname }) => {
           ))}
         </ImageList>
         <Typography variant='h6' gutterBottom={true}>
-          Поход в спортзал - такая странная штука, когда человек на полчаса застревает в пробке ради того,
-          чтобы покататься на велотренажере.
-          Спортзал имеет ряд преимуществ и способен привести в равновесие тело, разум и душу.
+          Добро пожаловать в спортивный комплекс "Спорткомплекс"!
+          Мы рады предложить вам три зала, каждый из которых предназначен для разных видов занятий.
         </Typography>
+        <Typography variant='h6' gutterBottom={true}>
+          Если вы хотите улучшить свою гибкость и научиться контролировать своё тело,
+          то зал для йоги идеально подходит для вас.
+        </Typography>
+        <Typography variant='h6' gutterBottom={true}>
+          Если ваша цель - набрать мышечную массу и стать сильнее,
+          то зал для бодибилдинга станет вашим надежным помощником.
+        </Typography>
+        <Typography variant='h6' gutterBottom={true}>
+          А если вы стремитесь к стройной фигуре и хотите укрепить своё здоровье,
+          то зал для фитнеса будет идеальным выбором.
+        </Typography>
+        <Typography variant='h6' gutterBottom={true}>
+          Наши квалифицированные инструкторы всегда готовы помочь вам достичь ваших целей и привести ваше тело в форму.
+          Начните свой путь к здоровому образу жизни вместе с нами!
+        </Typography>
+
+        <ImageList cols={3} gap={gymIdCard?.gymIdCard?.length} >
+          {gymIdCard?.gymIdCard.map((item) => (
+            <ImageListItem key={item.img} sx={{
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+              backgroundRepeat: "no-repeat",
+              width: 333,
+            }}>
+              <img
+                src={`${item.img}`}
+                alt={item.title}
+                loading="lazy"
+              />
+              <ImageListItemBar
+                title={item.title}
+                subtitle={
+                <Box sx={{whiteSpace: "normal"}}>
+                  <Typography variant='body2'>
+                    {item.description}
+                  </Typography>
+                  <Typography variant='body2'>
+                  Размер зала: {item.size}
+                  </Typography>
+                </Box>
+              }
+                position="below"
+              />
+            </ImageListItem>
+          ))}
+        </ImageList>
+
         <Grid container>
         {
           Benefits.Benefits.map((block, index) => {
