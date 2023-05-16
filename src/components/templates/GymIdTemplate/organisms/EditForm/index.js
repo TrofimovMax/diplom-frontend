@@ -16,13 +16,13 @@ import NoticeContext from "@/api/NoticeContext";
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item }:00`)
 
 export const DAY_TITLE_MAP = {
-  "mon": "Monday",
-  "tue": "Tuesday",
-  "wed": "Wednesday",
-  "thu": "Thursday",
-  "fri": "Friday",
-  "sat": "Saturday",
-  "sun": "Sunday"
+  "mon": "Понедельник",
+  "tue": "Вторник",
+  "wed": "Среда",
+  "thu": "Четверг",
+  "fri": "Пятница",
+  "sat": "Суббота",
+  "sun": "Воскресенье"
 }
 
 const EditForm = ({gym, gymId}) => {
@@ -176,7 +176,7 @@ const EditForm = ({gym, gymId}) => {
             variant="outlined"
             startIcon={<EditIcon />}
           >
-            Update
+            Обновить
           </Button>
         </Grid>
         <Grid item xs={4} md={2}>
@@ -185,7 +185,7 @@ const EditForm = ({gym, gymId}) => {
             variant="outlined"
             startIcon={<EditIcon />}
           >
-            Generate
+            Сгенерировать
           </Button>
         </Grid>
         <Grid item xs="auto">

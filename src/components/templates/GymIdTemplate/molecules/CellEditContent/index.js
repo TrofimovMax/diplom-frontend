@@ -1,7 +1,7 @@
 import React from 'react';
 import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
-import {Box, createTheme, Grid, ThemeProvider} from "@mui/material";
+import {Box, createTheme, Grid, ThemeProvider, Typography} from "@mui/material";
 import { getEntityCountByTime } from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import {first, keys, values} from "lodash";
 
@@ -68,7 +68,9 @@ const CellEditContent = ({day, hour, capacity, bookings, wishes, schedule, newSc
           spacing={0}
         >
           <Grid item xs>
-            Booking now:{count}
+            <Typography variant="caption">
+              Записано сейчас:{count}
+            </Typography>
           </Grid>
         </Grid>
       </StyledTableCell>
@@ -77,20 +79,20 @@ const CellEditContent = ({day, hour, capacity, bookings, wishes, schedule, newSc
   } else {
     if(hasHourInSchedule(day, hour, schedule)){
       return (
-        <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
+        <StyledTableCell sx={{border: 1, padding: 1, width: 70, height: 70}} key={hour}
                          component="th" scope="row">
-          <Box>
-            Book:{count}/{capacity}
-          </Box>
+          <Typography variant="caption">
+            Записано:{count}/{capacity}
+          </Typography>
         </StyledTableCell>
       )
     } else {
       return (
         <StyledTableCell sx={{border: 1, height: 1, width: 1,}} key={hour} component="th"
                          scope="row">
-          <Box>
-            Wish:{countWishes}
-          </Box>
+          <Typography variant="caption">
+            Желают:{countWishes}
+          </Typography>
         </StyledTableCell>
       )
     }

@@ -9,7 +9,7 @@ const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endT
           <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>
         </FormControl>
         <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-          <InputLabel id="demo-simple-select-label">From</InputLabel>
+          <InputLabel id="demo-simple-select-label">С</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -27,7 +27,7 @@ const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endT
           </Select>
         </FormControl>
         <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-          <InputLabel id="demo-simple-select-label">To</InputLabel>
+          <InputLabel id="demo-simple-select-label">До</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"

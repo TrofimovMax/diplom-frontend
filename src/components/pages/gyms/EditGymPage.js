@@ -6,7 +6,7 @@ import BackButton from "@/components/atoms/BackButton";
 import IsLoading from "@/components/molecules/isLoading";
 
 const EditGymPage = ({ data, url, router, gymId }) => {
-  const title = `Edit Form ${data?.title}`;
+  const title = `Изменение клуба \"${data?.title}\"`;
 
   return (
     <Container>

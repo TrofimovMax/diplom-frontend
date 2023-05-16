@@ -22,7 +22,7 @@ const GymIdPage = ({ data, router, gymId}) => {
               LinkComponent = { NextLink }
               onClick={() => router.push('/gyms/' + gymId + '/edit')}
             >
-              Edit
+              Изменить
             </Button>
           </Box>
         </>
