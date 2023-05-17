@@ -9,7 +9,7 @@ import {
   List,
   ListItem,
   ListItemButton,
-  ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink, Grid
+  ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink, Grid, useTheme, useMediaQuery
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import PropTypes from "prop-types";
@@ -34,25 +34,28 @@ function MenuButton() {
 }
 
 function NavBar(props) {
-  const { window } = props;
+  const {window} = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>
-      <Typography variant="h6" sx={{ my: 2 }}>
+    <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+      <Typography variant="h6" sx={{my: 2}}>
         ДВОРЕЦ СПОРТА
       </Typography>
-      <Divider />
+      <Divider/>
       <List>
         {navigation.map(({id, title, path}) => (
           <ListItem key={id} disablePadding>
-            <ListItemButton sx={{ textAlign: 'center' }}>
+            <ListItemButton sx={{textAlign: 'center'}}>
               <Button
-                sx={{ color: '#000' }}
+                sx={{color: '#000'}}
                 component='a'
                 href={path}
                 LinkComponent={NextLink}
@@ -68,70 +71,79 @@ function NavBar(props) {
 
   const container = window !== undefined ? () => window().document.body : undefined;
   return (
-    <Box sx={{ display: 'flex', paddingBottom: "10vh"}}>
-      <CssBaseline />
-      <AppBar component="nav" style={{ background: '#fff' }}>
+    <Grid container>
+      <CssBaseline/>
+      <AppBar component="nav" style={{background: '#fff'}}>
         <Toolbar>
-          <Grid container spacing={3}>
-            <Grid container item
-                  xs={4}
-                  direction="row"
-                  justifyContent="center"
-                  alignItems="center"
+          <Grid container item spacing={3}>
+            <Grid
+              container
+              item
+              xs={4}
+              direction="row"
+              justifyContent="center"
+              alignItems="center"
             >
-              <Grid item xs={1}>
+              <Grid item xs={3}>
                 <IconButton
                   color="inherit"
                   aria-label="open drawer"
                   edge="start"
                   onClick={handleDrawerToggle}
-                  sx={{display: { sm: 'none' } }}
+                  sx={{display: {sm: 'none'}}}
                 >
-                  <MenuButton />
+                  <MenuButton/>
                 </IconButton>
               </Grid>
-              <Grid item xs >
+              <Grid item xs={9}>
                 <NextLink
                   href="/" passHref legacyBehavior>
-                  <MUILink sx={{padding:2}}>
-                    <Image src="/logo.svg" width={70} height={70} alt="logo" />
+                  <MUILink sx={{padding: 2}}>
+                    <Image src="/logo.svg" width={70} height={70} alt="logo"/>
                   </MUILink>
                 </NextLink>
               </Grid>
             </Grid>
 
-            <Grid container item xs={5}
-                  direction="row"
-                  justifyContent="space-evenly"
-                  alignItems="center"
-            >
-              {
-                navigation.map(({id, title, path}) => {
-                  return (
-                    <Grid item xs key={id} sx={{ display: { xs: 'none', sm: 'inline' } }}>
-                    <Button
-                      sx={{ color: '#000' }}
+            {isMobile && (
+              <Grid
+                container
+                item
+                sm={5}
+                direction="row"
+                justifyContent="space-evenly"
+                alignItems="center"
+              >
+                {
+                  navigation.map(({id, title, path}) => {
+                    return (
+                      <Grid item xs key={id} sx={{display: {xs: 'none', sm: 'inline'}}}>
+                        <Button
+                          sx={{color: '#000'}}
 
-                      component='a'
-                      href={path}
-                      LinkComponent={NextLink}
-                    >
-                      {title}
-                    </Button>
-                    </Grid>
-                  )
-                })
-              }
-            </Grid>
+                          component='a'
+                          href={path}
+                          LinkComponent={NextLink}
+                        >
+                          {title}
+                        </Button>
+                      </Grid>
+                    )
+                  })
+                }
+              </Grid>
+            )}
 
             <Grid
               container
-              item xs={3}
+              item
+              xs={8}
+              sm={3}
               direction="row"
               justifyContent="center"
               alignItems="center"
             >
-              <ComponentWithNoSSR />
+              <ComponentWithNoSSR/>
             </Grid>
           </Grid>
         </Toolbar>
@@ -146,14 +158,14 @@ function NavBar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+            display: {xs: 'block', sm: 'none'},
+            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
           }}
         >
           {drawer}
         </Drawer>
       </Box>
-    </Box>
+    </Grid>
   );
 }
 

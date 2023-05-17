@@ -22,9 +22,6 @@ const CarouselItem = ({item}) => {
       backgroundPosition: 'center',
     },
     button: {
-      marginTop: 30,
-      padding: "18px 36px",
-      fontSize: "18px",
       color: "#FFFFFF"
     },
   };
@@ -44,11 +41,12 @@ const CarouselItem = ({item}) => {
             marginTop: '15vh',
             marginLeft: '5vw'
           }}>
-            <Grid item xs={4}>
+            <Grid item xs={8}>
               <Typography variant="h4"
                           component="h5"
                           color="common.white"
                           sx={{
+                            fontSize: {xs: 18, md: 36},
                             fontWeight: '600'
                           }}
               >
@@ -56,20 +54,27 @@ const CarouselItem = ({item}) => {
               </Typography>
             </Grid>
 
-            <Grid item xs={6}>
+            <Grid item xs={8}>
               <Typography variant="h5" component="h6"
-                          sx={{maxWidth: "20vw", marginTop: 3,}}
+                          sx={{
+                            fontSize: {xs: 14, md: 24},
+                            maxWidth: {xs: "60vw", md: "20vw"},
+                            marginTop: 3,
+                          }}
                           color="common.white">
                 {item.text}
               </Typography>
             </Grid>
 
-            <Grid item xs={4}>
+            <Grid item>
               <Button
                 component='a'
                 LinkComponent={NextLink}
                 href={'/gyms'}
                 sx={{
+                  marginTop: {xs: 2, md: 10},
+                  padding: {xs: "6px 12px", md: "18px 36px"},
+                  fontSize: {xs: "14px", md: "20px"},
                   backgroundColor: 'button',
                   '&:hover': {
                     backgroundColor: '&:hover.button_hover'

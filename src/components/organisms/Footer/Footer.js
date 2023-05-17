@@ -31,8 +31,13 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
-                  <Heading text='О НАС' tag={"h4"}/>
+                <Grid item xs={1}>
+                  <Typography
+                    fontWeight={600}
+                    variant="h6"
+                  >
+                    О НАС
+                  </Typography>
                 </Grid>
 
                 <Grid item xs={1}>
@@ -44,21 +49,24 @@ const Footer = () => (
                 <Grid container item>
                   <Grid item xs={1}>
                     <LinkAtom
-                      children={<TelegramIcon/>}
                       href={"https://web.telegram.org/"}
-                    />
+                    >
+                      <TelegramIcon/>
+                    </LinkAtom>
                   </Grid>
                   <Grid item xs={1} ml={1}>
                     <LinkAtom
-                    children={<InstagramIcon/>}
                     href={"https://www.instagram.com/"}
-                    />
+                    >
+                      <InstagramIcon/>
+                    </LinkAtom>
                   </Grid>
                   <Grid item xs={1} ml={1}>
                     <LinkAtom
-                      children={<EmailIcon/>}
                       href={"https://www.google.com/intl/ru/gmail/about/"}
-                    />
+                    >
+                      <EmailIcon/>
+                    </LinkAtom>
                   </Grid>
                 </Grid>
               </Grid>
@@ -66,11 +74,16 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
-                  <Heading text='КОНТАКТЫ' tag={"h4"}/>
+                <Grid item>
+                  <Typography
+                    fontWeight={600}
+                    variant="h6"
+                  >
+                    КОНТАКТЫ
+                  </Typography>
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item>
                   <RoomOutlinedIcon/>
                   <LinkAtom
                     children={"Главный офис: Петровская 51"}
@@ -102,9 +115,10 @@ const Footer = () => (
                   </Grid>
                   <Grid item ml={1}>
                     <LinkAtom
-                      children={"sport.palace@gmail.com"}
                       href={"sport.palace@gmail.com"}
-                    />
+                    >
+                      <Typography>sport.palace@gmail.com</Typography>
+                    </LinkAtom>
                   </Grid>
                 </Grid>
               </Grid>
@@ -112,11 +126,17 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
-                  <Heading text='Система записи' tag={"h4"}/>
+                <Grid item>
+                  <Typography
+                    sx={{textTransform: 'uppercase'}}
+                    fontWeight={600}
+                    variant="h6"
+                  >
+                    Система записи
+                  </Typography>
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
                     У вас есть доступ к огромному количеству оборудования,
                     позволяющего сделать вашу рутину свежей и увлекательной.
@@ -130,21 +150,27 @@ const Footer = () => (
               <Grid container item xs={12} sm={6} md={3} spacing={2}
                     direction="column"
               >
-                <Grid item xs={1} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
-                  <Heading text='основное направление деятельности' tag={"h4"}/>
+                <Grid item xs={1}>
+                  <Typography
+                    sx={{textTransform: 'uppercase'}}
+                    fontWeight={600}
+                    variant="h6"
+                  >
+                    основное направление деятельности
+                  </Typography>
                 </Grid>
 
-                <Grid item xs={1}>
+                <Grid item >
                   <Typography variant='body1' component="subtitle1" gutterBottom>
                     ЙОГА
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
                     БОДИБИЛДИНГ
                   </Typography>
                 </Grid>
-                <Grid item xs={1}>
+                <Grid item>
                   <Typography variant='body1' component="subtitle1" gutterBottom>
                     ФИТНЕСС
                   </Typography>

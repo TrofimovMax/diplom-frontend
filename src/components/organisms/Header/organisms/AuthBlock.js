@@ -8,6 +8,7 @@ import {useMutation} from "react-query";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
+const buttonStyle = { color: '#000', fontSize: {xs: 10, md: 14}}
 
 const AuthBlock = () => {
   const signOutHandler = async () => {
@@ -45,7 +46,7 @@ const AuthBlock = () => {
       (
         <Grid>
           <Button
-            sx={{ color: '#000' }}
+            sx={buttonStyle}
             onClick={signOut}
           >
             ВЫЙТИ
@@ -56,7 +57,7 @@ const AuthBlock = () => {
     authButton = (
       <Grid item>
         <Button
-          sx={{ color: '#000' }}
+          sx={buttonStyle}
           component='a'
           href="/login"
           LinkComponent={NextLink}
@@ -64,7 +65,7 @@ const AuthBlock = () => {
           ВОЙТИ
         </Button>
         <Button
-          sx={{ color: '#000' }}
+          sx={buttonStyle}
           component='a'
           href="/signup"
           LinkComponent={NextLink}

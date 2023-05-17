@@ -12,7 +12,7 @@ const Home = () => (
       justifyContent="center"
       alignItems="center"
     >
-      <Grid item xs={12} >
+      <Grid item xs={12} sx={{paddingTop: "15vh"}}>
         <Slider/>
       </Grid>
     </Grid>
