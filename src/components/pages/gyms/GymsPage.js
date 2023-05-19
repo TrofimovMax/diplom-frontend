@@ -6,7 +6,7 @@ import {
   Grid,
   ImageList,
   ImageListItem,
-  ImageListItemBar, ThemeProvider,
+  ImageListItemBar, Paper, ThemeProvider,
   Typography, useMediaQuery,
   useTheme
 } from "@mui/material";
@@ -47,24 +47,6 @@ const GymsPage = ({data, Images, Benefits, router, pathname, gymIdCard}) => {
               )
             })}
           </Box>
-          <ImageList
-            gap={12}
-            sx={{
-              mb: 8,
-              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
-            }}
-          >
-            {Images.Images.map((item) => (
-              <ImageListItem key={item.img} sx={{height: '100% !important'}}>
-                <img
-                  src={`${item.img}?w=400&h=400&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=800&h=800&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
-          </ImageList>
           <Grid container spacing={1}>
             <Grid item>
               <Typography variant='h6' gutterBottom={true}>
@@ -91,53 +73,71 @@ const GymsPage = ({data, Images, Benefits, router, pathname, gymIdCard}) => {
             </Grid>
           </Grid>
 
-
-
           <Grid container>
             <ImageList gap={gymIdCard?.gymIdCard?.length}
                        cols={isMobile ? 3 : 1}
             >
               {gymIdCard?.gymIdCard.map((item) => (
-                <ImageListItem
-                  key={item.img} sx={ isMobile ? {
-                  mr:3,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  width: 333,
-                } : {
-                  mr:0,
-                  backgroundSize: "cover",
-                  backgroundPosition: "center",
-                  backgroundRepeat: "no-repeat",
-                  width: 333,
-                }
+                <Paper key={item.img} sx={{padding:1}} variant="outlined" square>
+                  <ImageListItem
+                     sx={isMobile ? {
+                    mr: 3,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    width: 333,
+                  } : {
+                    mr: 0,
+                    backgroundSize: "cover",
+                    backgroundPosition: "center",
+                    backgroundRepeat: "no-repeat",
+                    width: 333,
+                  }
 
-                }>
-                  <img
-                    src={`${item.img}`}
-                    alt={item.title}
-                    loading="lazy"
-                  />
-                  <ImageListItemBar
-                    title={item.title}
-                    subtitle={
-                      <Box sx={{whiteSpace: "normal"}}>
-                        <Typography variant='body2'>
-                          {item.description}
-                        </Typography>
-                        <Typography variant='body2'>
-                          <strong> Размер зала:</strong> {item.size}
-                        </Typography>
-                      </Box>
-                    }
-                    position="below"
-                  />
-                </ImageListItem>
+                  }>
+                    <img
+                      src={`${item.img}`}
+                      alt={item.title}
+                      loading="lazy"
+                    />
+                    <ImageListItemBar
+                      title={item.title}
+                      subtitle={
+                        <Box sx={{whiteSpace: "normal"}}>
+                          <Typography variant='body2'>
+                            {item.description}
+                          </Typography>
+                          <Typography variant='body2'>
+                            <strong> Размер зала:</strong> {item.size}
+                          </Typography>
+                        </Box>
+                      }
+                      position="below"
+                    />
+                  </ImageListItem>
+                </Paper>
               ))}
             </ImageList>
           </Grid>
 
+          <ImageList
+            gap={12}
+            sx={{
+              mb: 8,
+              gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
+            }}
+          >
+            {Images.Images.map((item) => (
+              <ImageListItem key={item.img} sx={{height: '100% !important'}}>
+                <img
+                  src={`${item.img}?w=400&h=400&fit=crop&auto=format`}
+                  srcSet={`${item.img}?w=800&h=800&fit=crop&auto=format&dpr=2 2x`}
+                  alt={item.title}
+                  loading="lazy"
+                />
+              </ImageListItem>
+            ))}
+          </ImageList>
 
           <Grid container>
             {
