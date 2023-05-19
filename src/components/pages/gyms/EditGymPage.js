@@ -42,5 +42,3 @@ export const EditGymPage = ({ data, router, gymId }) => {
     </Container>
   );
 };
-
-//export default EditGymPage;

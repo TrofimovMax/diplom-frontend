@@ -12,6 +12,8 @@ import {getByQueryKey} from "@/api/getByQueryKey";
 import {getDayEndTime, getDayStartTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import axiosClient from "@/api/axiosClient";
 import NoticeContext from "@/api/NoticeContext";
+import SelectorFactorByEntity
+  from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorFactorByEntity";
 
 const hours = times(24, (item) => `${item < 10 ? `0${item}` : item}:00`)
 
@@ -34,6 +36,8 @@ export const EditForm = ({gym, gymId}) => {
   const isEdit = true;
 
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
+  const [factorBooking, setFactorBooking] = useState(1);
+  const [factorWishing, setFactorWishing] = useState(1);
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
   const {isLoading, isError, data, error: errorBooking} = useQuery(["gyms", gymId, "bookings"], getByQueryKey);
@@ -120,7 +124,7 @@ export const EditForm = ({gym, gymId}) => {
   }
 
   const onGenerate = () => {
-    return SetGeneratedSchedule(GreedyAlgorithm(raw, capacity, bookings, wishes));
+    return SetGeneratedSchedule(GreedyAlgorithm(raw, capacity, bookings, wishes, factorBooking, factorWishing));
   }
 
   const handleChangeStartTimes = (event, day) => {
@@ -161,7 +165,7 @@ export const EditForm = ({gym, gymId}) => {
         <Grid item xs="auto">
 
         </Grid>
-        <Grid item xs={4} md={2}>
+        <Grid item xs={3} md={2}>
           <Button
             onClick={onSave}
             variant="outlined"
@@ -170,7 +174,13 @@ export const EditForm = ({gym, gymId}) => {
             Обновить
           </Button>
         </Grid>
-        <Grid item xs={4} md={2}>
+        <Grid item xs={3} md={2}>
+          <SelectorFactorByEntity entity='Коэфициент записей' value={factorBooking} setValue={setFactorBooking}/>
+        </Grid>
+        <Grid item xs={3} md={2}>
+          <SelectorFactorByEntity entity='Коэфициент пожеланий' value={factorWishing} setValue={setFactorWishing}/>
+        </Grid>
+        <Grid item xs={3} md={2}>
           <Button
             onClick={onGenerate}
             variant="outlined"

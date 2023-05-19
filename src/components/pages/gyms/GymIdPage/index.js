@@ -10,7 +10,7 @@ const GymIdPage = ({ data, router, gymId}) => {
     <Container>
       <Grid container>
         <>
-          <TitleSection title = { data.title }/>
+          <TitleSection title = { data?.title }/>
           <Grid
             container
             item
@@ -38,7 +38,7 @@ const GymIdPage = ({ data, router, gymId}) => {
                   marginTop:2
                 }}>
                   <GymTable
-                    gymId={data.id}
+                    gymId={data?.id}
                     capacity={data?.capacity}
                     address={data?.address}
                     raw={data?.schedule?.configuration?.raw?.hours}
