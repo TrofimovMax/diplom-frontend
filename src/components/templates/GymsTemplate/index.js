@@ -37,6 +37,7 @@ const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMo
     <Grid container item>
       <ImageList
         gap={12}
+        cols={3}
         sx={{
           mb: 8,
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',

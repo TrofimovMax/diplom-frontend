@@ -9,11 +9,11 @@ const BenefitsMolecule = ({Benefits}) => {
       {
         Benefits.Benefits.map((block, index) => {
           return (
-            <Grid container item key={index} spacing={0}>
-              <Grid item xs={8} md={6} sd={4} sx={{textTransform: 'uppercase', fontWeight: '600'}}>
+            <Grid container item xs={12} key={index} spacing={0}>
+              <Grid item  sx={{textTransform: 'uppercase', fontWeight: '600'}}>
                 <Heading text={block?.caption} tag={"h4"}/>
               </Grid>
-              <Grid item xs={8}>
+              <Grid item>
                 <Typography variant='body2' gutterBottom>
                   {block.description}
                 </Typography>
