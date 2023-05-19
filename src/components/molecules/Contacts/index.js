@@ -14,7 +14,7 @@ const Contacts = () => {
     <Grid container item>
       <Grid container item xs={12} spacing={2}
             direction="row"
-            justifyContent="flex-sta"
+            justifyContent="flex-start"
             alignItems="center">
         <Grid item>
           <RoomOutlinedIcon />

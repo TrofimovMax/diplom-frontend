@@ -1,0 +1,24 @@
+{
+  "aboutUsBenefits": [
+    {
+      "img": "https://cdn4.iconfinder.com/data/icons/arrows-and-interface-3/33/arrow_stretch_fullscreen_spreading_expansion_deploy-512.png",
+      "title": "ПРОСТОРНЫЕ ЗАЛЫ",
+      "description": "Мы подготовили более 1000 м^2 пространства, чтобы вы смогли заниматься с комфортом"
+    },
+    {
+      "img": "https://cdn1.iconfinder.com/data/icons/emoticon-pack-line/48/emoji-emoticon-expression-smile-happy-smiley-well-512.png",
+      "title": "ДРУЖЕЛЮБНЫЕ ТРЕНЕРЫ",
+      "description": "Они тоже выкладываются на полную, чтобы помочь вам и сделать ВАС сильнее"
+    },
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/15/Red_plus_sign.svg/768px-Red_plus_sign.svg.png",
+      "title": "БЕСПЛАТНАЯ ТРЕНИРОВКА",
+      "description": "Откройте для себя фитнес вместе с нами! Первая тренировка бесплатно. Мы свяжемся с вами в ближайшее время."
+    },
+    {
+      "img": "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Red_star.svg/252px-Red_star.svg.png",
+      "title": "ИНДИВИДУАЛЬНОСТЬ",
+      "description": "Одни и те же упражнения могут быть применены к людям с самым разным опытом."
+    }
+  ]
+}
