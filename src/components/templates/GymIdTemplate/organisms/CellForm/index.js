@@ -62,12 +62,12 @@ export const CellForm = (
   const start_at = (hour - 1) + ':00';
   const end_at = hour + ':00';
 
-  const dialogTitle = isOpenGymByHour ? `Do you want to book from ${start_at} to ${end_at} on ${date}?`:
-    `Do you want to add in wish list from ${start_at} to ${end_at} on ${date}?`;
-  const dialogContentText = isOpenGymByHour ? 'some book':
-    'Add the time when you would like to come to the lesson and we will take it into account when scheduling';
-  const submitButtonText = isOpenGymByHour ? "Book": "Add wish list";
-  const deleteButtonText = isOpenGymByHour ? "Delete book": "Remove from wish list";
+  const dialogTitle = isOpenGymByHour ? `Вы хотите записаться ${date} с ${start_at} до ${end_at}?`:
+    `Вы хотели бы заниматься ${date} с ${start_at} до ${end_at}?`;
+  const dialogContentText = isOpenGymByHour ? 'Записавшись на занятие вы гарантированно получите оздоровительные услуги под руководством профессиональных тренеров':
+    'Добавте часы, в которое Вам было бы удобно заниматься и мы учём это при составлении расписания';
+  const submitButtonText = isOpenGymByHour ? "Записаться": "Отправить";
+  const deleteButtonText = isOpenGymByHour ? "Отписаться": "Отменить";
   const deleteButton = isOpenGymByHour ? <RemoveBookingButton
     text = {deleteButtonText}
     userId = {userId}
@@ -233,7 +233,7 @@ export const CellForm = (
         </DialogContent>
         <DialogActions>
           { deleteButton }
-          <Button variant="outlined" color="error" onClick={handleDialogClose}>Cancel</Button>
+          <Button variant="outlined" color="error" onClick={handleDialogClose}>Назад</Button>
           <Button variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
             {submitButtonText}
           </Button>

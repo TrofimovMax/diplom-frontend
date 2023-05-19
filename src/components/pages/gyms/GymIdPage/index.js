@@ -1,36 +1,40 @@
 import React from 'react';
-import {Box, Button, Container} from "@mui/material";
-import NextLink from "next/link";
+import {Box, Grid, Container} from "@mui/material";
 import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
+import EditLink from "@/components/pages/gyms/GymIdPage/organisms/EditLink";
 const GymIdPage = ({ data, router, gymId}) => {
   const isEdit = false;
   return (
     <Container>
-      <Box>
+      <Grid container>
         <>
-          <TitleSection title = { data?.title }/>
-          <Box sx = {{
-            minWidth: '100%',
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center'}}>
-            <BackButton router = { router } link = '/gyms' />
-            <Button
-              component = 'button'
-              LinkComponent = { NextLink }
-              onClick={() => router.push('/gyms/' + gymId + '/edit')}
-            >
-              Изменить
-            </Button>
-          </Box>
+          <TitleSection title = { data.title }/>
+          <Grid
+            container
+            item
+            xs={12}
+            direction='row'
+            justifyContent="space-between"
+            alignItems="center"
+          >
+            <Grid item>
+              <BackButton router = { router } link = '/gyms' />
+            </Grid>
+            <Grid container item xs={1}>
+              <EditLink
+                router={router}
+                gymId={gymId}
+              />
+            </Grid>
+          </Grid>
         </>
         {
           (() => {
             if(data?.id) {
               return (
-                <Box sx={{
+                <Grid item xs={12} sx={{
                   marginTop:2
                 }}>
                   <GymTable
@@ -40,12 +44,12 @@ const GymIdPage = ({ data, router, gymId}) => {
                     raw={data?.schedule?.configuration?.raw?.hours}
                     isEdit = {isEdit}
                   />
-                </Box>
+                </Grid>
               )
             }
           }) ()
         }
-      </Box>
+      </Grid>
     </Container>
   );
 };

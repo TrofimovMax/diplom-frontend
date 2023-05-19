@@ -1,13 +1,11 @@
 import React from 'react';
 import { Container, Grid} from "@mui/material";
-import EditForm from "@/components/templates/GymIdTemplate/organisms/EditForm";
+import { EditForm } from "@/components/templates/GymIdTemplate/organisms/EditForm";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 import IsLoading from "@/components/molecules/isLoading";
-
-const EditGymPage = ({ data, url, router, gymId }) => {
+export const EditGymPage = ({ data, router, gymId }) => {
   const title = `Изменение клуба \"${data?.title}\"`;
-
   return (
     <Container>
       <Grid container spacing={1}
@@ -45,4 +43,4 @@ const EditGymPage = ({ data, url, router, gymId }) => {
   );
 };
 
-export default EditGymPage;
+//export default EditGymPage;

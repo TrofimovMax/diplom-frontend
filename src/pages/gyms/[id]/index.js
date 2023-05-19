@@ -17,7 +17,7 @@ const Gym = () => {
   return (
     <>
       <GymIdPage
-        data={data.data}
+        data={data?.data}
         router={router}
         gymId={gymId}
       />
