@@ -1,9 +1,10 @@
 import { getEntityCountByTime } from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import { hours, days } from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
-export const GreedyAlgorithm = (raw, capacity, bookings, wishes, factorBooking, factorWishing) => {
-  const MAX_HOURS = 8; // Максимальное количество рабочих часов
+export const GreedyAlgorithm = (raw, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour) => {
+  const MAX_HOURS = factorMaxHour + 1; // Максимальное количество рабочих часов
 
   const newSchedule = [];
+
   days.map(day => {
     const dayWeek = day.substring(0,3)
     const schedule = [];
@@ -18,7 +19,7 @@ export const GreedyAlgorithm = (raw, capacity, bookings, wishes, factorBooking, 
     // Выбираем часы для работы зала
     for (let i = 0; i < array.length; i++) {
       const hour = array[i];
-      if (schedule.length < MAX_HOURS) {
+      if (schedule.length <= MAX_HOURS) {
         schedule.push(hour);
       }
       if (schedule.length === MAX_HOURS) {

@@ -8,7 +8,6 @@ import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 
 const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWishes, setCounterWishes }) => {
-  console.log(counterWishes)
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const RemoveWishHandler = (id) => {
     return axiosClient.delete(`/gyms/${gymId}/wishes/${id}`)
