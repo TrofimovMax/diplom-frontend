@@ -79,11 +79,25 @@ const CellEditContent = ({day, hour, capacity, bookings, wishes, schedule, newSc
   } else {
     if(hasHourInSchedule(day, hour, schedule)){
       return (
-        <StyledTableCell sx={{border: 1, padding: 1, width: 70, height: 70}} key={hour}
+        <StyledTableCell align='center' sx={{border: 1, padding: 1, width: 70, height: 70}} key={hour}
                          component="th" scope="row">
-          <Typography variant="caption">
-            Записано:{count}/{capacity}
-          </Typography>
+          <Grid
+            container
+            direction="row"
+            justifyContent="center"
+            alignItems="center"
+            sx={{
+              height: 1,
+              width: 1,
+            }}
+            spacing={0}
+          >
+            <Grid item xs>
+              <Typography variant="caption">
+                {count}/{capacity}
+              </Typography>
+            </Grid>
+          </Grid>
         </StyledTableCell>
       )
     } else {

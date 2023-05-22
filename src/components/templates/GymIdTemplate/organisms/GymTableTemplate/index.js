@@ -5,7 +5,7 @@ import {
   TableBody,
   TableContainer,
   TableHead,
-  TableRow,
+  TableRow, useMediaQuery, useTheme,
 } from "@mui/material";
 import React, {useContext} from "react";
 import { StyledTableCell, StyledTableRow } from './styles';
@@ -19,6 +19,9 @@ import CellEditContent from "@/components/templates/GymIdTemplate/molecules/Cell
 import NoticeContext from "@/api/NoticeContext";
 
 const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
+  const tableWidth = isMobile? 1200: 320;
 
   const { isLoading, isError, data, error } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
   const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
@@ -34,7 +37,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table sx={{minWidth: 1200}} aria-label="customized table">
+      <Table aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>

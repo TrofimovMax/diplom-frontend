@@ -167,7 +167,7 @@ export const EditForm = ({gym, gymId}) => {
         <Grid item xs="auto">
 
         </Grid>
-        <Grid item xs={2} md={2}>
+        <Grid item xs={6} md={2}>
           <Button
             onClick={onSave}
             variant="outlined"
@@ -176,16 +176,16 @@ export const EditForm = ({gym, gymId}) => {
             Обновить
           </Button>
         </Grid>
-        <Grid item xs={2} md={2}>
+        <Grid item xs={6} md={2}>
           <SelectorFactorByEntity entity='Коэфициент записей' value={factorBooking} setValue={setFactorBooking}/>
         </Grid>
-        <Grid item xs={2} md={2}>
+        <Grid item xs={6} md={2}>
           <SelectorFactorByEntity entity='Коэфициент пожеланий' value={factorWishing} setValue={setFactorWishing}/>
         </Grid>
-        <Grid item xs={3} md={3}>
+        <Grid item xs={6} md={3}>
           <SelectorMaxHours entity='Максимум рабочих часов' value={factorMaxHour} setValue={setFactorMaxHour}/>
         </Grid>
-        <Grid item xs={2} md={2}>
+        <Grid item xs={6} md={2}>
           <Button
             onClick={onGenerate}
             variant="outlined"
@@ -198,7 +198,7 @@ export const EditForm = ({gym, gymId}) => {
 
         </Grid>
       </Grid>
-      <Grid item xs={12} sx={{paddingBottom: 5}}>
+      <Grid item xs={12} sx={{paddingBottom: 5, width: '100%'}}>
         {
           gymId !== undefined ?
             <GymTable
