@@ -1,8 +1,9 @@
 import React from 'react';
 import {Box, Button, Checkbox, FormControlLabel, Grid, Container, TextField} from "@mui/material";
 import TitleSection from "@/components/molecules/TitleSection";
+import IsError from "@/components/molecules/IsError";
 
-const LoginPage = ({ signIn, email, setEmail, password, setPassword, checked, handleChange }) => {
+const LoginPage = ({ signIn, email, setEmail, password, setPassword,  isError}) => {
   return (
     <Container sx={{
       minHeight: '80vh'
@@ -17,9 +18,9 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword, checked, ha
       <Grid
         container
         spacing={3}
-        direction={'column'}
-        justify={'center'}
-        alignItems={'center'}
+        direction='column'
+        justify='center'
+        alignItems='center'
       >
         <form id="authentication" onSubmit={signIn}>
           <Grid item xs={12}>

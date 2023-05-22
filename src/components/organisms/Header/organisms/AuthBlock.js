@@ -1,22 +1,20 @@
 "use client";
 
-import React from 'react';
+import React, {useContext} from 'react';
 import {Button, Grid, Typography} from "@mui/material";
 import NextLink from "next/link";
 import {signOutRequest} from "@/api/sign-out";
 import {useMutation} from "react-query";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
+import NoticeContext from "@/api/NoticeContext";
 
 const buttonStyle = { color: '#000', fontSize: {xs: 10, md: 14}}
 
 const AuthBlock = () => {
+  const { handleClick } = useContext(NoticeContext);
   const signOutHandler = async () => {
-    const response = await signOutRequest()
-    if (response?.data?.status === 200){
-      localStorage.removeItem("token");
-    }
-    return response;
+    return await signOutRequest()
   };
 
   const { isError, error, isLoading, mutateAsync} = useMutation(
@@ -24,11 +22,13 @@ const AuthBlock = () => {
     signOutHandler,
     {
       onSuccess: (data) => {
-
+        if (data?.status === 200){
+          localStorage.removeItem("token");
+        }
       },
       onError(err) {
-        alert(err.message)
-
+        localStorage.removeItem("token");
+        handleClick();
       }
     }
   );

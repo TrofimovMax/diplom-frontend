@@ -1,9 +1,10 @@
-import React, {useState, useEffect} from "react";
+import React, {useState, useEffect, useContext} from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
 import { loginRequest } from "@/api/login";
 import LoginPage from "@/components/pages/login/LoginPage";
 import IsLoading from "@/components/molecules/isLoading";
+import NoticeContext from "@/api/NoticeContext";
 import IsError from "@/components/molecules/IsError";
 
 const Login = () => {
@@ -11,6 +12,7 @@ const Login = () => {
   const [checked, setChecked] = useState();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const handleChange = (event) => {
     setChecked(event.target.checked);
   };
@@ -29,21 +31,21 @@ const Login = () => {
   }, [])
 
   const loginHandler = async () => {
-    const response = await loginRequest(userData)
-    localStorage.setItem("token", response.headers.getAuthorization())
-    return response;
+    return await loginRequest(userData)
   };
 
-  const { isError, error, isLoading, mutateAsync} = useMutation(
+  const { isError, isLoading, mutateAsync} = useMutation(
     "login",
     loginHandler,
     {
       onSuccess: (data) => {
+        localStorage.setItem("token", data?.headers?.getAuthorization())
         router.reload();
       },
       onError(err) {
-        alert(err.message);
-        router.reload();
+        setResponseMessage("Вы ввели неправильный логин или пароль");
+        setSeverity("error");
+        handleClick();
       }
     }
   );
@@ -53,7 +55,7 @@ const Login = () => {
   };
 
   if (isLoading) return (<IsLoading/>);
-  if (isError) return (<IsError message={error}/>);
+  if (isError) return (<IsError/>)
 
   return (
     <LoginPage

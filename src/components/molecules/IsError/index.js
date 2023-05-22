@@ -3,7 +3,7 @@ import {Alert, AlertTitle} from "@mui/material";
 
 const IsError = ({message}) => {
   return (
-    <Alert severity="error">
+    <Alert severity="error" sx={{mt: '15vh'}}>
       <AlertTitle>Error</AlertTitle>
       {
         message ? message : "Something has gone wrong"

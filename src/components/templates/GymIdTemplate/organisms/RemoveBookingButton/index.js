@@ -20,7 +20,7 @@ const RemoveBookingButton = ({ text, gymId,userId, getBookingIdByUserId, counter
       onSuccess: (data) => {
         setCounter(counter - 1);
         handleClick();
-        setResponseMessage("Your successfully remove your booking!");
+        setResponseMessage("Вы успешно отменили запись!");
         setSeverity("success");
       },
       onError(error) {

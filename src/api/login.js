@@ -13,6 +13,6 @@ export const loginRequest = async (params) => {
     );
     return response;
   } catch (error) {
-    console.log(error);
+    throw Error
   }
 };
