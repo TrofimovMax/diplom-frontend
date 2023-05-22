@@ -7,7 +7,7 @@ import {
   TableHead,
   TableRow, useMediaQuery, useTheme,
 } from "@mui/material";
-import React, {useContext} from "react";
+import React from "react";
 import { StyledTableCell, StyledTableRow } from './styles';
 import { hours, days } from './constants';
 import { useQuery } from "react-query";
@@ -16,7 +16,6 @@ import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
 import CellEditContent from "@/components/templates/GymIdTemplate/molecules/CellEditContent";
-import NoticeContext from "@/api/NoticeContext";
 
 const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
   const theme = useTheme()
@@ -37,7 +36,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
 
   return (
     <TableContainer component={Paper}>
-      <Table aria-label="customized table">
+      <Table sx={{minWidth: {tableWidth} }} aria-label="customized table">
         <TableHead>
           <TableRow>
             <StyledTableCell>

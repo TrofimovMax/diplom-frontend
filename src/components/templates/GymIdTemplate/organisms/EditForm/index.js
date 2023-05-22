@@ -29,12 +29,6 @@ export const DAY_TITLE_MAP = {
 }
 
 export const EditForm = ({gym, gymId}) => {
-  if (gym === undefined) return <IsError/>
-  const raw = {...gym?.schedule?.configuration?.raw?.hours};
-  let array = [];
-  raw !== undefined ? array = Object.entries(raw) : array = [];
-  const capacity = gym?.capacity;
-  const isEdit = true;
 
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
   const [factorBooking, setFactorBooking] = useState(1);
@@ -49,6 +43,13 @@ export const EditForm = ({gym, gymId}) => {
     data: dataWishes,
     error: errorWishes
   } = useQuery(["gyms", gymId, "wishes"], getByQueryKey);
+
+  if (gym === undefined) return <IsError/>
+  const raw = {...gym?.schedule?.configuration?.raw?.hours};
+  let array = [];
+  raw !== undefined ? array = Object.entries(raw) : array = [];
+  const capacity = gym?.capacity;
+  const isEdit = true;
 
   const message = errorBooking?.message || errorWishes?.message || "Что-то пошло не так.";
   const bookings = data?.data || [];
@@ -200,7 +201,7 @@ export const EditForm = ({gym, gymId}) => {
       </Grid>
       <Grid item xs={12} sx={{paddingBottom: 5, width: '100%'}}>
         {
-          gymId !== undefined ?
+          gymId ?
             <GymTable
               gymId={gymId}
               capacity={capacity}
@@ -209,7 +210,7 @@ export const EditForm = ({gym, gymId}) => {
               isEdit={isEdit}
               newSchedule={generatedSchedule}
             /> :
-            <IsLoading/>
+            <IsError/>
         }
       </Grid>
     </Grid>
