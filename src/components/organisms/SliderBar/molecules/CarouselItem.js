@@ -47,6 +47,7 @@ const CarouselItem = ({item}) => {
                           color="common.white"
                           sx={{
                             fontSize: {xs: 18, md: 36},
+                            maxWidth: {xs: "50vw", md: "30vw"},
                             fontWeight: '600'
                           }}
               >
