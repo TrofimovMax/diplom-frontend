@@ -13,6 +13,10 @@ export const signUpRequest = async (params) => {
     );
     return response.data;
   } catch (error) {
-    console.log(error);
+    throw {
+      status: error?.response?.status,
+      code: error?.code,
+      message: error?.message
+    }
   }
 };

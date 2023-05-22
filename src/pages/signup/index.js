@@ -1,12 +1,14 @@
-import React, { useState } from 'react';
+import React, {useContext, useState} from 'react';
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { signUpRequest } from "@/api/sign-up";
 import SignupPage from "@/components/pages/signup/SignupPage";
 import IsLoading from "@/components/molecules/isLoading";
-import IsError from "@/components/molecules/IsError";
+import isEmail from "validator/lib/isEmail";
+import NoticeContext from "@/api/NoticeContext";
 
 const SignUp = () => {
+  const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const router = useRouter();
   const [firstName, setFirstName] = useState('')
   const [lastName, setLastName] = useState('')
@@ -38,19 +40,29 @@ const SignUp = () => {
       onSuccess: (data) => {
         router.push("/login");
       },
-      onError(err, variables, onMutateValue) {
-        alert(err)
+      onError(error) {
+        if (error?.status === 422){
+          setResponseMessage("Пароли не совпадают");
+        }
+        setSeverity("error");
+        handleClick();
       }
     }
   );
 
  const  handleSubmit = (event) => {
-    event.preventDefault();
-    mutateAsync(newUser)
+   event.preventDefault();
+   if(isEmail(email)){
+     mutateAsync(newUser)
+   } else {
+     setResponseMessage("Пожалуйста, введите корректный адрес электронной почты");
+     setSeverity("warning");
+     handleClick();
+   }
   }
 
   if (isLoading) return (<IsLoading/>);
-  if (isError) return (<IsError message={error}/>);
+  //if (isError) return (<IsError message={error.message}/>);
 
   return (
     <SignupPage

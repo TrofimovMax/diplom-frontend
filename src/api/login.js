@@ -13,6 +13,9 @@ export const loginRequest = async (params) => {
     );
     return response;
   } catch (error) {
-    throw Error
+    throw {
+      code: error.code,
+      message: error.message
+    }
   }
 };
