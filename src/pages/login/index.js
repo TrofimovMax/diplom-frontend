@@ -55,7 +55,6 @@ const Login = () => {
   };
 
   if (isLoading) return (<IsLoading/>);
-  if (isError) return (<IsError/>)
 
   return (
     <LoginPage

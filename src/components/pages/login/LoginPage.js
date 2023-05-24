@@ -1,9 +1,8 @@
 import React from 'react';
 import {Box, Button, Checkbox, FormControlLabel, Grid, Container, TextField} from "@mui/material";
 import TitleSection from "@/components/molecules/TitleSection";
-import IsError from "@/components/molecules/IsError";
 
-const LoginPage = ({ signIn, email, setEmail, password, setPassword,  isError}) => {
+const LoginPage = ({ signIn, email, setEmail, password, setPassword}) => {
   return (
     <Container sx={{
       minHeight: '80vh'
