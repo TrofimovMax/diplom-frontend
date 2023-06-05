@@ -10,12 +10,13 @@ const Edit = () => {
   const router = useRouter();
   const gymId = router.query.id;
   const { isLoading, isError, data, error} = useQuery(["gyms", gymId ], getByQueryKey);
+  const { isLoading: isLoadingAdmin, data: adminData } = useQuery(["admin"], getByQueryKey);
 
-  if (isLoading) return (<IsLoading/>)
+  if (isLoading && isLoadingAdmin) return (<IsLoading/>)
   if (isError) return (<IsError message={error.message}/>)
 
   return (
-    data?.data !== undefined?
+    data?.data !== undefined && adminData?.data?.status === 'ok'?
       (<EditGymPage
         data = {data?.data}
         router = {router}

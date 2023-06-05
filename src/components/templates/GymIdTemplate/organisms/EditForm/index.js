@@ -29,7 +29,6 @@ export const DAY_TITLE_MAP = {
 }
 
 export const EditForm = ({gym, gymId}) => {
-
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
   const [factorBooking, setFactorBooking] = useState(1);
   const [factorWishing, setFactorWishing] = useState(1);
@@ -97,33 +96,46 @@ export const EditForm = ({gym, gymId}) => {
   })
 
   const onSave = () => {
-    mutate({
-      title: gym.title,
-      address: gym.address,
-      hours: {
-        "mon": {
-          [startTimes['mon']]: endTime['mon']
-        },
-        "tue": {
-          [startTimes['tue']]: endTime['tue']
-        },
-        "wed": {
-          [startTimes['wed']]: endTime['wed']
-        },
-        "thu": {
-          [startTimes['thu']]: endTime['thu']
-        },
-        "fri": {
-          [startTimes['fri']]: endTime['fri']
-        },
-        "sat": {
-          [startTimes['sat']]: endTime['sat']
-        },
-        "sun": {
-          [startTimes['sun']]: endTime['sun']
-        },
+    let flag = true;
+    Object.keys(DAY_TITLE_MAP).map((key) => {
+      if (startTimes[key] > endTime[key]) {
+        flag = false
       }
-    })
+    });
+    if(flag) {
+      mutate({
+        title: gym.title,
+        address: gym.address,
+        hours: {
+          "mon": {
+            [startTimes['mon']]: endTime['mon']
+          },
+          "tue": {
+            [startTimes['tue']]: endTime['tue']
+          },
+          "wed": {
+            [startTimes['wed']]: endTime['wed']
+          },
+          "thu": {
+            [startTimes['thu']]: endTime['thu']
+          },
+          "fri": {
+            [startTimes['fri']]: endTime['fri']
+          },
+          "sat": {
+            [startTimes['sat']]: endTime['sat']
+          },
+          "sun": {
+            [startTimes['sun']]: endTime['sun']
+          },
+        }
+      })
+    } else {
+      setResponseMessage("Введенное расписание содержит ошибки, проверьте начало и конец рабочего дня");
+      setSeverity("error");
+      handleClick();
+    }
+    
   }
 
   const onGenerate = () => {
