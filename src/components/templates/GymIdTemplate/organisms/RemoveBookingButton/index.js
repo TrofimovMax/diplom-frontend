@@ -49,7 +49,6 @@ const RemoveBookingButton = ({ text, gymId,userId, getBookingIdByUserId, counter
       handleClick();
     }
   }
-  console.log(counter)
   if (counter === 0){
     return (
       <Button disabled variant="contained" color="error" startIcon={<DeleteIcon />} onClick={handleRemoveBook}>

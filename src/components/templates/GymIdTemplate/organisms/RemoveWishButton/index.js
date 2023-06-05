@@ -20,7 +20,7 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWis
       onSuccess: (data) => {
         setCounterWishes(counterWishes - 1);
         handleClick();
-        setResponseMessage("Your successfully remove your wishing from wish list!");
+        setResponseMessage("Вы успешно удалили это занятие из списка желаний.");
         setSeverity("success");
       },
       onError(err) {

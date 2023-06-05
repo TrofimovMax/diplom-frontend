@@ -54,7 +54,8 @@ export const CellForm = (
     isOpenGymByHour,
     userId,
     getBookingIdByUserId,
-    getWishingIdByUserId
+    getWishingIdByUserId,
+    wishDisebled
   }
 ) => {
   const [open, setOpen] = React.useState(false);
@@ -85,6 +86,7 @@ export const CellForm = (
   />;
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:
     null;
+
   const handleDialogOpen = () => {
     setOpen(true);
   };
@@ -234,7 +236,7 @@ export const CellForm = (
         <DialogActions>
           { deleteButton }
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Назад</Button>
-          <Button variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
+          <Button disabled={wishDisebled} variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
             {submitButtonText}
           </Button>
         </DialogActions>

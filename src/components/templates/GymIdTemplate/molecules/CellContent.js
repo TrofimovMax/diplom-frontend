@@ -3,8 +3,10 @@ import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import {CellForm} from "@/components/templates/GymIdTemplate/organisms/CellForm";
 import {
-  getEntityCountByTime, getEntityIdByUserId
+  getEntityCountByTime, getEntityIdByUserId, getEntityCountByUserId
 } from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+
+const MAX_WISHES = 7;
 
 const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, userId}) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, schedule);
@@ -14,6 +16,10 @@ const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, us
   const getWishingIdByUserId = (id) => {
     return getEntityIdByUserId(id, wishes, day, hour);
   }
+  const getWishingByUserId = (id) => {
+    return getEntityCountByUserId(id, wishes);
+  }
+  const wishDisebled = !isOpenGymByHour && getWishingByUserId(userId) > MAX_WISHES;
   const countWishes = !wishes.length? null: getEntityCountByTime(wishes, day, hour-1);
   const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
   const [counter, setCounter] = useState(count);
@@ -33,6 +39,7 @@ const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, us
                 userId = {userId}
                 getBookingIdByUserId = {getBookingIdByUserId}
                 getWishingIdByUserId = {getWishingIdByUserId}
+                wishDisebled = {wishDisebled}
       />
     </StyledTableCell>
   )
