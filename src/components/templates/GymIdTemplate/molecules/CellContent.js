@@ -8,8 +8,8 @@ import {
 
 const MAX_WISHES = 7;
 
-const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, userId}) => {
-  const isOpenGymByHour = hasHourInSchedule(day, hour, schedule);
+const CellContent = ({data, day, hour, bookings, wishes, userId}) => {
+  const isOpenGymByHour = hasHourInSchedule(day, hour, data?.schedule?.configuration?.raw?.hours);
   const getBookingIdByUserId = (id) => {
     return getEntityIdByUserId(id, bookings, day, hour);
   }
@@ -19,27 +19,28 @@ const CellContent = ({gymId, day, hour, capacity, bookings, wishes, schedule, us
   const getWishingByUserId = (id) => {
     return getEntityCountByUserId(id, wishes);
   }
-  const wishDisebled = !isOpenGymByHour && getWishingByUserId(userId) > MAX_WISHES;
+  const wishDisabled = !isOpenGymByHour && getWishingByUserId(userId) > MAX_WISHES;
   const countWishes = !wishes.length? null: getEntityCountByTime(wishes, day, hour-1);
   const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
   const [counter, setCounter] = useState(count);
   const [counterWishes, setCounterWishes] = useState(countWishes);
+
   return(
     <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
                      component="th" scope="row">
-      <CellForm date = {day.substring(4)}
-                hour = {hour}
-                gymId = {gymId}
-                capacity = {capacity}
-                counter = {counter}
-                setCounter = {setCounter}
-                counterWishes = {countWishes}
-                setCounterWishes = {setCounterWishes}
-                isOpenGymByHour = {isOpenGymByHour}
-                userId = {userId}
-                getBookingIdByUserId = {getBookingIdByUserId}
-                getWishingIdByUserId = {getWishingIdByUserId}
-                wishDisebled = {wishDisebled}
+      <CellForm
+          data ={data}
+          date = {day.substring(4)}
+          hour = {hour}
+          counter = {counter}
+          setCounter = {setCounter}
+          counterWishes = {countWishes}
+          setCounterWishes = {setCounterWishes}
+          isOpenGymByHour = {isOpenGymByHour}
+          userId = {userId}
+          getBookingIdByUserId = {getBookingIdByUserId}
+          getWishingIdByUserId = {getWishingIdByUserId}
+          wishDisabled = {wishDisabled}
       />
     </StyledTableCell>
   )

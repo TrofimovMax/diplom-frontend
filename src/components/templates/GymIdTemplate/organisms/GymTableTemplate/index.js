@@ -16,18 +16,21 @@ import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
 import CellEditContent from "@/components/templates/GymIdTemplate/molecules/CellEditContent";
+import {useRouter} from "next/router";
 
-const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
+const GymTable = ({ data, isEdit, newSchedule}) => {
+  const router = useRouter();
+  const { id } = router.query;
   const theme = useTheme()
   const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
   const tableWidth = isMobile? 1200: 320;
 
-  const { isLoading, isError, data, error } = useQuery(["gyms", gymId, "bookings" ], getByQueryKey);
-  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey);
-  const { data: userData } = useQuery(["current_user"], getByQueryKey);
+  const { isLoading, isError, data: dataBookings, error } = useQuery(["gyms", id, "bookings" ], getByQueryKey,  {enabled: !!id,retry:2});
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", id, "wishes" ], getByQueryKey, {enabled: !!id,retry:2});
+  const { data: userData } = useQuery(["current_user"], getByQueryKey, {retry:1});
 
   const userId = userData?.data?.id || null;
-  const bookings = data?.data || [];
+  const bookings = dataBookings?.data || [];
   const wishes = dataWishes?.data || [];
   const message = error?.message || errorWish?.message;
 
@@ -40,7 +43,7 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
         <TableHead>
           <TableRow>
             <StyledTableCell>
-              {address}
+              {data?.address}
             </StyledTableCell>
             {
               hours.map(hour => {
@@ -62,15 +65,12 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
                   if (isEdit){
                     return (
                       <CellEditContent
-                        userId = {userId}
                         key = {hour}
-                        gymId = {gymId}
                         day = {day}
                         hour = {hour}
-                        capacity = {capacity}
                         bookings = {bookings}
                         wishes = {wishes}
-                        schedule = {raw}
+                        data ={data}
                         newSchedule={newSchedule}
                       />
                     )
@@ -80,13 +80,11 @@ const GymTable = ({address, gymId, raw, capacity, isEdit, newSchedule}) => {
                       <CellContent
                         userId = {userId}
                         key = {hour}
-                        gymId = {gymId}
                         day = {day}
                         hour = {hour}
-                        capacity = {capacity}
                         bookings = {bookings}
                         wishes = {wishes}
-                        schedule = {raw}
+                        data = {data}
                       />
                     )
                   }

@@ -32,16 +32,13 @@ const GymIdPage = ({ data, router, gymId}) => {
         </>
         {
           (() => {
-            if(data?.id) {
+            if(data) {
               return (
                 <Grid item xs={12} sx={{
                   marginTop:2
                 }}>
                   <GymTable
-                    gymId={data?.id}
-                    capacity={data?.capacity}
-                    address={data?.address}
-                    raw={data?.schedule?.configuration?.raw?.hours}
+                    data = {data}
                     isEdit = {isEdit}
                   />
                 </Grid>

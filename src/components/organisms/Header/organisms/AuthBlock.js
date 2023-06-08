@@ -1,30 +1,27 @@
 "use client";
 
 import React, {useContext} from 'react';
-import {Button, Grid, Typography} from "@mui/material";
+import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
-import {signOutRequest} from "@/api/sign-out";
 import {useMutation} from "react-query";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import NoticeContext from "@/api/NoticeContext";
+import axiosClient from "@/api/axiosClient";
 
 const buttonStyle = { color: '#000', fontSize: {xs: 10, md: 14}}
 
 const AuthBlock = () => {
   const { handleClick } = useContext(NoticeContext);
-  const signOutHandler = async () => {
-    return await signOutRequest()
-  };
 
   const { isError, error, isLoading, mutateAsync} = useMutation(
     "signOut",
-    signOutHandler,
+    () => {
+        axiosClient.delete(`/logout`);
+    },
     {
       onSuccess: (data) => {
-        if (data?.status === 200){
           localStorage.removeItem("token");
-        }
       },
       onError(err) {
         localStorage.removeItem("token");

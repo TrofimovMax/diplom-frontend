@@ -2,6 +2,9 @@ import keys from "lodash/keys";
 import moment from "moment";
 
 export const hasHourInSchedule = (dayDate, hour, schedule) => {
+  if(!schedule){
+    return false;
+  }
   /*
   dayDate = 'Mon 10/04' ...
   day = 'mon'

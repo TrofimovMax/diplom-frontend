@@ -41,7 +41,7 @@ const hasHourInNewSchedule = (dayDate, hour, newSchedule) => {
   }
   return false;
 }
-const CellEditContent = ({day, hour, capacity, bookings, wishes, schedule, newSchedule}) => {
+const CellEditContent = ({data, day, hour, bookings, wishes, newSchedule}) => {
   const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
   const countWishes = wishes? getEntityCountByTime(wishes, day, hour-1): null;
   

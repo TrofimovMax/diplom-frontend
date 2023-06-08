@@ -43,10 +43,9 @@ const theme = createTheme({
 
 export const CellForm = (
   {
+    data,
     date,
     hour,
-    gymId,
-    capacity,
     counter,
     setCounter,
     counterWishes,
@@ -55,13 +54,15 @@ export const CellForm = (
     userId,
     getBookingIdByUserId,
     getWishingIdByUserId,
-    wishDisebled
+    wishDisabled
   }
 ) => {
   const [open, setOpen] = React.useState(false);
 
   const start_at = (hour - 1) + ':00';
   const end_at = hour + ':00';
+  const gymId = data?.id;
+  const capacity = data?.capacity;
 
   const dialogTitle = isOpenGymByHour ? `Вы хотите записаться ${date} с ${start_at} до ${end_at}?`:
     `Вы хотели бы заниматься ${date} с ${start_at} до ${end_at}?`;
@@ -132,7 +133,6 @@ export const CellForm = (
       setSeverity("info");
       handleClick();
     }
-
   };
 
   const { mutateAsync } = useMutation(["create_wishes"], (params) => {
@@ -236,7 +236,7 @@ export const CellForm = (
         <DialogActions>
           { deleteButton }
           <Button variant="outlined" color="error" onClick={handleDialogClose}>Назад</Button>
-          <Button disabled={wishDisebled} variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
+          <Button disabled={wishDisabled} variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
             {submitButtonText}
           </Button>
         </DialogActions>
