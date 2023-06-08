@@ -28,30 +28,25 @@ export const DAY_TITLE_MAP = {
   "sun": "Воскресенье"
 }
 
-export const EditForm = ({gym, gymId}) => {
+export const EditForm = ({data, gymId}) => {
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
   const [factorBooking, setFactorBooking] = useState(1);
   const [factorWishing, setFactorWishing] = useState(1);
   const [factorMaxHour, setFactorMaxHour] = useState(8);
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const {isLoading, isError, data, error: errorBooking} = useQuery(["gyms", gymId, "bookings"], getByQueryKey);
-  const {
-    isLoading: loadingWishes,
-    isError: isErrorWishes,
-    data: dataWishes,
-    error: errorWishes
-  } = useQuery(["gyms", gymId, "wishes"], getByQueryKey);
+  const { isLoading, isError, data: dataBookings, error:errorBooking} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey,  {enabled: !!gymId,retry:2});
+  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey, {enabled: !!gymId,retry:2});
 
-  if (gym === undefined) return <IsError/>
-  const raw = {...gym?.schedule?.configuration?.raw?.hours};
+  if (data === undefined) return <IsError/>
+  const raw = {...data?.schedule?.configuration?.raw?.hours};
   let array = [];
   raw !== undefined ? array = Object.entries(raw) : array = [];
-  const capacity = gym?.capacity;
+  const capacity = data?.capacity;
   const isEdit = true;
 
-  const message = errorBooking?.message || errorWishes?.message || "Что-то пошло не так.";
-  const bookings = data?.data || [];
+  const message = errorBooking?.message || errorWish?.message || "Что-то пошло не так.";
+  const bookings = dataBookings?.data || [];
   const wishes = dataWishes?.data || [];
 
   const [startTimes, setStartTimes] = useState({
@@ -104,8 +99,8 @@ export const EditForm = ({gym, gymId}) => {
     });
     if(flag) {
       mutate({
-        title: gym.title,
-        address: gym.address,
+        title: data.title,
+        address: data.address,
         hours: {
           "mon": {
             [startTimes['mon']]: endTime['mon']
@@ -216,8 +211,7 @@ export const EditForm = ({gym, gymId}) => {
           gymId ?
             <GymTable
               gymId={gymId}
-              capacity={capacity}
-              address={gym?.address}
+              data={data}
               raw={raw}
               isEdit={isEdit}
               newSchedule={generatedSchedule}

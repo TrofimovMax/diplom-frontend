@@ -42,6 +42,7 @@ const hasHourInNewSchedule = (dayDate, hour, newSchedule) => {
   return false;
 }
 const CellEditContent = ({data, day, hour, bookings, wishes, newSchedule}) => {
+  const schedule = data?.schedule?.configuration?.raw?.hours;
   const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
   const countWishes = wishes? getEntityCountByTime(wishes, day, hour-1): null;
   
@@ -94,7 +95,7 @@ const CellEditContent = ({data, day, hour, bookings, wishes, newSchedule}) => {
           >
             <Grid item xs>
               <Typography variant="caption">
-                {count}/{capacity}
+                {count}/{data?.capacity}
               </Typography>
             </Grid>
           </Grid>

@@ -66,11 +66,11 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
                     return (
                       <CellEditContent
                         key = {hour}
+                        data = {data}
                         day = {day}
                         hour = {hour}
                         bookings = {bookings}
                         wishes = {wishes}
-                        data ={data}
                         newSchedule={newSchedule}
                       />
                     )

@@ -33,7 +33,7 @@ export const EditGymPage = ({ data, router, gymId }) => {
             gymId !== undefined ?
             <EditForm
               gymId = {gymId}
-              gym = {data}
+              data = {data}
             /> :
               <IsLoading />
            }
