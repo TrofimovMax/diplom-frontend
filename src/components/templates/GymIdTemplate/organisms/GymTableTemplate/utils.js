@@ -19,13 +19,17 @@ export const hasHourInSchedule = (dayDate, hour, schedule) => {
   }
   */
   const day = dayDate.substring(0,3).toLowerCase(); // change this str 'Mon 10/04' to 'mon'
-  const start = keys(schedule[day])[0]; // key - fri
-  const obj = schedule[day]; //object day by key - { 12:00: '20:00' }
-  const end = obj[start]; // value of key
-  if(hour > Number(start.split(/:\d\d/)[0]) && hour <= Number(end.split(/:\d\d/)[0])){
-    return true
-  }
-  return false
+  const scheduleByDay =  keys(schedule[day]); // key - fri
+  let response = false;
+  scheduleByDay.map(item => {
+    const startInterval = Number(item.split(/:\d\d/)[0]);
+    const endInterval =  Number(schedule[day][item].split(/:\d\d/)[0]);
+    if(endInterval - hour >= 0 && endInterval - hour < endInterval - startInterval){
+      response = true;
+    }
+  })
+
+  return response
 }
 
 export const createWeekSchedule = () => {
