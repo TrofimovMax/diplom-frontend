@@ -1,8 +1,10 @@
 import React, {useContext, useState} from 'react';
-import {Grid, Button} from "@mui/material";
-import {times} from "lodash";
+import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
+import {times, keys} from "lodash";
 import {useMutation, useQuery} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
+import ClearIcon from '@mui/icons-material/Clear';
 import IsError from "@/components/molecules/IsError";
 import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import IsLoading from "@/components/molecules/isLoading";
@@ -29,45 +31,55 @@ export const DAY_TITLE_MAP = {
 }
 
 export const EditForm = ({data, gymId}) => {
+  const scheduleObject = {...data?.schedule?.configuration?.raw?.hours};
   const [generatedSchedule, SetGeneratedSchedule] = useState(null);
   const [factorBooking, setFactorBooking] = useState(1);
   const [factorWishing, setFactorWishing] = useState(1);
   const [factorMaxHour, setFactorMaxHour] = useState(8);
+
+  const [sT, setST] = useState(
+      [
+        {"mon": scheduleObject['mon'],},
+        {"tue": scheduleObject['tue'],},
+        {"wed": scheduleObject['wed'],},
+        {"thu": scheduleObject['thu'],},
+        {"fri": scheduleObject['fri'],},
+        {"sat": scheduleObject['sat'],},
+        {"sun": scheduleObject['sun'],},
+      ]
+      )
+  const [startTimes, setStartTimes] = useState({
+    "mon": getDayStartTime(scheduleObject['mon']),
+    "tue": getDayStartTime(scheduleObject['tue']),
+    "wed": getDayStartTime(scheduleObject['wed']),
+    "thu": getDayStartTime(scheduleObject['thu']),
+    "fri": getDayStartTime(scheduleObject['fri']),
+    "sat": getDayStartTime(scheduleObject['sat']),
+    "sun": getDayStartTime(scheduleObject['sun']),
+  });
+
+  const [endTime, setEndTime] = useState({
+    "mon": getDayEndTime(scheduleObject['mon']),
+    "tue": getDayEndTime(scheduleObject['tue']),
+    "wed": getDayEndTime(scheduleObject['wed']),
+    "thu": getDayEndTime(scheduleObject['thu']),
+    "fri": getDayEndTime(scheduleObject['fri']),
+    "sat": getDayEndTime(scheduleObject['sat']),
+    "sun": getDayEndTime(scheduleObject['sun']),
+  });
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
+
+  let scheduleArray = [];
+  Object.keys(scheduleObject).length !== 0 ? scheduleArray = Object.entries(scheduleObject) : scheduleArray = [];
+  const capacity = data?.capacity;
+  const isEdit = true;
 
   const { isLoading, isError, data: dataBookings, error:errorBooking} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey,  {enabled: !!gymId,retry:2});
   const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey, {enabled: !!gymId,retry:2});
 
-  if (data === undefined) return <IsError/>
-  const raw = {...data?.schedule?.configuration?.raw?.hours};
-  let array = [];
-  raw !== undefined ? array = Object.entries(raw) : array = [];
-  const capacity = data?.capacity;
-  const isEdit = true;
-
   const message = errorBooking?.message || errorWish?.message || "Что-то пошло не так.";
   const bookings = dataBookings?.data || [];
   const wishes = dataWishes?.data || [];
-
-  const [startTimes, setStartTimes] = useState({
-    "mon": getDayStartTime(raw['mon']),
-    "tue": getDayStartTime(raw['tue']),
-    "wed": getDayStartTime(raw['wed']),
-    "thu": getDayStartTime(raw['thu']),
-    "fri": getDayStartTime(raw['fri']),
-    "sat": getDayStartTime(raw['sat']),
-    "sun": getDayStartTime(raw['sun']),
-  });
-
-  const [endTime, setEndTime] = useState({
-    "mon": getDayEndTime(raw['mon']),
-    "tue": getDayEndTime(raw['tue']),
-    "wed": getDayEndTime(raw['wed']),
-    "thu": getDayEndTime(raw['thu']),
-    "fri": getDayEndTime(raw['fri']),
-    "sat": getDayEndTime(raw['sat']),
-    "sun": getDayEndTime(raw['sun']),
-  });
 
   const {mutate} = useMutation(["update schedule"], (params) => {
     axiosClient.patch(`/gyms/${gymId}`, params, {
@@ -134,7 +146,7 @@ export const EditForm = ({data, gymId}) => {
   }
 
   const onGenerate = () => {
-    return SetGeneratedSchedule(GreedyAlgorithm(raw, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour));
+    return SetGeneratedSchedule(GreedyAlgorithm(scheduleObject, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour));
   }
 
   const handleChangeStartTimes = (event, day) => {
@@ -149,19 +161,60 @@ export const EditForm = ({data, gymId}) => {
   if (isError || isErrorWishes) return (<IsError message={message}/>)
 
   return (
-    <Grid container spacing={{xs: 2, md: 3}} columns={{xs: 4, sm: 8, md: 12}}>
+    <Grid container
+          spacing={{xs: 2, md: 3}}
+    >
       {
-        array.map(item => {
+        sT.map((days) => {
           return (
-            <SelectorIntervalHours
-              key={item}
-              item={item}
-              handleChange={handleChange}
-              handleChangeStartTimes={handleChangeStartTimes}
-              startTimes={startTimes}
-              endTime={endTime}
-              hours={hours}
-            />
+              <>
+                <Grid
+                    item
+                    container
+                    key={days}
+                    xs={12} md={4} lg={3}
+                    spacing={1}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
+                >
+
+                  <Grid item xs={12} sx={{textAlign:'center'}}>
+                    <FormControl>
+                      <Typography>{DAY_TITLE_MAP[getDayStartTime(days)]}</Typography>
+                    </FormControl>
+                  </Grid>
+                  <Grid item>
+                    <Fab color="primary" aria-label="add" size='small'>
+                      <AddIcon/>
+                    </Fab>
+                  </Grid>
+                  <Grid item xs={10} md={4} lg={3} sx={{minWidth: '180px'}}>
+                    {
+                      _.keys(getDayEndTime(days)).map(hour => {
+                        return (
+                            <SelectorIntervalHours
+                                key={hour}
+                                days={days}
+                                handleChange={handleChange}
+                                handleChangeStartTimes={handleChangeStartTimes}
+                                startTimes={startTimes}
+                                endTime={endTime}
+                                hour = {hour}
+                                hours={hours}
+                                schedule = {getDayEndTime(days)}
+                            />
+                        )
+                      })
+                    }
+                  </Grid>
+                  <Grid item>
+                    <Fab color="error" aria-label="clear" size='small'>
+                      <ClearIcon/>
+                    </Fab>
+                  </Grid>
+                </Grid>
+              </>
           )
         })
       }
@@ -212,7 +265,7 @@ export const EditForm = ({data, gymId}) => {
             <GymTable
               gymId={gymId}
               data={data}
-              raw={raw}
+              scheduleObject={scheduleObject}
               isEdit={isEdit}
               newSchedule={generatedSchedule}
             /> :

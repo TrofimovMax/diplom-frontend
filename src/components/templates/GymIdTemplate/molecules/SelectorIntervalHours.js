@@ -1,21 +1,16 @@
 import React from 'react';
-import {Box, FormControl, Grid, InputLabel, MenuItem, Select, Typography} from "@mui/material";
-import {DAY_TITLE_MAP} from "@/components/templates/GymIdTemplate/organisms/EditForm";
-const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endTime, startTimes,hours}) => {
+import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+const SelectorIntervalHours = ({days, handleChange, handleChangeStartTimes, endTime, startTimes,hours, hour, schedule}) => {
   return (
-    <Grid item key={item} xs={12} sm={4} md={3}>
       <Box m={1}>
-        <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
-          <Typography>{DAY_TITLE_MAP[item[0]]}</Typography>
-        </FormControl>
-        <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
+        <FormControl fullWidth xs={2} sx={{ mb: 2 }}>
           <InputLabel id="demo-simple-select-label">С</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={startTimes[item[0]]}
+            value={hour}
             label="endTime"
-            onChange={(e) => handleChangeStartTimes(e, item[0]) }
+            onChange={(e) => handleChangeStartTimes(e, hour) }
           >
             {
               hours.map(time => {
@@ -26,14 +21,14 @@ const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endT
             }
           </Select>
         </FormControl>
-        <FormControl fullWidth xs={4} sx={{ mb: 2 }}>
+        <FormControl fullWidth xs={2} sx={{ mb: 2 }}>
           <InputLabel id="demo-simple-select-label">До</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            value={endTime[item[0]]}
+            value={schedule[hour]}
             label="endTime"
-            onChange={(e) => handleChange(e, item[0])}
+            onChange={(e) => handleChange(e, hour)}
           >
             {
               hours.map(time => {
@@ -45,7 +40,6 @@ const SelectorIntervalHours = ({item, handleChange, handleChangeStartTimes, endT
           </Select>
         </FormControl>
       </Box>
-    </Grid>
   );
 };
 
