@@ -2,9 +2,9 @@ import moment from "moment/moment";
 import filter from "lodash/filter";
 import { first, keys, values } from "lodash";
 import { days } from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
-export const getDayStartTime = (day) => first(keys(day))
+export const getFirstKeyByObject = (day) => first(keys(day))
 
-export const getDayEndTime = (day) => first(values(day))
+export const getFirstValueByObject = (day) => first(values(day))
 
 export const getEntityByTime = (entityWeeks, day, hour) => {
   const hourFormat = moment(hour, 'HH:mm:ss').format('HH:mm:ss')

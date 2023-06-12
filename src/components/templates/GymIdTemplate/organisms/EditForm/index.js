@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
-import {times, keys} from "lodash";
+import _, {times, keys, omitBy, startsWith} from "lodash";
 import {useMutation, useQuery} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
@@ -11,7 +11,7 @@ import IsLoading from "@/components/molecules/isLoading";
 import SelectorIntervalHours from "@/components/templates/GymIdTemplate/molecules/SelectorIntervalHours";
 import {GreedyAlgorithm} from "@/api/GreedyAlgorithm";
 import {getByQueryKey} from "@/api/getByQueryKey";
-import {getDayEndTime, getDayStartTime} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+import {getFirstValueByObject, getFirstKeyByObject} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import axiosClient from "@/api/axiosClient";
 import NoticeContext from "@/api/NoticeContext";
 import SelectorFactorByEntity
@@ -37,7 +37,7 @@ export const EditForm = ({data, gymId}) => {
   const [factorWishing, setFactorWishing] = useState(1);
   const [factorMaxHour, setFactorMaxHour] = useState(8);
 
-  const [sT, setST] = useState(
+  const [scheduleState, setScheduleState] = useState(
       [
         {"mon": scheduleObject['mon'],},
         {"tue": scheduleObject['tue'],},
@@ -49,23 +49,23 @@ export const EditForm = ({data, gymId}) => {
       ]
       )
   const [startTimes, setStartTimes] = useState({
-    "mon": getDayStartTime(scheduleObject['mon']),
-    "tue": getDayStartTime(scheduleObject['tue']),
-    "wed": getDayStartTime(scheduleObject['wed']),
-    "thu": getDayStartTime(scheduleObject['thu']),
-    "fri": getDayStartTime(scheduleObject['fri']),
-    "sat": getDayStartTime(scheduleObject['sat']),
-    "sun": getDayStartTime(scheduleObject['sun']),
+    "mon": getFirstKeyByObject(scheduleObject['mon']),
+    "tue": getFirstKeyByObject(scheduleObject['tue']),
+    "wed": getFirstKeyByObject(scheduleObject['wed']),
+    "thu": getFirstKeyByObject(scheduleObject['thu']),
+    "fri": getFirstKeyByObject(scheduleObject['fri']),
+    "sat": getFirstKeyByObject(scheduleObject['sat']),
+    "sun": getFirstKeyByObject(scheduleObject['sun']),
   });
 
   const [endTime, setEndTime] = useState({
-    "mon": getDayEndTime(scheduleObject['mon']),
-    "tue": getDayEndTime(scheduleObject['tue']),
-    "wed": getDayEndTime(scheduleObject['wed']),
-    "thu": getDayEndTime(scheduleObject['thu']),
-    "fri": getDayEndTime(scheduleObject['fri']),
-    "sat": getDayEndTime(scheduleObject['sat']),
-    "sun": getDayEndTime(scheduleObject['sun']),
+    "mon": getFirstValueByObject(scheduleObject['mon']),
+    "tue": getFirstValueByObject(scheduleObject['tue']),
+    "wed": getFirstValueByObject(scheduleObject['wed']),
+    "thu": getFirstValueByObject(scheduleObject['thu']),
+    "fri": getFirstValueByObject(scheduleObject['fri']),
+    "sat": getFirstValueByObject(scheduleObject['sat']),
+    "sun": getFirstValueByObject(scheduleObject['sun']),
   });
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
@@ -148,13 +148,28 @@ export const EditForm = ({data, gymId}) => {
   const onGenerate = () => {
     return SetGeneratedSchedule(GreedyAlgorithm(scheduleObject, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour));
   }
-
-  const handleChangeStartTimes = (event, day) => {
-    setStartTimes({...startTimes, [day]: event.target.value});
-  };
-
-  const handleChange = (event, day) => {
-    setEndTime({...endTime, [day]: event.target.value});
+  const handleChange = (event, day, key, value, flag=false) => {
+    const newStartTime = event.target.value;
+    const thisDay = getFirstKeyByObject(day)
+    const result = scheduleState.map(days => {
+      const schedule = days[getFirstKeyByObject(day)];
+      const filteredSchedule = schedule? Object.keys(schedule).reduce((result, currentKey) =>{
+        if(currentKey !== key) {
+          result[currentKey] = schedule[currentKey];
+        }
+        return result;
+      }, {}): null;
+      return filteredSchedule;
+    }).filter(item => item !== null)
+    const newScheduleByDay = flag? _.merge(result[0], {[key]: newStartTime}):
+        _.merge(result[0], {[newStartTime]: value});
+    const newScheduleByWeek = scheduleState.map(day => {
+      if(day[thisDay]){
+        return {[thisDay]: newScheduleByDay}
+      }
+      return day;
+    })
+    setScheduleState(newScheduleByWeek)
   };
 
   if (isLoading && loadingWishes) return (<IsLoading/>)
@@ -165,7 +180,7 @@ export const EditForm = ({data, gymId}) => {
           spacing={{xs: 2, md: 3}}
     >
       {
-        sT.map((days) => {
+        scheduleState.map((days) => {
           return (
               <>
                 <Grid
@@ -181,7 +196,7 @@ export const EditForm = ({data, gymId}) => {
 
                   <Grid item xs={12} sx={{textAlign:'center'}}>
                     <FormControl>
-                      <Typography>{DAY_TITLE_MAP[getDayStartTime(days)]}</Typography>
+                      <Typography>{DAY_TITLE_MAP[getFirstKeyByObject(days)]}</Typography>
                     </FormControl>
                   </Grid>
                   <Grid item>
@@ -191,18 +206,15 @@ export const EditForm = ({data, gymId}) => {
                   </Grid>
                   <Grid item xs={10} md={4} lg={3} sx={{minWidth: '180px'}}>
                     {
-                      _.keys(getDayEndTime(days)).map(hour => {
+                      _.keys(getFirstValueByObject(days)).map(hour => {
                         return (
                             <SelectorIntervalHours
                                 key={hour}
                                 days={days}
                                 handleChange={handleChange}
-                                handleChangeStartTimes={handleChangeStartTimes}
-                                startTimes={startTimes}
-                                endTime={endTime}
                                 hour = {hour}
                                 hours={hours}
-                                schedule = {getDayEndTime(days)}
+                                schedule = {getFirstValueByObject(days)}
                             />
                         )
                       })

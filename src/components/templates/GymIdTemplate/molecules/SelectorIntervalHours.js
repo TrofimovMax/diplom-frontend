@@ -1,7 +1,8 @@
 import React from 'react';
 import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-const SelectorIntervalHours = ({days, handleChange, handleChangeStartTimes, endTime, startTimes,hours, hour, schedule}) => {
-  return (
+const SelectorIntervalHours = ({days, handleChange, hours, hour, schedule}) => {
+    const isEndTime = true;
+    return (
       <Box m={1}>
         <FormControl fullWidth xs={2} sx={{ mb: 2 }}>
           <InputLabel id="demo-simple-select-label">С</InputLabel>
@@ -10,7 +11,7 @@ const SelectorIntervalHours = ({days, handleChange, handleChangeStartTimes, endT
             id="demo-simple-select"
             value={hour}
             label="endTime"
-            onChange={(e) => handleChangeStartTimes(e, hour) }
+            onChange={(e) => handleChange(e,days, hour, schedule[hour]) }
           >
             {
               hours.map(time => {
@@ -28,7 +29,7 @@ const SelectorIntervalHours = ({days, handleChange, handleChangeStartTimes, endT
             id="demo-simple-select"
             value={schedule[hour]}
             label="endTime"
-            onChange={(e) => handleChange(e, hour)}
+            onChange={(e) => handleChange(e,days, hour, schedule[hour], isEndTime)}
           >
             {
               hours.map(time => {
