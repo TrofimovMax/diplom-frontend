@@ -174,18 +174,15 @@ export const EditForm = ({data, gymId}) => {
           spacing={{xs: 2, md: 3}}
     >
       {
-        scheduleState.map((days) => {
+        scheduleState.map((days, i) => {
           return (
-              <>
+              <Grid item container key={i} xs={12} md={4} lg={3}
+                    spacing={1}>
                 <Grid
                     item
                     container
-                    key={days}
                     xs={12} md={4} lg={3}
                     spacing={1}
-                    direction="row"
-                    justifyContent="center"
-                    alignItems="center"
                 >
 
                   <Grid item xs={12} sx={{textAlign:'center'}}>
@@ -193,34 +190,49 @@ export const EditForm = ({data, gymId}) => {
                       <Typography>{DAY_TITLE_MAP[getFirstKeyByObject(days)]}</Typography>
                     </FormControl>
                   </Grid>
-                  <Grid item>
-                    <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
-                      <AddIcon/>
-                    </Fab>
-                  </Grid>
-                  <Grid item xs={10} md={4} lg={3} sx={{minWidth: '180px'}}>
-                    {
-                      _.keys(getFirstValueByObject(days)).map(hour => {
-                        return (
-                            <SelectorIntervalHours
-                                key={hour}
-                                days={days}
-                                handleChange={handleChange}
-                                hour = {hour}
-                                hours={hours}
-                                schedule = {getFirstValueByObject(days)}
-                            />
-                        )
-                      })
-                    }
-                  </Grid>
-                  <Grid item>
-                    <Fab color="error" aria-label="clear" size='small' onClick={()=> deleteScheduleInterval(days)}>
-                      <ClearIcon/>
-                    </Fab>
+                  <Grid container item direction="row"
+                        justifyContent="center"
+                        alignItems="center"
+                        xs={12} md={4} lg={3}
+                  >
+                    <Grid item>
+                      <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
+                        <AddIcon/>
+                      </Fab>
+                    </Grid>
+                    <Grid item container direction="column"
+                          justifyContent="center"
+                          alignItems="center"
+                    xs={10} md={4} lg={3}>
+                      {
+                        _.keys(getFirstValueByObject(days)).map(hour => {
+                          return (
+                              <Grid
+                                  key={hour}
+                                  container
+                                  item
+                                  xs={10} md={4} lg={3} sx={{minWidth: '180px'}}
+                              >
+                                <SelectorIntervalHours
+                                    days={days}
+                                    handleChange={handleChange}
+                                    hour = {hour}
+                                    hours={hours}
+                                    schedule = {getFirstValueByObject(days)}
+                                />
+                              </Grid>
+                          )
+                        })
+                      }
+                    </Grid>
+                    <Grid item>
+                      <Fab color="error" aria-label="clear" size='small' onClick={()=> deleteScheduleInterval(days)}>
+                        <ClearIcon/>
+                      </Fab>
+                    </Grid>
                   </Grid>
                 </Grid>
-              </>
+              </Grid>
           )
         })
       }

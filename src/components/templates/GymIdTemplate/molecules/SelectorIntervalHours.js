@@ -1,9 +1,9 @@
 import React from 'react';
-import {Box, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
+import {Grid, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 const SelectorIntervalHours = ({days, handleChange, hours, hour, schedule}) => {
     const isEndTime = true;
     return (
-      <Box m={1}>
+      <Grid item m={1}>
         <FormControl fullWidth xs={2} sx={{ mb: 2 }}>
           <InputLabel id="demo-simple-select-label">С</InputLabel>
           <Select
@@ -40,7 +40,7 @@ const SelectorIntervalHours = ({days, handleChange, hours, hour, schedule}) => {
             }
           </Select>
         </FormControl>
-      </Box>
+      </Grid>
   );
 };
 
