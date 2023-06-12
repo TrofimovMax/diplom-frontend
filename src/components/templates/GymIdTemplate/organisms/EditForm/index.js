@@ -74,8 +74,24 @@ export const EditForm = ({data, gymId}) => {
   const capacity = data?.capacity;
   const isEdit = true;
 
-  const { isLoading, isError, data: dataBookings, error:errorBooking} = useQuery(["gyms", gymId, "bookings" ], getByQueryKey,  {enabled: !!gymId,retry:2});
-  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", gymId, "wishes" ], getByQueryKey, {enabled: !!gymId,retry:2});
+  const {
+    isLoading,
+    isError,
+    data: dataBookings,
+    error: errorBooking
+  } = useQuery(
+      ["gyms", gymId, "bookings"],
+      getByQueryKey,
+      {enabled: !!gymId, retry: 2});
+  const {
+    isLoading: loadingWishes,
+    isError: isErrorWishes,
+    data: dataWishes,
+    error: errorWish
+  } = useQuery(
+      ["gyms", gymId, "wishes"],
+      getByQueryKey,
+      {enabled: !!gymId, retry: 2});
 
   const message = errorBooking?.message || errorWish?.message || "Что-то пошло не так.";
   const bookings = dataBookings?.data || [];
@@ -144,11 +160,27 @@ export const EditForm = ({data, gymId}) => {
     
   }
   const onGenerate = () => {
-    return SetGeneratedSchedule(GreedyAlgorithm(scheduleObject, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour));
+    return SetGeneratedSchedule(GreedyAlgorithm(
+        scheduleObject,
+        capacity,
+        bookings,
+        wishes,
+        factorBooking,
+        factorWishing,
+        factorMaxHour));
+  }
+
+  const addScheduleDayToScheduleWeek = (currentDay, schedule) => {
+    return scheduleState.map(item => {
+      if(item[currentDay]){
+        return {[currentDay]: schedule}
+      }
+      return item;
+    })
   }
   const handleChange = (event, day, key, value, flag=false) => {
     const newStartTime = event.target.value;
-    const thisDay = getFirstKeyByObject(day)
+    const currentDay = getFirstKeyByObject(day);
     const result = scheduleState.map(days => {
       const schedule = days[getFirstKeyByObject(day)];
       const filteredSchedule = schedule? Object.keys(schedule).reduce((result, currentKey) =>{
@@ -158,20 +190,25 @@ export const EditForm = ({data, gymId}) => {
         return result;
       }, {}): null;
       return filteredSchedule;
-    }).filter(item => item !== null)
+    }).filter(item => item !== null);
     const newScheduleByDay = flag? _.merge(result[0], {[key]: newStartTime}):
         _.merge(result[0], {[newStartTime]: value});
-    const newScheduleByWeek = scheduleState.map(day => {
-      if(day[thisDay]){
-        return {[thisDay]: newScheduleByDay}
-      }
-      return day;
-    })
-    setScheduleState(newScheduleByWeek)
+    const newScheduleByWeek = addScheduleDayToScheduleWeek(currentDay, newScheduleByDay);
+    setScheduleState(newScheduleByWeek);
   };
   const addScheduleInterval = (days) => {
-    const event = {target:{value: "25:00"}};
-    return handleChange(event, days, "24:00", "26:00")
+    const event = {target:{value: "23:00"}};
+    return handleChange(event, days, "24:00", "00:00")
+  }
+
+  const deleteScheduleInterval = (day) => {
+    const currentDay = getFirstKeyByObject(day);
+    const schedule = getFirstValueByObject(day);
+    const startsTime = Object.keys(schedule);
+    const lastField = startsTime[startsTime.length - 1];
+    delete schedule[lastField];
+    const newScheduleByWeek = addScheduleDayToScheduleWeek(currentDay, schedule);
+    setScheduleState(newScheduleByWeek);
   }
 
   if (isLoading && loadingWishes) return (<IsLoading/>)
@@ -223,7 +260,7 @@ export const EditForm = ({data, gymId}) => {
                     }
                   </Grid>
                   <Grid item>
-                    <Fab color="error" aria-label="clear" size='small'>
+                    <Fab color="error" aria-label="clear" size='small' onClick={()=> deleteScheduleInterval(days)}>
                       <ClearIcon/>
                     </Fab>
                   </Grid>
