@@ -101,7 +101,6 @@ export const EditForm = ({data, gymId}) => {
       handleClick();
     }
   })
-
   const onSave = () => {
     let flag = true;
     Object.keys(DAY_TITLE_MAP).map((key) => {
@@ -144,7 +143,6 @@ export const EditForm = ({data, gymId}) => {
     }
     
   }
-
   const onGenerate = () => {
     return SetGeneratedSchedule(GreedyAlgorithm(scheduleObject, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour));
   }
@@ -171,6 +169,10 @@ export const EditForm = ({data, gymId}) => {
     })
     setScheduleState(newScheduleByWeek)
   };
+  const addScheduleInterval = (days) => {
+    const event = {target:{value: "25:00"}};
+    return handleChange(event, days, "24:00", "26:00")
+  }
 
   if (isLoading && loadingWishes) return (<IsLoading/>)
   if (isError || isErrorWishes) return (<IsError message={message}/>)
@@ -200,7 +202,7 @@ export const EditForm = ({data, gymId}) => {
                     </FormControl>
                   </Grid>
                   <Grid item>
-                    <Fab color="primary" aria-label="add" size='small'>
+                    <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
                       <AddIcon/>
                     </Fab>
                   </Grid>
