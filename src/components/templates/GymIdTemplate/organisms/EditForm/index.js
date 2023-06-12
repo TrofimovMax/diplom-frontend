@@ -1,6 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
-import _, {times, keys, omitBy, startsWith} from "lodash";
+import _, {times} from "lodash";
 import {useMutation, useQuery} from "react-query";
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
@@ -48,25 +48,7 @@ export const EditForm = ({data, gymId}) => {
         {"sun": scheduleObject['sun'],},
       ]
       )
-  const [startTimes, setStartTimes] = useState({
-    "mon": getFirstKeyByObject(scheduleObject['mon']),
-    "tue": getFirstKeyByObject(scheduleObject['tue']),
-    "wed": getFirstKeyByObject(scheduleObject['wed']),
-    "thu": getFirstKeyByObject(scheduleObject['thu']),
-    "fri": getFirstKeyByObject(scheduleObject['fri']),
-    "sat": getFirstKeyByObject(scheduleObject['sat']),
-    "sun": getFirstKeyByObject(scheduleObject['sun']),
-  });
 
-  const [endTime, setEndTime] = useState({
-    "mon": getFirstValueByObject(scheduleObject['mon']),
-    "tue": getFirstValueByObject(scheduleObject['tue']),
-    "wed": getFirstValueByObject(scheduleObject['wed']),
-    "thu": getFirstValueByObject(scheduleObject['thu']),
-    "fri": getFirstValueByObject(scheduleObject['fri']),
-    "sat": getFirstValueByObject(scheduleObject['sat']),
-    "sun": getFirstValueByObject(scheduleObject['sun']),
-  });
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
   let scheduleArray = [];
@@ -119,38 +101,11 @@ export const EditForm = ({data, gymId}) => {
   })
   const onSave = () => {
     let flag = true;
-    Object.keys(DAY_TITLE_MAP).map((key) => {
-      if (startTimes[key] > endTime[key]) {
-        flag = false
-      }
-    });
     if(flag) {
       mutate({
         title: data.title,
         address: data.address,
-        hours: {
-          "mon": {
-            [startTimes['mon']]: endTime['mon']
-          },
-          "tue": {
-            [startTimes['tue']]: endTime['tue']
-          },
-          "wed": {
-            [startTimes['wed']]: endTime['wed']
-          },
-          "thu": {
-            [startTimes['thu']]: endTime['thu']
-          },
-          "fri": {
-            [startTimes['fri']]: endTime['fri']
-          },
-          "sat": {
-            [startTimes['sat']]: endTime['sat']
-          },
-          "sun": {
-            [startTimes['sun']]: endTime['sun']
-          },
-        }
+        hours: Object.assign({}, ...scheduleState),
       })
     } else {
       setResponseMessage("Введенное расписание содержит ошибки, проверьте начало и конец рабочего дня");
