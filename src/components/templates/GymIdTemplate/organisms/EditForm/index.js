@@ -112,7 +112,7 @@ export const EditForm = ({data, gymId}) => {
       setSeverity("error");
       handleClick();
     }
-    
+
   }
   const onGenerate = () => {
     return SetGeneratedSchedule(GreedyAlgorithm(
@@ -181,8 +181,10 @@ export const EditForm = ({data, gymId}) => {
                 <Grid
                     item
                     container
-                    xs={12} md={4} lg={3}
                     spacing={1}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
                 >
 
                   <Grid item xs={12} sx={{textAlign:'center'}}>
@@ -190,20 +192,19 @@ export const EditForm = ({data, gymId}) => {
                       <Typography>{DAY_TITLE_MAP[getFirstKeyByObject(days)]}</Typography>
                     </FormControl>
                   </Grid>
-                  <Grid container item direction="row"
+                  <Grid container item
+                        xs={12} md={4} lg={3}
+                        sx={{minWidth: '250px'}}
+                        direction="row"
                         justifyContent="center"
                         alignItems="center"
-                        xs={12} md={4} lg={3}
                   >
-                    <Grid item>
+                    <Grid item xs={3}>
                       <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
                         <AddIcon/>
                       </Fab>
                     </Grid>
-                    <Grid item container direction="column"
-                          justifyContent="center"
-                          alignItems="center"
-                    xs={10} md={4} lg={3}>
+                    <Grid item container xs={6}>
                       {
                         _.keys(getFirstValueByObject(days)).map(hour => {
                           return (
@@ -211,7 +212,7 @@ export const EditForm = ({data, gymId}) => {
                                   key={hour}
                                   container
                                   item
-                                  xs={10} md={4} lg={3} sx={{minWidth: '180px'}}
+
                               >
                                 <SelectorIntervalHours
                                     days={days}
@@ -225,7 +226,7 @@ export const EditForm = ({data, gymId}) => {
                         })
                       }
                     </Grid>
-                    <Grid item>
+                    <Grid item xs={3} sx={{paddingLeft: 7}}>
                       <Fab color="error" aria-label="clear" size='small' onClick={()=> deleteScheduleInterval(days)}>
                         <ClearIcon/>
                       </Fab>
