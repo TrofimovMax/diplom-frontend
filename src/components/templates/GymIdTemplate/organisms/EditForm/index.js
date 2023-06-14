@@ -18,7 +18,7 @@ import SelectorFactorByEntity
   from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorFactorByEntity";
 import SelectorMaxHours from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorMaxHours";
 
-const hours = times(24, (item) => `${item < 10 ? `0${item}` : item}:00`)
+const hours = times(25, (item) => `${item < 10 ? `0${item}` : item}:00`)
 
 export const DAY_TITLE_MAP = {
   "mon": "Понедельник",
@@ -192,12 +192,16 @@ export const EditForm = ({data, gymId}) => {
                       <Typography>{DAY_TITLE_MAP[getFirstKeyByObject(days)]}</Typography>
                     </FormControl>
                   </Grid>
-                  <Grid container item
-                        xs={12} md={4} lg={3}
-                        sx={{minWidth: '250px'}}
-                        direction="row"
-                        justifyContent="center"
-                        alignItems="center"
+                  <Grid
+                    container
+                    item
+                    xs={12}
+                    md={4}
+                    lg={3}
+                    sx={{minWidth: '250px'}}
+                    direction="row"
+                    justifyContent="center"
+                    alignItems="center"
                   >
                     <Grid item xs={3}>
                       <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
@@ -212,7 +216,6 @@ export const EditForm = ({data, gymId}) => {
                                   key={hour}
                                   container
                                   item
-
                               >
                                 <SelectorIntervalHours
                                     days={days}

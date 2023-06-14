@@ -12,10 +12,9 @@ const RemoveWishButton = ({ text, gymId,userId, getWishingIdByUserId, counterWis
   const RemoveWishHandler = (id) => {
     return axiosClient.delete(`/gyms/${gymId}/wishes/${id}`)
   };
-
   const { isError, error, isLoading, mutate} = useMutation(
     "removeWish",
-    (params) => RemoveWishHandler,
+    (params) => {axiosClient.delete(`/gyms/${gymId}/wishes/${params}`)},
     {
       onSuccess: (data) => {
         setCounterWishes(counterWishes - 1);

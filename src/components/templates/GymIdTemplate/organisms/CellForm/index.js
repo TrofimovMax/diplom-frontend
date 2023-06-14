@@ -54,7 +54,8 @@ export const CellForm = (
     userId,
     getBookingIdByUserId,
     getWishingIdByUserId,
-    wishDisabled
+    wishDisabled,
+    refetch
   }
 ) => {
   const [open, setOpen] = React.useState(false);
@@ -76,15 +77,16 @@ export const CellForm = (
     gymId = {gymId}
     getBookingIdByUserId = {getBookingIdByUserId}
     counter = {counter}
-    setCounter = {setCounter}
-  />: <RemoveWishButton
+    refetch={refetch}
+  /> : <RemoveWishButton
     text = {deleteButtonText}
     userId = {userId}
     gymId = {gymId}
     getWishingIdByUserId = {getWishingIdByUserId}
     counterWishes = {counterWishes}
     setCounterWishes = {setCounterWishes}
-  />;
+  />
+
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:
     null;
 
@@ -98,15 +100,15 @@ export const CellForm = (
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const { mutate } = useMutation(["create_bookings"], (params) => {
-      axiosClient.post(`/gyms/${gymId}/bookings`, params)
-    },
+  const { mutate } = useMutation(
+    "create_bookings",
+    (params) => axiosClient.post(`/gyms/${gymId}/bookings`, params),
     {
       onSuccess: (response) => {
-        setCounter(counter + 1);
+        handleClick();
         setResponseMessage("Вы успешно записались на занятие!");
         setSeverity("success");
-        handleClick();
+        refetch()
       },
       onError: (error) => {
         setResponseMessage(error?.message);
@@ -116,13 +118,13 @@ export const CellForm = (
     }
   );
   const booking = (gymId, start_at, end_at, date) => () => {
-    if(userId !== null) {
+    if(userId) {
       if (counter < capacity) {
-        handleDialogClose();
         mutate({
           start_at: createDataTimeUTC(date, start_at),
           end_at: createDataTimeUTC(date, end_at),
         })
+        handleDialogClose();
       } else {
         setResponseMessage("Мест для записи больше нет");
         setSeverity("error");
@@ -235,8 +237,20 @@ export const CellForm = (
         </DialogContent>
         <DialogActions>
           { deleteButton }
-          <Button variant="outlined" color="error" onClick={handleDialogClose}>Назад</Button>
-          <Button disabled={wishDisabled} variant="contained" color="success" autoFocus onClick={submitButtonOnClick}>
+          <Button
+            variant="outlined"
+            color="error"
+            onClick={handleDialogClose}
+          >
+            Назад
+          </Button>
+          <Button
+            disabled={wishDisabled}
+            variant="contained"
+            color="success"
+            autoFocus
+            onClick={submitButtonOnClick}
+          >
             {submitButtonText}
           </Button>
         </DialogActions>

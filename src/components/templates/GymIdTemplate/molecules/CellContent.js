@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import {CellForm} from "@/components/templates/GymIdTemplate/organisms/CellForm";
@@ -8,7 +8,7 @@ import {
 
 const MAX_WISHES = 7;
 
-const CellContent = ({data, day, hour, bookings, wishes, userId}) => {
+const CellContent = ({data, day, hour, bookings, wishes, userId, refetch }) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, data?.schedule?.configuration?.raw?.hours);
   const getBookingIdByUserId = (id) => {
     return getEntityIdByUserId(id, bookings, day, hour);
@@ -19,15 +19,35 @@ const CellContent = ({data, day, hour, bookings, wishes, userId}) => {
   const getWishingByUserId = (id) => {
     return getEntityCountByUserId(id, wishes);
   }
+
   const wishDisabled = !isOpenGymByHour && getWishingByUserId(userId) > MAX_WISHES;
   const countWishes = !wishes.length? null: getEntityCountByTime(wishes, day, hour-1);
-  const count = bookings? getEntityCountByTime(bookings, day, hour-1): null;
-  const [counter, setCounter] = useState(count);
+  // const count = bookings ? getEntityCountByTime(bookings, day, hour-1) : null;
+  const [counter, setCounter] = useState(0);
   const [counterWishes, setCounterWishes] = useState(countWishes);
 
+  // const removeBooking = () => {
+  //   const removeBookingCount = getEntityCountByTime(bookings, day, hour-1);
+  //   removeBookingCount === 1 ? setCounter(0):
+  //   setCounter(removeBookingCount)
+  // }
+
+  useEffect(() => {
+    setCounter(getEntityCountByTime(bookings, day, hour-1))
+  }, [bookings, day, hour])
+
   return(
-    <StyledTableCell sx={{border: 1, padding: 0, width: 70, height: 70}} key={hour}
-                     component="th" scope="row">
+    <StyledTableCell
+      sx={{
+        border: 1,
+        padding: 0,
+        width: 70,
+        height: 70
+      }}
+      key={hour}
+      component="th"
+      scope="row"
+    >
       <CellForm
           data ={data}
           date = {day.substring(4)}
@@ -41,6 +61,8 @@ const CellContent = ({data, day, hour, bookings, wishes, userId}) => {
           getBookingIdByUserId = {getBookingIdByUserId}
           getWishingIdByUserId = {getWishingIdByUserId}
           wishDisabled = {wishDisabled}
+          // removeBooking = {removeBooking}
+          refetch={refetch}
       />
     </StyledTableCell>
   )

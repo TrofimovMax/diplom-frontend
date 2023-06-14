@@ -5,9 +5,10 @@ import {
   TableBody,
   TableContainer,
   TableHead,
+  Button,
   TableRow, useMediaQuery, useTheme,
 } from "@mui/material";
-import React from "react";
+import React, {useEffect} from "react";
 import { StyledTableCell, StyledTableRow } from './styles';
 import { hours, days } from './constants';
 import { useQuery } from "react-query";
@@ -25,7 +26,7 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
   const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
   const tableWidth = isMobile? 1200: 320;
 
-  const { isLoading, isError, data: dataBookings, error } = useQuery(["gyms", id, "bookings" ], getByQueryKey,  {enabled: !!id,retry:2});
+  const { isLoading, isError, data: dataBookings, error, refetch } = useQuery(["gyms", id, "bookings" ], getByQueryKey,  {enabled: !!id,retry:2});
   const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", id, "wishes" ], getByQueryKey, {enabled: !!id,retry:2});
   const { data: userData } = useQuery(["current_user"], getByQueryKey, {retry:1});
 
@@ -33,7 +34,6 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
   const bookings = dataBookings?.data || [];
   const wishes = dataWishes?.data || [];
   const message = error?.message || errorWish?.message;
-
   if (isLoading && loadingWishes) return (<IsLoading />)
   if (isError || isErrorWishes) return (<IsError message={message}/>)
 
@@ -80,6 +80,7 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
                       <CellContent
                         userId = {userId}
                         key = {hour}
+                        refetch={refetch}
                         day = {day}
                         hour = {hour}
                         bookings = {bookings}
