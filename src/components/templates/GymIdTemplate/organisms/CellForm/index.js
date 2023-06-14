@@ -14,8 +14,7 @@ import NoticeContext from "@/api/NoticeContext";
 import {useMutation} from "react-query";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
-import RemoveBookingButton from "@/components/templates/GymIdTemplate/organisms/RemoveBookingButton";
-import RemoveWishButton from "@/components/templates/GymIdTemplate/organisms/RemoveWishButton";
+import RemoveButton from "@/components/templates/GymIdTemplate/organisms/RemoveButton";
 
 const theme = createTheme({
   palette: {
@@ -47,7 +46,6 @@ export const CellForm = (
     date,
     hour,
     counter,
-    setCounter,
     counterWishes,
     setCounterWishes,
     isOpenGymByHour,
@@ -71,20 +69,22 @@ export const CellForm = (
     'Добавте часы, в которое Вам было бы удобно заниматься и мы учём это при составлении расписания';
   const submitButtonText = isOpenGymByHour ? "Записаться": "Отправить";
   const deleteButtonText = isOpenGymByHour ? "Отписаться": "Отменить";
-  const deleteButton = isOpenGymByHour ? <RemoveBookingButton
+  const deleteButton = isOpenGymByHour ? <RemoveButton
     text = {deleteButtonText}
     userId = {userId}
     gymId = {gymId}
-    getBookingIdByUserId = {getBookingIdByUserId}
+    getEntityIdByUserId = {getBookingIdByUserId}
     counter = {counter}
     refetch={refetch}
-  /> : <RemoveWishButton
-    text = {deleteButtonText}
-    userId = {userId}
-    gymId = {gymId}
-    getWishingIdByUserId = {getWishingIdByUserId}
-    counterWishes = {counterWishes}
-    setCounterWishes = {setCounterWishes}
+    isOpenGymByHour = {isOpenGymByHour}
+  /> : <RemoveButton
+      text = {deleteButtonText}
+      userId = {userId}
+      gymId = {gymId}
+      getEntityIdByUserId = {getWishingIdByUserId}
+      counter = {counterWishes}
+      refetch={refetch}
+      isOpenGymByHour = {isOpenGymByHour}
   />
 
   const countBooking = isOpenGymByHour ? <Typography paddingLeft={2} variant="caption">{counter} / {capacity}</Typography>:

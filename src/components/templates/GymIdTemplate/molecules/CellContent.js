@@ -22,19 +22,13 @@ const CellContent = ({data, day, hour, bookings, wishes, userId, refetch }) => {
 
   const wishDisabled = !isOpenGymByHour && getWishingByUserId(userId) > MAX_WISHES;
   const countWishes = !wishes.length? null: getEntityCountByTime(wishes, day, hour-1);
-  // const count = bookings ? getEntityCountByTime(bookings, day, hour-1) : null;
   const [counter, setCounter] = useState(0);
-  const [counterWishes, setCounterWishes] = useState(countWishes);
-
-  // const removeBooking = () => {
-  //   const removeBookingCount = getEntityCountByTime(bookings, day, hour-1);
-  //   removeBookingCount === 1 ? setCounter(0):
-  //   setCounter(removeBookingCount)
-  // }
+  const [counterWishes, setCounterWishes] = useState(0);
 
   useEffect(() => {
     setCounter(getEntityCountByTime(bookings, day, hour-1))
-  }, [bookings, day, hour])
+    setCounterWishes(getEntityCountByTime(wishes, day, hour-1))
+  }, [bookings, wishes, day, hour])
 
   return(
     <StyledTableCell
@@ -54,14 +48,13 @@ const CellContent = ({data, day, hour, bookings, wishes, userId, refetch }) => {
           hour = {hour}
           counter = {counter}
           setCounter = {setCounter}
-          counterWishes = {countWishes}
+          counterWishes = {counterWishes}
           setCounterWishes = {setCounterWishes}
           isOpenGymByHour = {isOpenGymByHour}
           userId = {userId}
           getBookingIdByUserId = {getBookingIdByUserId}
           getWishingIdByUserId = {getWishingIdByUserId}
           wishDisabled = {wishDisabled}
-          // removeBooking = {removeBooking}
           refetch={refetch}
       />
     </StyledTableCell>
