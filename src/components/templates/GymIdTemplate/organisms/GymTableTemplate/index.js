@@ -26,8 +26,15 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
   const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
   const tableWidth = isMobile? 1200: 320;
 
-  const { isLoading, isError, data: dataBookings, error, refetch } = useQuery(["gyms", id, "bookings" ], getByQueryKey,  {enabled: !!id,retry:2});
-  const { isLoading: loadingWishes, isError: isErrorWishes, data: dataWishes, error:errorWish} = useQuery(["gyms", id, "wishes" ], getByQueryKey, {enabled: !!id,retry:2});
+  const { isLoading, isError, data: dataBookings, error, refetch } =
+    useQuery(["gyms", id, "bookings" ], getByQueryKey,  {enabled: !!id,retry:2});
+  const {
+    isLoading: loadingWishes,
+    isError: isErrorWishes,
+    data: dataWishes,
+    error:errorWish,
+    refetch: refetchWishes} =
+    useQuery(["gyms", id, "wishes" ], getByQueryKey, {enabled: !!id,retry:2});
   const { data: userData } = useQuery(["current_user"], getByQueryKey, {retry:1});
 
   const userId = userData?.data?.id || null;
@@ -81,6 +88,7 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
                         userId = {userId}
                         key = {hour}
                         refetch={refetch}
+                        refetchWishes = {refetchWishes}
                         day = {day}
                         hour = {hour}
                         bookings = {bookings}

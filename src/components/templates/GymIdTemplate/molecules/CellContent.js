@@ -8,7 +8,7 @@ import {
 
 const MAX_WISHES = 7;
 
-const CellContent = ({data, day, hour, bookings, wishes, userId, refetch }) => {
+const CellContent = ({data, day, hour, bookings, wishes, userId, refetch, refetchWishes }) => {
   const isOpenGymByHour = hasHourInSchedule(day, hour, data?.schedule?.configuration?.raw?.hours);
   const getBookingIdByUserId = (id) => {
     return getEntityIdByUserId(id, bookings, day, hour);
@@ -56,6 +56,7 @@ const CellContent = ({data, day, hour, bookings, wishes, userId, refetch }) => {
           getWishingIdByUserId = {getWishingIdByUserId}
           wishDisabled = {wishDisabled}
           refetch={refetch}
+          refetchWishes = {refetchWishes}
       />
     </StyledTableCell>
   )

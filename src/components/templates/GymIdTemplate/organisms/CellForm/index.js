@@ -53,7 +53,7 @@ export const CellForm = (
     getBookingIdByUserId,
     getWishingIdByUserId,
     wishDisabled,
-    refetch
+    refetch, refetchWishes
   }
 ) => {
   const [open, setOpen] = React.useState(false);
@@ -83,7 +83,7 @@ export const CellForm = (
       gymId = {gymId}
       getEntityIdByUserId = {getWishingIdByUserId}
       counter = {counterWishes}
-      refetch={refetch}
+      refetch={refetchWishes}
       isOpenGymByHour = {isOpenGymByHour}
   />
 
