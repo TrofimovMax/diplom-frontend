@@ -5,6 +5,8 @@ import { ThemeProvider } from "@mui/material";
 import CssBaseline from '@mui/material/CssBaseline';
 import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import client from '/src/apollo/client'
+import {ApolloProvider} from "@apollo/client";
 
 export const queryClient = new QueryClient();
 
@@ -18,15 +20,17 @@ const theme = createTheme({
 const App = ({ Component, pageProps }) => {
 
   return(
-    <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={theme}>
-          <CssBaseline />
-          <Layout>
-            <Component {...pageProps} />
-          </Layout>
-        </ThemeProvider>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+      <ApolloProvider client={client}>
+          <QueryClientProvider client={queryClient}>
+              <ThemeProvider theme={theme}>
+                  <CssBaseline />
+                  <Layout>
+                      <Component {...pageProps} />
+                  </Layout>
+              </ThemeProvider>
+              <ReactQueryDevtools />
+          </QueryClientProvider>
+      </ApolloProvider>
   );
 }
 
