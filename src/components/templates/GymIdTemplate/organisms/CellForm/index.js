@@ -12,9 +12,13 @@ import {
 } from "@mui/material";
 import NoticeContext from "@/api/NoticeContext";
 import {useMutation} from "react-query";
+import {useMutation as useApolloMutation } from "@apollo/client";
 import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveButton from "@/components/templates/GymIdTemplate/organisms/RemoveButton";
+import {BOOKING_ITEM, CREATE_BOOKING} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateBooking";
+import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
+import id from "@/pages/gyms/[id]";
 
 const theme = createTheme({
   palette: {
@@ -53,7 +57,6 @@ export const CellForm = (
     getBookingIdByUserId,
     getWishingIdByUserId,
     wishDisabled,
-    refetch, refetchWishes
   }
 ) => {
   const [open, setOpen] = React.useState(false);
@@ -75,7 +78,6 @@ export const CellForm = (
     gymId = {gymId}
     getEntityIdByUserId = {getBookingIdByUserId}
     counter = {counter}
-    refetch={refetch}
     isOpenGymByHour = {isOpenGymByHour}
   /> : <RemoveButton
       text = {deleteButtonText}
@@ -83,7 +85,6 @@ export const CellForm = (
       gymId = {gymId}
       getEntityIdByUserId = {getWishingIdByUserId}
       counter = {counterWishes}
-      refetch={refetchWishes}
       isOpenGymByHour = {isOpenGymByHour}
   />
 
@@ -100,30 +101,49 @@ export const CellForm = (
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const { mutate } = useMutation(
-    "create_bookings",
-    (params) => axiosClient.post(`/gyms/${gymId}/bookings`, params),
-    {
-      onSuccess: (response) => {
-        handleClick();
-        setResponseMessage("Вы успешно записались на занятие!");
-        setSeverity("success");
-        refetch()
-      },
-      onError: (error) => {
-        setResponseMessage(error?.message);
-        setSeverity("error");
-        handleClick();
-      }
-    }
-  );
+  const [createBookingMutation, {loading, error, data: respBook}] = useApolloMutation(CREATE_BOOKING, {
+    onCompleted: (data) => {
+      handleClick();
+      setResponseMessage("Вы успешно записались на занятие!");
+      setSeverity("success");
+    },
+    onError: (error) => {
+      setResponseMessage(error?.message);
+      setSeverity("error");
+      handleClick();
+    },
+    update: ((cache, { data: createBookingResponse })  => {
+      const createdBooking = createBookingResponse?.createBookingMutation?.booking
+
+      const createdBookingFragment = cache.writeFragment({
+        data: createdBooking,
+        fragment: BOOKING_ITEM,
+      })
+
+      if (!createdBookingFragment) return
+
+      cache.modify({
+        fields: {
+          getBookingByGymId(previousBookings) {
+            return [...previousBookings, createdBookingFragment]
+          },
+        },
+      })
+    }),
+  })
   const booking = (gymId, start_at, end_at, date) => () => {
     if(userId) {
       if (counter < capacity) {
-        mutate({
-          start_at: createDataTimeUTC(date, start_at),
-          end_at: createDataTimeUTC(date, end_at),
-        })
+        createBookingMutation(
+          {
+            variables: {
+              userId: userId,
+              gymId: +gymId,
+              startAt: new Date(createDataTimeUTC(date, start_at)).toISOString(),
+              endAt: new Date(createDataTimeUTC(date, end_at)).toISOString(),
+            }
+          }
+        )
         handleDialogClose();
       } else {
         setResponseMessage("Мест для записи больше нет");
