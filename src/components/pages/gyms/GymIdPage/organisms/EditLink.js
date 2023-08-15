@@ -6,7 +6,7 @@ import {getByQueryKey} from "@/api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
 
 const EditLink = ({router, gymId}) => {
-  const { isLoading, data: adminData } = useQuery(["admin"], getByQueryKey);
+  const { isLoading, data: adminData } = useQuery(["admin"], getByQueryKey, {retry: 1,});
   if (isLoading) return (<IsLoading/>)
   if (adminData?.data?.status === 'ok') {
     return (

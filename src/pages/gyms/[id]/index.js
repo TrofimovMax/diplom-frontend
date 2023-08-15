@@ -1,28 +1,30 @@
 import React from "react";
-import {useQuery} from 'react-query';
 import {useRouter} from "next/router";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
-import {getByQueryKey} from "@/api/getByQueryKey";
 import GymIdPage from "@/components/pages/gyms/GymIdPage";
+import {useQuery as useApolloQuery} from "@apollo/client"
+import {GET_GYM_BY_ID} from "@/pages/gyms/[id]/GetGymById";
 
 const Gym = () => {
   const router = useRouter();
   const gymId = router.query.id;
 
-  const {isLoading, isError, data, error} = useQuery(["gyms", gymId], getByQueryKey);
+  const { loading, error: apolloError, data: gymData } = useApolloQuery(GET_GYM_BY_ID, {
+    variables: { gym_id: gymId }, // Pass the gymId as a variable
+  });
 
-  if (isLoading) return (<IsLoading/>)
-  if (isError) return (<IsError message={error.message}/>)
+  if (loading) return (<IsLoading/>)
+  if (apolloError) return (<IsError />)
 
   return (
     <>
       {
         (() => {
-          if (data) {
+          if (gymData) {
             return (
               <GymIdPage
-                data={data?.data}
+                data={gymData?.getGymById}
                 router={router}
                 gymId={gymId}
               />
