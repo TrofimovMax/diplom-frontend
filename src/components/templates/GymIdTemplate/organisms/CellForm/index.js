@@ -61,8 +61,8 @@ export const CellForm = (
 ) => {
   const [open, setOpen] = React.useState(false);
 
-  const start_at = (hour - 1) + ':00';
-  const end_at = hour + ':00';
+  const start_at = (+hour - 1 + 3) + ':00';
+  const end_at = (+hour + 3) + ':00';
   const gymId = data?.id;
   const capacity = data?.capacity;
 
