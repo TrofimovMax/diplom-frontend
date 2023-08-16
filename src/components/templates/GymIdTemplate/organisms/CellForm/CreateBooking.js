@@ -17,8 +17,8 @@ export const CREATE_BOOKING = gql(`
       createBookingMutation(input: {
         startAt: $startAt
         endAt: $endAt
-        gymId: $userId
-        userId: $gymId
+        gymId: $gymId
+        userId: $userId
       })
         {
         booking {

@@ -11,14 +11,11 @@ import {
   Typography
 } from "@mui/material";
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation} from "react-query";
 import {useMutation as useApolloMutation } from "@apollo/client";
-import axiosClient from "@/api/axiosClient";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveButton from "@/components/templates/GymIdTemplate/organisms/RemoveButton";
 import {BOOKING_ITEM, CREATE_BOOKING} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateBooking";
-import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
-import id from "@/pages/gyms/[id]";
+import {CREATE_WISHING, WISHING_ITEM} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateWishing";
 
 const theme = createTheme({
   palette: {
@@ -51,7 +48,6 @@ export const CellForm = (
     hour,
     counter,
     counterWishes,
-    setCounterWishes,
     isOpenGymByHour,
     userId,
     getBookingIdByUserId,
@@ -131,7 +127,7 @@ export const CellForm = (
       })
     }),
   })
-  const booking = (gymId, start_at, end_at, date) => () => {
+  const booking = (userId, gymId, start_at, end_at, date) => () => {
     if(userId) {
       if (counter < capacity) {
         createBookingMutation(
@@ -157,31 +153,49 @@ export const CellForm = (
     }
   };
 
-  const { mutateAsync } = useMutation(["create_wishes"], (params) => {
-      axiosClient.post(`/gyms/${gymId}/wishes`, params)
+  const [createWishingMutation, {loading: loadingWish, error: errorWish, data: respWish}] = useApolloMutation(CREATE_WISHING, {
+    onCompleted: (data) => {
+      handleClick();
+      setResponseMessage("Занятие успешно добавлено в ваш список желаемого!");
+      setSeverity("success");
     },
-    {
-      onSuccess: (response) => {
-        setCounterWishes(counterWishes + 1);
-        handleClick();
-        setResponseMessage("Занятие успешно добавлено в ваш список желаемого");
-        setSeverity("success");
-      },
-      onError: (error) => {
-        handleClick();
-        setResponseMessage(error?.message);
-        setSeverity("error");
-      }
-    }
-  );
+    onError: (error) => {
+      setResponseMessage(error?.message);
+      setSeverity("error");
+      handleClick();
+    },
+    update: ((cache, { data: createWishingResponse })  => {
+      const createdWishing = createWishingResponse?.createWishingMutation?.wishing
 
-  const wishing = (gymId, start_at, end_at, date) => () => {
-    if(userId !== null) {
-      handleDialogClose();
-      mutateAsync({
-        start_at: createDataTimeUTC(date, start_at),
-        end_at: createDataTimeUTC(date, end_at),
+      const createdWishingFragment = cache.writeFragment({
+        data: createdWishing,
+        fragment: WISHING_ITEM,
       })
+
+      if (!createdWishingFragment) return
+
+      cache.modify({
+        fields: {
+          getBookingByGymId(previousBookings) {
+            return [...previousBookings, createdWishingFragment]
+          },
+        },
+      })
+    }),
+  })
+  const wishing = (userId, gymId, start_at, end_at, date) => () => {
+    if(userId !== null) {
+      createWishingMutation(
+        {
+          variables: {
+            userId: userId,
+            gymId: parseInt(gymId),
+            startAt: new Date(createDataTimeUTC(date, start_at)).toISOString(),
+            endAt: new Date(createDataTimeUTC(date, end_at)).toISOString(),
+          }
+        }
+      )
+      handleDialogClose();
     } else {
       setResponseMessage("Вы не можете добавить занятие в список желаемого, пожалуйста авторизуйтесь");
       setSeverity("info");
@@ -189,8 +203,8 @@ export const CellForm = (
     }
   };
 
-  const submitButtonOnClick = isOpenGymByHour ? booking(gymId, start_at, end_at, date):
-    wishing(gymId, start_at, end_at, date);
+  const submitButtonOnClick = isOpenGymByHour ? booking(userId, gymId, start_at, end_at, date):
+    wishing(userId, gymId, start_at, end_at, date);
 
   const initMainColor = () =>{
     if (counter >= capacity) {
