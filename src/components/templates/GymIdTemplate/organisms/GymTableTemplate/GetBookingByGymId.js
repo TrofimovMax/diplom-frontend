@@ -7,6 +7,7 @@ export const GET_BOOKING_BY_GYM_ID = gql(`
         startAt
         endAt
         gymId
+        userId
       }
     }
 `)

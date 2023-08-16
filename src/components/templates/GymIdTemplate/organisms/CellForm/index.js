@@ -56,7 +56,6 @@ export const CellForm = (
   }
 ) => {
   const [open, setOpen] = React.useState(false);
-
   const start_at = (+hour - 1 + 3) + ':00';
   const end_at = (+hour + 3) + ':00';
   const gymId = data?.id;
@@ -176,8 +175,8 @@ export const CellForm = (
 
       cache.modify({
         fields: {
-          getBookingByGymId(previousBookings) {
-            return [...previousBookings, createdWishingFragment]
+          getWishingByGymId(previousWishings) {
+            return [...previousWishings, createdWishingFragment]
           },
         },
       })

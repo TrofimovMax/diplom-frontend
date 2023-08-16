@@ -23,18 +23,18 @@ export const getEntityCountByTime = (entityWeeks, day, hour) => {
 }
 export const getEntityIdByUserId = (id, entity, day, hour) => {
   const entityByTime = getEntityByTime(entity, day, hour - 1);
-  const entityById = entityByTime.filter(item => item.user_id === id)
+  const entityById = entityByTime.filter(item => item.userId === id.toString())
   return entityById[0]?.id || null;
 }
 
 export const getEntityCountByUserId = (id, entity) => {
-  const entityById = entity.filter(item => item.user_id === id)
+  const entityById = entity.filter(item => item.userId === id)
   const startM = days[0];
   const start = moment(startM, "ddd DD/MM");
 
   const filteredEntity = entityById.filter(item => {
-    const before = moment(item.start_at, "YYYY-MM-DDTHH:mm:ss.SSSZ").isAfter(start);
-    return item.user_id === id && before;
+    const before = moment(item.startAt, "YYYY-MM-DDTHH:mm:ss.SSSZ").isAfter(start);
+    return item.userId === id && before;
   });
 
   return filteredEntity.length

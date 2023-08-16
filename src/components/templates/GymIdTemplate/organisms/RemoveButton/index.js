@@ -1,55 +1,102 @@
 import React, {useContext} from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Button} from "@mui/material";
-import {useMutation} from "react-query";
-import axiosClient from "@/api/axiosClient";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import NoticeContext from "@/api/NoticeContext";
+import {useMutation as useApolloMutation} from '@apollo/client';
+import {
+    DELETE_BOOKING_MUTATION
+} from "@/components/templates/GymIdTemplate/organisms/RemoveButton/DeleteBookingMutation";
+import {
+    DELETE_WISHING_MUTATION
+} from "@/components/templates/GymIdTemplate/organisms/RemoveButton/DeleteWishingMutation";
 
-const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, refetch, isOpenGymByHour }) => {
+const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, isOpenGymByHour }) => {
     const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
-    const path = isOpenGymByHour ? 'bookings': 'wishes'
-    const { isError, error, isLoading, mutate} = useMutation(
-        "removeEntity",
-        (params) => axiosClient.delete(`/gyms/${gymId}/${path}/${params}`),
-        {
-            onSuccess: (data) => {
-                handleClick();
-                setResponseMessage("Вы успешно отменили запись!");
-                setSeverity("success");
-                refetch()
-            },
-            onError(error) {
-                handleClick();
-                setResponseMessage(error?.message);
-                setSeverity("error");
-            },
-        }
-    );
 
-    if (isLoading) return <IsLoading/>
-    if (isError) return <IsError message={error}/>
+    const [deleteBooking, {error: bookingError, loading:removeLoading}] = useApolloMutation(DELETE_BOOKING_MUTATION, {
+        onCompleted: (data) => {
+            handleClick();
+            setResponseMessage("Вы успешно отписались от занятия!");
+            setSeverity("success");
+        },
+        onError: (error) => {
+            setResponseMessage(error?.message);
+            setSeverity("error");
+            handleClick();
+        },
+        update(cache, {data: deleteBooking})
+        {
+            cache.modify({
+                fields: {
+                    getBookingByGymId(currentBooking = []){
+                        return currentBooking.filter(booking =>
+                          booking.__ref !== `Booking:${deleteBooking['deleteBookingMutation']['booking'].id}`)
+                    }
+                }
+            })
+        }
+    })
+
+    const [deleteWishing, {error: wishError, loading:wishLoading}] = useApolloMutation(DELETE_WISHING_MUTATION, {
+        onCompleted: (data) => {
+            handleClick();
+            setResponseMessage("Вы успешно убрали занятие из списка желаемого!");
+            setSeverity("success");
+        },
+        onError: (error) => {
+            setResponseMessage(error?.message);
+            setSeverity("error");
+            handleClick();
+        },
+        update(cache, {data: deleteWishing})
+        {
+            cache.modify({
+                fields: {
+                    getWishingByGymId(currentWishing = []){
+
+                        return currentWishing.filter(wishing =>
+                            wishing.__ref !== `Wishing:${deleteWishing['deleteWishingMutation']['wishing'].id}`
+                        )
+                    }
+                }
+            })
+        }
+    })
+
+    if (removeLoading || wishLoading) return <IsLoading/>
+    if (bookingError || wishError) return <IsError />
+    const deleteEntity = (args) => {
+        isOpenGymByHour ? deleteBooking(args): deleteWishing(args);
+    }
     const handleRemoveEntity = () => {
         const entityId = getEntityIdByUserId(userId)
-        if (userId) {
-            if (entityId) {
-                mutate(entityId)
-            } else {
-                handleClick();
-                setResponseMessage("Вы ещё не записаны на это занятие");
-                setSeverity("info");
-            }
-        } else {
+        if (!userId) {
             handleClick();
             setResponseMessage("Вы не можете убрать запись на занятие, пожалуйста авторизуйтесь");
             setSeverity("info");
+            return;
         }
+
+        if (!entityId) {
+            handleClick();
+            setResponseMessage("Вы ещё не записаны на это занятие");
+            setSeverity("info");
+            return;
+        }
+
+        // At this point, both userId and entityId are defined
+        deleteEntity({
+            variables: {
+                id: entityId.toString() // Convert to string if necessary
+            }
+        });
     }
-    
+
     return (
         <Button
-            disabled={isLoading || !counter || !userId}
+            disabled={removeLoading || wishLoading || !counter || !userId}
             variant="contained"
             color="error"
             startIcon={<DeleteIcon />}
