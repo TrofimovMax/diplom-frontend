@@ -1,7 +1,7 @@
 import React, {useContext, useState} from 'react';
 import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
 import _, {times} from "lodash";
-import {useMutation, useQuery} from "react-query";
+import { useMutation as useApolloMutation } from "@apollo/client";
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -10,13 +10,15 @@ import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTem
 import IsLoading from "@/components/molecules/isLoading";
 import SelectorIntervalHours from "@/components/templates/GymIdTemplate/molecules/SelectorIntervalHours";
 import {GreedyAlgorithm} from "@/api/GreedyAlgorithm";
-import {getByQueryKey} from "@/api/getByQueryKey";
 import {getFirstValueByObject, getFirstKeyByObject} from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
-import axiosClient from "@/api/axiosClient";
 import NoticeContext from "@/api/NoticeContext";
 import SelectorFactorByEntity
   from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorFactorByEntity";
 import SelectorMaxHours from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorMaxHours";
+import {useQuery as useApolloQuery} from "@apollo/client/react/hooks/useQuery";
+import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
+import {GET_WISHING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetWishingByGymId";
+import {UPDATE_GYM_MUTATION} from "@/components/templates/GymIdTemplate/organisms/EditForm/UpdateGymMutation";
 
 const hours = times(25, (item) => `${item < 10 ? `0${item}` : item}:00`)
 
@@ -56,39 +58,20 @@ export const EditForm = ({data, gymId}) => {
   const capacity = data?.capacity;
   const isEdit = true;
 
-  const {
-    isLoading,
-    isError,
-    data: dataBookings,
-    error: errorBooking
-  } = useQuery(
-      ["gyms", gymId, "bookings"],
-      getByQueryKey,
-      {enabled: !!gymId, retry: 2});
-  const {
-    isLoading: loadingWishes,
-    isError: isErrorWishes,
-    data: dataWishes,
-    error: errorWish
-  } = useQuery(
-      ["gyms", gymId, "wishes"],
-      getByQueryKey,
-      {enabled: !!gymId, retry: 2});
+  const { data: dataBookings, loading: isLoading, error: isError } = useApolloQuery(GET_BOOKING_BY_GYM_ID, {
+    variables: { gym_id: gymId }, // Pass the gymId as a variable
+  });
 
-  const message = errorBooking?.message || errorWish?.message || "Что-то пошло не так.";
+  const { loading: loadingWishes, error: isErrorWishes, data: dataWishes } = useApolloQuery(GET_WISHING_BY_GYM_ID, {
+    variables: { gym_id: gymId }, // Pass the gymId as a variable
+  });
+
+  const message = "Что-то пошло не так.";
   const bookings = dataBookings?.data || [];
   const wishes = dataWishes?.data || [];
 
-  const {mutate} = useMutation(["update schedule"], (params) => {
-    axiosClient.patch(`/gyms/${gymId}`, params, {
-      headers: {
-        "Authorization": typeof localStorage === 'object' ? localStorage.getItem('token') : null,
-        'Access-Control-Allow-Origin': '*'
-      },
-      crossDomain: true
-    })
-  }, {
-    onSuccess: (res) => {
+  const [updateGymMutation] = useApolloMutation(UPDATE_GYM_MUTATION, {
+    onCompleted: (data) => {
       setResponseMessage("Расписание было успешно обновленно");
       setSeverity("success");
       handleClick();
@@ -97,15 +80,16 @@ export const EditForm = ({data, gymId}) => {
       setResponseMessage("Что-то пошло не так: ", error?.message);
       setSeverity("error");
       handleClick();
-    }
+    },
   })
   const onSave = () => {
     let flag = true;
     if(flag) {
-      mutate({
-        title: data.title,
-        address: data.address,
-        hours: Object.assign({}, ...scheduleState),
+      updateGymMutation({
+        variables: {
+          id: gymId,
+          schedule: Object.assign({}, ...scheduleState),
+        }
       })
     } else {
       setResponseMessage("Введенное расписание содержит ошибки, проверьте начало и конец рабочего дня");

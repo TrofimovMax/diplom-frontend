@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Grid, Container} from "@mui/material";
+import {Grid, Container} from "@mui/material";
 import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
