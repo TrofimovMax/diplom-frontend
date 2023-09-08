@@ -6,12 +6,11 @@ import gymIdCard from "@/helper/GymIdCard.json";
 import GymsPage from "@/components/pages/gyms/GymsPage";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
-import {FETCH_GYMS} from "@/pages/gyms/FetchGymsQuery";
-import {useQuery as useApolloQuery} from "@apollo/client";
+import {useFetchGymsQuery} from "./__generated__/FetchGyms.query";
 const Gyms = () => {
   const router = useRouter()
   const { pathname } = useRouter();
-  const {loading, error, data: queryData} = useApolloQuery(FETCH_GYMS)
+  const {loading, error, data: queryData} = useFetchGymsQuery()
 
   if (loading) return <IsLoading />
   if (error) return (<IsError />)
