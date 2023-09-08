@@ -1,0 +1,11 @@
+mutation UpdateScheduleByGymIdMutation($id: ID!, $schedule: GymScheduleInput!) {
+    updateGymScheduleMutation(input: {
+        id: $id,
+        schedule: $schedule
+    }) {
+        gym {
+            id
+            schedule
+        }
+    }
+}

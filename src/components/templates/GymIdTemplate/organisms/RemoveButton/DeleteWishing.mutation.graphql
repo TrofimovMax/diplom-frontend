@@ -1,0 +1,10 @@
+mutation deleteWishingMutation($id: ID!) {
+    deleteWishingMutation(input: {
+        id: $id
+    })
+    {
+        wishing{
+            id
+        }
+    }
+}

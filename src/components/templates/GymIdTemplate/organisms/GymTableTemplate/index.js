@@ -17,9 +17,9 @@ import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";
 import CellEditContent from "@/components/templates/GymIdTemplate/molecules/CellEditContent";
 import {useRouter} from "next/router";
-import {useQuery as useApolloQuery} from "@apollo/client/react/hooks/useQuery";
-import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
-import {GET_WISHING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetWishingByGymId";
+import {useGetBookingByGymIdQuery} from "./__generated__/GetBookingByGymId.query";
+import {useGetWishingByGymIdQuery} from "./__generated__/GetWishingByGymId.query";
+
 
 
 const GymTable = ({ data, isEdit, newSchedule}) => {
@@ -29,11 +29,11 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
   const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
   const tableWidth = isMobile? 1200: 320;
 
-  const { data: bookingData, loading, error: apolloError } = useApolloQuery(GET_BOOKING_BY_GYM_ID, {
+  const { data: bookingData, loading, error: apolloError } = useGetBookingByGymIdQuery({
     variables: { gym_id: id }, // Pass the gymId as a variable
   });
 
-  const { loading: wishLoading, error: wishError, data: wishData } = useApolloQuery(GET_WISHING_BY_GYM_ID, {
+  const { loading: wishLoading, error: wishError, data: wishData } = useGetWishingByGymIdQuery( {
     variables: { gym_id: id }, // Pass the gymId as a variable
   });
   const { data: userData } = useQuery(["current_user"], getByQueryKey, {retry:1});

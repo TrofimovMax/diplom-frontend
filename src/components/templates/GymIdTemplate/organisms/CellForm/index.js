@@ -11,11 +11,12 @@ import {
   Typography
 } from "@mui/material";
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation as useApolloMutation } from "@apollo/client";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveButton from "@/components/templates/GymIdTemplate/organisms/RemoveButton";
-import {BOOKING_ITEM, CREATE_BOOKING} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateBooking";
-import {CREATE_WISHING, WISHING_ITEM} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateWishing";
+import {useCreateBookingMutationMutation} from "./__generated__/CreateBooking.mutation";
+import {useCreateWishingMutationMutation} from "./__generated__/CreateWishing.mutation";
+import {BookingItemFragmentDoc} from "./__generated__/BookingItem.fragment";
+import {WishingItemFragmentDoc} from "./__generated__/WishingItem.fragment";
 
 const theme = createTheme({
   palette: {
@@ -96,7 +97,7 @@ export const CellForm = (
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const [createBookingMutation, {loading, error, data: respBook}] = useApolloMutation(CREATE_BOOKING, {
+  const [createBookingMutation, {loading, error, data: respBook}] = useCreateBookingMutationMutation( {
     onCompleted: (data) => {
       handleClick();
       setResponseMessage("Вы успешно записались на занятие!");
@@ -112,7 +113,7 @@ export const CellForm = (
 
       const createdBookingFragment = cache.writeFragment({
         data: createdBooking,
-        fragment: BOOKING_ITEM,
+        fragment: BookingItemFragmentDoc,
       })
 
       if (!createdBookingFragment) return
@@ -152,36 +153,39 @@ export const CellForm = (
     }
   };
 
-  const [createWishingMutation, {loading: loadingWish, error: errorWish, data: respWish}] = useApolloMutation(CREATE_WISHING, {
-    onCompleted: (data) => {
-      handleClick();
-      setResponseMessage("Занятие успешно добавлено в ваш список желаемого!");
-      setSeverity("success");
-    },
-    onError: (error) => {
-      setResponseMessage(error?.message);
-      setSeverity("error");
-      handleClick();
-    },
-    update: ((cache, { data: createWishingResponse })  => {
-      const createdWishing = createWishingResponse?.createWishingMutation?.wishing
+  const [createWishingMutation, {
+    loading: loadingWish,
+    error: errorWish,
+    data: respWish}] = useCreateWishingMutationMutation( {
+      onCompleted: (data) => {
+        handleClick();
+        setResponseMessage("Занятие успешно добавлено в ваш список желаемого!");
+        setSeverity("success");
+      },
+      onError: (error) => {
+        setResponseMessage(error?.message);
+        setSeverity("error");
+        handleClick();
+      },
+      update: ((cache, { data: createWishingResponse })  => {
+        const createdWishing = createWishingResponse?.createWishingMutation?.wishing
 
-      const createdWishingFragment = cache.writeFragment({
-        data: createdWishing,
-        fragment: WISHING_ITEM,
-      })
+        const createdWishingFragment = cache.writeFragment({
+          data: createdWishing,
+          fragment: WishingItemFragmentDoc,
+        })
 
-      if (!createdWishingFragment) return
+        if (!createdWishingFragment) return
 
-      cache.modify({
-        fields: {
-          getWishingByGymId(previousWishings) {
-            return [...previousWishings, createdWishingFragment]
+        cache.modify({
+          fields: {
+            getWishingByGymId(previousWishings) {
+              return [...previousWishings, createdWishingFragment]
+            },
           },
-        },
-      })
-    }),
-  })
+        })
+      }),
+    })
   const wishing = (userId, gymId, start_at, end_at, date) => () => {
     if(userId !== null) {
       createWishingMutation(

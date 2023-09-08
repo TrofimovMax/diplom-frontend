@@ -1,0 +1,9 @@
+query getWishingByGymId($gym_id: ID!){
+    getWishingByGymId (gymId: $gym_id){
+        id
+        startAt
+        endAt
+        gymId
+        userId
+    }
+}

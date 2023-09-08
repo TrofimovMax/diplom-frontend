@@ -1,0 +1,6 @@
+fragment WishingItem on Wishing {
+    id
+    startAt
+    endAt
+    gymId
+}

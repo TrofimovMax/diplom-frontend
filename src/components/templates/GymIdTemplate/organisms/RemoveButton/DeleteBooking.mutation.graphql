@@ -1,0 +1,10 @@
+mutation deleteBookingMutation($id: ID!) {
+    deleteBookingMutation(input: {
+        id: $id
+    })
+    {
+        booking{
+            id
+        }
+    }
+}

@@ -1,7 +1,6 @@
 import React, {useContext, useState} from 'react';
 import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
 import _, {times} from "lodash";
-import { useMutation as useApolloMutation } from "@apollo/client";
 import EditIcon from '@mui/icons-material/Edit';
 import AddIcon from '@mui/icons-material/Add';
 import ClearIcon from '@mui/icons-material/Clear';
@@ -15,10 +14,9 @@ import NoticeContext from "@/api/NoticeContext";
 import SelectorFactorByEntity
   from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorFactorByEntity";
 import SelectorMaxHours from "@/components/templates/GymIdTemplate/organisms/EditForm/molecules/SelectorMaxHours";
-import {useQuery as useApolloQuery} from "@apollo/client/react/hooks/useQuery";
-import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
-import {GET_WISHING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetWishingByGymId";
-import {UPDATE_GYM_MUTATION} from "@/components/templates/GymIdTemplate/organisms/EditForm/UpdateGymMutation";
+import {useGetBookingByGymIdQuery} from "../GymTableTemplate/__generated__/GetBookingByGymId.query";
+import {useGetWishingByGymIdQuery} from "../GymTableTemplate/__generated__/GetWishingByGymId.query";
+import {useUpdateScheduleByGymIdMutationMutation} from "./__generated__/UpdateScheduleByGymId.mutation";
 
 const hours = times(25, (item) => `${item < 10 ? `0${item}` : item}:00`)
 
@@ -58,19 +56,19 @@ export const EditForm = ({data, gymId}) => {
   const capacity = data?.capacity;
   const isEdit = true;
 
-  const { data: dataBookings, loading: isLoading, error: isError } = useApolloQuery(GET_BOOKING_BY_GYM_ID, {
+  const { data: bookingData, loading, error: isError } = useGetBookingByGymIdQuery({
     variables: { gym_id: gymId }, // Pass the gymId as a variable
   });
 
-  const { loading: loadingWishes, error: isErrorWishes, data: dataWishes } = useApolloQuery(GET_WISHING_BY_GYM_ID, {
+  const { loading: loadingWishes, error: isErrorWishes, data: wishData } = useGetWishingByGymIdQuery( {
     variables: { gym_id: gymId }, // Pass the gymId as a variable
   });
 
   const message = "Что-то пошло не так.";
-  const bookings = dataBookings?.data || [];
-  const wishes = dataWishes?.data || [];
+  const bookings = bookingData?.data || [];
+  const wishes = wishData?.data || [];
 
-  const [updateGymMutation] = useApolloMutation(UPDATE_GYM_MUTATION, {
+  const [updateGymMutation] = useUpdateScheduleByGymIdMutationMutation( {
     onCompleted: (data) => {
       setResponseMessage("Расписание было успешно обновленно");
       setSeverity("success");
@@ -150,7 +148,7 @@ export const EditForm = ({data, gymId}) => {
     setScheduleState(newScheduleByWeek);
   }
 
-  if (isLoading && loadingWishes) return (<IsLoading/>)
+  if (loading && loadingWishes) return (<IsLoading/>)
   if (isError || isErrorWishes) return (<IsError message={message}/>)
 
   return (

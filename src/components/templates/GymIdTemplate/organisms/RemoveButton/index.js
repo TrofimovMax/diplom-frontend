@@ -4,18 +4,13 @@ import {Button} from "@mui/material";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation as useApolloMutation} from '@apollo/client';
-import {
-    DELETE_BOOKING_MUTATION
-} from "@/components/templates/GymIdTemplate/organisms/RemoveButton/DeleteBookingMutation";
-import {
-    DELETE_WISHING_MUTATION
-} from "@/components/templates/GymIdTemplate/organisms/RemoveButton/DeleteWishingMutation";
+import {useDeleteBookingMutationMutation} from "./__generated__/DeleteBooking.mutation";
+import {useDeleteWishingMutationMutation} from "./__generated__/DeleteWishing.mutation";
 
 const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, isOpenGymByHour }) => {
     const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-    const [deleteBooking, {error: bookingError, loading:removeLoading}] = useApolloMutation(DELETE_BOOKING_MUTATION, {
+    const [deleteBooking, {error: bookingError, loading:removeLoading}] = useDeleteBookingMutationMutation( {
         onCompleted: (data) => {
             handleClick();
             setResponseMessage("Вы успешно отписались от занятия!");
@@ -39,7 +34,7 @@ const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, isOpe
         }
     })
 
-    const [deleteWishing, {error: wishError, loading:wishLoading}] = useApolloMutation(DELETE_WISHING_MUTATION, {
+    const [deleteWishing, {error: wishError, loading:wishLoading}] = useDeleteWishingMutationMutation( {
         onCompleted: (data) => {
             handleClick();
             setResponseMessage("Вы успешно убрали занятие из списка желаемого!");

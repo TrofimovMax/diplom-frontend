@@ -1,0 +1,19 @@
+mutation createBookingMutation ($startAt: ISO8601DateTime!,
+    $endAt: ISO8601DateTime!,
+    $userId: Int!,
+    $gymId: Int!) {
+    createBookingMutation(input: {
+        startAt: $startAt
+        endAt: $endAt
+        gymId: $gymId
+        userId: $userId
+    })
+    {
+        booking {
+            id
+            startAt
+            endAt
+            gymId
+        }
+    }
+}

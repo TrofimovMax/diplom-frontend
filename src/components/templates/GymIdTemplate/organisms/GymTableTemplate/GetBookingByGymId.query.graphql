@@ -1,0 +1,9 @@
+query getBookingByGymId($gym_id: ID!){
+    getBookingByGymId (gymId: $gym_id){
+        id
+        startAt
+        endAt
+        gymId
+        userId
+    }
+}

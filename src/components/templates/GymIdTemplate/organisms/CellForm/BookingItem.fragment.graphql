@@ -1,0 +1,6 @@
+fragment BookingItem on Booking {
+    id
+    startAt
+    endAt
+    gymId
+}

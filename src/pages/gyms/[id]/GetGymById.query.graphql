@@ -1,0 +1,9 @@
+query getGymById($gym_id: ID!) {
+    getGymById (id: $gym_id){
+        id
+        title
+        address
+        capacity
+        schedule
+    }
+}

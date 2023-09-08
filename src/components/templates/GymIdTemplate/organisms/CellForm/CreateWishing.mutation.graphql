@@ -1,0 +1,21 @@
+mutation createWishingMutation ($startAt: ISO8601DateTime!,
+    $endAt: ISO8601DateTime!,
+    $userId: ID!,
+    $gymId: ID!) {
+    createWishingMutation(input: {
+        attributes: {
+            startAt: $startAt
+            endAt: $endAt
+            gymId: $gymId
+            userId: $userId
+        }
+    })
+    {
+        wishing {
+            id
+            startAt
+            endAt
+            gymId
+        }
+    }
+}
