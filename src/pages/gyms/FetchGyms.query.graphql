@@ -1,0 +1,6 @@
+query FetchGyms{
+    fetchGyms(page: 1, limit: 10) {
+        id
+        title
+    }
+}
