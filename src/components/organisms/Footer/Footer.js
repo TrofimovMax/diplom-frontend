@@ -9,7 +9,7 @@ import MailOutlineOutlinedIcon from '@mui/icons-material/MailOutlineOutlined';
 import {Link as MUILink} from '@mui/material';
 import NextLink from 'next/link';
 import React from "react";
-import LinkAtom from "@/components/atoms/LinkAtom";
+import LinkAtom from "components/atoms/LinkAtom";
 
 const Footer = () => (
   <>

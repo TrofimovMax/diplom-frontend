@@ -5,11 +5,11 @@ import {
   ImageList,
   ImageListItem,
 } from "@mui/material";
-import WelcomeMolecule from "@/components/templates/GymsTemplate/molecules/WelcomeMolecule";
-import GymsLinksMolecule from "@/components/templates/GymsTemplate/molecules/GymsLinksMolecule";
-import GymIdCardMolecule from "@/components/templates/GymsTemplate/molecules/GymIdCardMolecule";
-import BenefitsMolecule from "@/components/templates/GymsTemplate/molecules/BenefitsMolecule";
-import TitleSection from "@/components/molecules/TitleSection";
+import WelcomeMolecule from "components/templates/GymsTemplate/molecules/WelcomeMolecule";
+import GymsLinksMolecule from "components/templates/GymsTemplate/molecules/GymsLinksMolecule";
+import GymIdCardMolecule from "components/templates/GymsTemplate/molecules/GymIdCardMolecule";
+import BenefitsMolecule from "components/templates/GymsTemplate/molecules/BenefitsMolecule";
+import TitleSection from "components/molecules/TitleSection";
 
 const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMobile}) => {
   return (

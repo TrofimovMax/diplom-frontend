@@ -1,10 +1,10 @@
 import React from 'react';
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
-import { EditGymPage } from "@/components/pages/gyms/EditGymPage";
-import IsLoading from "@/components/molecules/isLoading";
-import IsError from "@/components/molecules/IsError";
-import {getByQueryKey} from "@/api/getByQueryKey";
+import { EditGymPage } from "components/pages/gyms/EditGymPage";
+import IsLoading from "components/molecules/isLoading";
+import IsError from "components/molecules/IsError";
+import {getByQueryKey} from "api/getByQueryKey";
 import {useGetGymByIdQuery} from "../__generated__/GetGymById.query";
 
 const Edit = () => {

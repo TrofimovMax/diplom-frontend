@@ -1,8 +1,8 @@
 import React from 'react';
-import {hasHourInSchedule} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
-import {StyledTableCell} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
+import {hasHourInSchedule} from "components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
+import {StyledTableCell} from "components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import {Box, createTheme, Grid, ThemeProvider, Typography} from "@mui/material";
-import { getEntityCountByTime } from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+import { getEntityCountByTime } from "components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 import {first, keys, values} from "lodash";
 
 const theme = createTheme({

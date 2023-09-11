@@ -1,11 +1,11 @@
 import React, {useState, useEffect, useContext} from "react";
 import { useRouter } from "next/router";
 import { useMutation } from "react-query";
-import { loginRequest } from "@/api/login";
-import LoginPage from "@/components/pages/login/LoginPage";
-import IsLoading from "@/components/molecules/isLoading";
-import NoticeContext from "@/api/NoticeContext";
-import IsError from "@/components/molecules/IsError";
+import { loginRequest } from "api/login";
+import LoginPage from "components/pages/login/LoginPage";
+import IsLoading from "components/molecules/isLoading";
+import NoticeContext from "api/NoticeContext";
+import IsError from "components/molecules/IsError";
 
 const Login = () => {
   const router = useRouter();

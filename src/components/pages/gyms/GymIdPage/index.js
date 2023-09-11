@@ -1,9 +1,9 @@
 import React from 'react';
 import {Grid, Container} from "@mui/material";
-import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate";
-import TitleSection from "@/components/molecules/TitleSection";
-import BackButton from "@/components/atoms/BackButton";
-import EditLink from "@/components/pages/gyms/GymIdPage/organisms/EditLink";
+import GymTable from "components/templates/GymIdTemplate/organisms/GymTableTemplate";
+import TitleSection from "components/molecules/TitleSection";
+import BackButton from "components/atoms/BackButton";
+import EditLink from "components/pages/gyms/GymIdPage/organisms/EditLink";
 const GymIdPage = ({ data, router, gymId}) => {
   const isEdit = false;
   return (

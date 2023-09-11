@@ -4,7 +4,7 @@ import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";
 import MailOutlineOutlinedIcon from "@mui/icons-material/MailOutlineOutlined";
 import MessageOutlinedIcon from "@mui/icons-material/MessageOutlined";
-import LinkAtom from "@/components/atoms/LinkAtom";
+import LinkAtom from "components/atoms/LinkAtom";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";

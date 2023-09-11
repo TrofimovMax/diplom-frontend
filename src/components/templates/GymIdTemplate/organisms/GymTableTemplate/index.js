@@ -11,7 +11,7 @@ import React from "react";
 import { StyledTableCell, StyledTableRow } from './styles';
 import { hours, days } from './constants';
 import { useQuery } from "react-query";
-import { getByQueryKey } from "@/api/getByQueryKey";
+import { getByQueryKey } from "api/getByQueryKey";
 import IsLoading from "@/components/molecules/isLoading";
 import IsError from "@/components/molecules/IsError";
 import CellContent from "@/components/templates/GymIdTemplate/molecules/CellContent";

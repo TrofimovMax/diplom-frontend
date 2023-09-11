@@ -1,6 +1,6 @@
 import React from 'react';
 import { Button, Grid } from "@mui/material";
-import BackButton from "@/components/atoms/BackButton";
+import BackButton from "components/atoms/BackButton";
 import NextLink from "next/link";
 
 const GymsLinksMolecule = ({data, router, pathname}) => {

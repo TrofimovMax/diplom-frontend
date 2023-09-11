@@ -1,11 +1,11 @@
 import React, {useContext, useState} from 'react';
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
-import { signUpRequest } from "@/api/sign-up";
-import SignupPage from "@/components/pages/signup/SignupPage";
-import IsLoading from "@/components/molecules/isLoading";
+import { signUpRequest } from "api/sign-up";
+import SignupPage from "components/pages/signup/SignupPage";
+import IsLoading from "components/molecules/isLoading";
 import isEmail from "validator/lib/isEmail";
-import NoticeContext from "@/api/NoticeContext";
+import NoticeContext from "api/NoticeContext";
 
 const SignUp = () => {
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);

@@ -1,4 +1,4 @@
-import {API_URI} from "@/api/constants";
+import {API_URI} from "api/constants";
 import axios from "axios";
 export const getByQueryKey = ({ queryKey }) => {
   return axios.get(

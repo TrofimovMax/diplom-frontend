@@ -1,5 +1,5 @@
-import { getEntityCountByTime } from "@/components/templates/GymIdTemplate/molecules/CellEditContent/utils";
-import { hours, days } from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
+import { getEntityCountByTime } from "components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+import { hours, days } from "components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
 export const GreedyAlgorithm = (raw, capacity, bookings, wishes, factorBooking, factorWishing, factorMaxHour) => {
   const MAX_HOURS = factorMaxHour; // Максимальное количество рабочих часов
 

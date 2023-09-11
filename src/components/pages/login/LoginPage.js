@@ -1,6 +1,6 @@
 import React from 'react';
 import {Box, Button, Checkbox, FormControlLabel, Grid, Container, TextField} from "@mui/material";
-import TitleSection from "@/components/molecules/TitleSection";
+import TitleSection from "components/molecules/TitleSection";
 
 const LoginPage = ({ signIn, email, setEmail, password, setPassword}) => {
   return (

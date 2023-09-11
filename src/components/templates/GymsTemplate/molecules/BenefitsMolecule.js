@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid, Typography} from "@mui/material";
-import Heading from "@/components/atoms/Heading";
+import Heading from "components/atoms/Heading";
 
 const BenefitsMolecule = ({Benefits}) => {
   return (

@@ -4,10 +4,10 @@ import React, {useContext} from 'react';
 import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
 import {useMutation} from "react-query";
-import IsLoading from "@/components/molecules/isLoading";
-import IsError from "@/components/molecules/IsError";
-import NoticeContext from "@/api/NoticeContext";
-import axiosClient from "@/api/axiosClient";
+import IsLoading from "components/molecules/isLoading";
+import IsError from "components/molecules/IsError";
+import NoticeContext from "api/NoticeContext";
+import axiosClient from "api/axiosClient";
 
 const buttonStyle = { color: '#000', fontSize: {xs: 10, md: 14}}
 

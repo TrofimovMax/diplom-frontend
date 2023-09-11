@@ -5,7 +5,7 @@ import {
   useTheme
 } from "@mui/material";
 
-import GymsTemplate from "@/components/templates/GymsTemplate";
+import GymsTemplate from "components/templates/GymsTemplate";
 
 const GymsPage = ({data, Images, Benefits, router, pathname, gymIdCard}) => {
   const theme = useTheme()
