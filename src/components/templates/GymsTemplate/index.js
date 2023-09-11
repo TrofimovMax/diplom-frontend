@@ -10,8 +10,22 @@ import GymsLinksMolecule from "components/templates/GymsTemplate/molecules/GymsL
 import GymIdCardMolecule from "components/templates/GymsTemplate/molecules/GymIdCardMolecule";
 import BenefitsMolecule from "components/templates/GymsTemplate/molecules/BenefitsMolecule";
 import TitleSection from "components/molecules/TitleSection";
+import {useRouter} from "next/router";
+import {useFetchGymsQuery} from "../../../pages/gyms/__generated__/FetchGyms.query";
+import IsLoading from "../../molecules/isLoading";
+import IsError from "../../molecules/IsError";
+import Images from "helper/images.json";
+import Benefits from "helper/benefits.json";
+import gymIdCard from "helper/GymIdCard.json";
 
-const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMobile}) => {
+const GymsTemplate = ({ isMobile }) => {
+  const router = useRouter()
+  const { pathname } = useRouter();
+  const {loading, error, data} = useFetchGymsQuery()
+
+  if (loading) return <IsLoading />
+  if (error) return (<IsError />)
+
   return (
     <Container>
   <Grid container>
@@ -20,7 +34,7 @@ const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMo
     </Grid>
     <Grid container item>
       <GymsLinksMolecule
-        data = {data}
+        data = {data['fetchGyms']}
         router = {router}
         pathname = {pathname}
       />
