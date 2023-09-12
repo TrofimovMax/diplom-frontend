@@ -5,26 +5,26 @@ import {
   ImageList,
   ImageListItem,
 } from "@mui/material";
-import WelcomeMolecule from "components/templates/GymsTemplate/molecules/WelcomeMolecule";
-import GymsLinksMolecule from "components/templates/GymsTemplate/molecules/GymsLinksMolecule";
-import GymIdCardMolecule from "components/templates/GymsTemplate/molecules/GymIdCardMolecule";
-import BenefitsMolecule from "components/templates/GymsTemplate/molecules/BenefitsMolecule";
-import TitleSection from "components/molecules/TitleSection";
-import {useRouter} from "next/router";
+import WelcomeMolecule from "@components/templates/GymsTemplate/molecules/WelcomeMolecule";
+import GymsLinksMolecule from "@components/templates/GymsTemplate/molecules/GymsLinksMolecule";
+import GymIdCardMolecule from "@components/templates/GymsTemplate/molecules/GymIdCardMolecule";
+import BenefitsMolecule from "@components/templates/GymsTemplate/molecules/BenefitsMolecule";
+import TitleSection from "@components/molecules/TitleSection";
+import {NextRouter, useRouter} from "next/router";
 import {useFetchGymsQuery} from "../../../pages/gyms/__generated__/FetchGyms.query";
-import IsLoading from "../../molecules/isLoading";
-import IsError from "../../molecules/IsError";
-import Images from "helper/images.json";
-import Benefits from "helper/benefits.json";
-import gymIdCard from "helper/GymIdCard.json";
+import IsLoading from "@components/molecules/isLoading";
+import IsError from "@components/molecules/IsError";
+import Images from "@helper/images.json";
+import Benefits from "@helper/benefits.json";
+import gymIdCard from "@helper/GymIdCard.json";
 
-const GymsTemplate = ({ isMobile }) => {
-  const router = useRouter()
+const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
+  const router: NextRouter = useRouter()
   const { pathname } = useRouter();
   const {loading, error, data} = useFetchGymsQuery()
 
   if (loading) return <IsLoading />
-  if (error) return (<IsError />)
+  if (error) return (<IsError message={error.message}/>)
 
   return (
     <Container>
@@ -57,7 +57,7 @@ const GymsTemplate = ({ isMobile }) => {
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
         }}
       >
-        {Images.Images.map((item) => (
+        {Images.Images.map((item: any) => (
           <ImageListItem key={item.img} sx={{height: '100% !important'}}>
             <img
               src={`${item.img}?w=400&h=400&fit=crop&auto=format`}

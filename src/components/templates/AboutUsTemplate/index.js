@@ -1,10 +1,10 @@
 import React from 'react';
 import {Container, Grid} from "@mui/material";
-import TitleSection from "components/molecules/TitleSection";
-import Contacts from "components/molecules/Contacts";
+import TitleSection from "@components/molecules/TitleSection";
+import Contacts from "@components/molecules/Contacts";
 import {Placemark, YMaps, Map} from "@pbe/react-yandex-maps";
 import aboutUsBenefits from 'helper/aboutUsBenefits.json'
-import AboutUsBenefits from "components/templates/AboutUsTemplate/molecules/AboutUsBenefits";
+import AboutUsBenefits from "@components/templates/AboutUsTemplate/molecules/AboutUsBenefits";
 
 const AboutUsTemplate = () => {
   const defaultState = {

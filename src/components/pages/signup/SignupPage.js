@@ -1,5 +1,5 @@
 import React from 'react';
-import TitleSection from "components/molecules/TitleSection";
+import TitleSection from "@components/molecules/TitleSection";
 import NextLink from "next/link";
 import {Button, Link as MUILink, Stack, TextField, Container} from "@mui/material";
 

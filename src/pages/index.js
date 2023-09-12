@@ -1,7 +1,7 @@
 import Heading from '/src/components/atoms/Heading';
 import {Container, Box, Grid} from "@mui/material";
-import Slider from "components/organisms/SliderBar/Slider";
-import GymsCard from "components/organisms/GymsCard";
+import Slider from "@components/organisms/SliderBar/Slider";
+import GymsCard from "@components/organisms/GymsCard";
 import cards from 'helper/gymsCard.json'
 
 const Home = () => (

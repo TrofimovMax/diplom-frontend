@@ -10,9 +10,9 @@ import {
   Grid, ThemeProvider,
   Typography
 } from "@mui/material";
-import NoticeContext from "api/NoticeContext";
-import {createDataTimeUTC} from "components/templates/GymIdTemplate/utils";
-import RemoveButton from "components/templates/GymIdTemplate/organisms/RemoveButton";
+import NoticeContext from "@api/NoticeContext";
+import {createDataTimeUTC} from "@components/templates/GymIdTemplate/utils";
+import RemoveButton from "@components/templates/GymIdTemplate/organisms/RemoveButton";
 import {useCreateBookingMutationMutation} from "./__generated__/CreateBooking.mutation";
 import {useCreateWishingMutationMutation} from "./__generated__/CreateWishing.mutation";
 import {BookingItemFragmentDoc} from "./__generated__/BookingItem.fragment";

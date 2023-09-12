@@ -1,6 +1,6 @@
 import React from 'react';
 import {Grid, Paper, Typography} from "@mui/material";
-import AboutUsBenefitsAtom from "components/templates/AboutUsTemplate/atoms/AboutUsBenefitsAtom";
+import AboutUsBenefitsAtom from "@components/templates/AboutUsTemplate/atoms/AboutUsBenefitsAtom";
 
 const AboutUsBenefits = ({benefits}) => {
   return (

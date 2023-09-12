@@ -1,8 +1,8 @@
 import React from "react";
 import {useRouter} from "next/router";
-import IsLoading from "components/molecules/isLoading";
-import IsError from "components/molecules/IsError";
-import GymIdPage from "components/pages/gyms/GymIdPage";
+import IsLoading from "@components/molecules/isLoading";
+import IsError from "@components/molecules/IsError";
+import GymIdPage from "@components/pages/gyms/GymIdPage";
 import {useGetGymByIdQuery} from "./__generated__/GetGymById.query";
 
 const Gym = () => {

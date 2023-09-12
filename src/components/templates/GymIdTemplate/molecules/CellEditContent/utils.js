@@ -1,7 +1,7 @@
 import moment from "moment/moment";
 import filter from "lodash/filter";
 import { first, keys, values } from "lodash";
-import { days } from "components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
+import { days } from "@components/templates/GymIdTemplate/organisms/GymTableTemplate/constants";
 export const getFirstKeyByObject = (day) => first(keys(day))
 
 export const getFirstValueByObject = (day) => first(values(day))

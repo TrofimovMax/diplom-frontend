@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {hasHourInSchedule} from "components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
-import {StyledTableCell} from "components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
-import {CellForm} from "components/templates/GymIdTemplate/organisms/CellForm";
+import {hasHourInSchedule} from "@components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
+import {StyledTableCell} from "@components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
+import {CellForm} from "@components/templates/GymIdTemplate/organisms/CellForm";
 import {
   getEntityCountByTime, getEntityIdByUserId, getEntityCountByUserId
-} from "components/templates/GymIdTemplate/molecules/CellEditContent/utils";
+} from "@components/templates/GymIdTemplate/molecules/CellEditContent/utils";
 
 const MAX_WISHES = 7;
 

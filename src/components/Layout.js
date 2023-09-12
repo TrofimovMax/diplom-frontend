@@ -1,8 +1,8 @@
-import Header from "components/organisms/Header/Header";
-import Footer from "components/organisms/Footer/Footer";
+import Header from "@components/organisms/Header/Header";
+import Footer from "@components/organisms/Footer/Footer";
 import React, {useState} from "react";
-import NoticesService from "components/organisms/NoticesService";
-import NoticeContext from "api/NoticeContext";
+import NoticesService from "@components/organisms/NoticesService";
+import NoticeContext from "@api/NoticeContext";
 
 const Layout = ({children}) => {
 

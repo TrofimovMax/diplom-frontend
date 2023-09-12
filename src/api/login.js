@@ -1,4 +1,4 @@
-import axiosClient from "api/axiosClient";
+import axiosClient from "@api/axiosClient";
 export const loginRequest = async (params) => {
   try {
     const response = await axiosClient.post(

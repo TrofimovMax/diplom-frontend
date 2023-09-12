@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Button} from "@mui/material";
-import IsLoading from "components/molecules/isLoading";
-import IsError from "components/molecules/IsError";
-import NoticeContext from "api/NoticeContext";
+import IsLoading from "@components/molecules/isLoading";
+import IsError from "@components/molecules/IsError";
+import NoticeContext from "@api/NoticeContext";
 import {useDeleteBookingMutationMutation} from "./__generated__/DeleteBooking.mutation";
 import {useDeleteWishingMutationMutation} from "./__generated__/DeleteWishing.mutation";
 

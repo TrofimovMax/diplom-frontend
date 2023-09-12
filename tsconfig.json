@@ -6,11 +6,13 @@
     "jsx": "preserve",
     "allowJs": true,
     "moduleResolution": "node",
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@/components/*": ["/src/components/*"],
+      "@components/*": ["src/components/*"],
+      "@helper/*": ["src/helper/*"],
+      "@api/*": ["src/api/*"],
       "*": [
-        "src/*"
+        "*"
       ]
     },
     "lib": [

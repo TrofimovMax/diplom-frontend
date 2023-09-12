@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { API_URI } from "api/constants"
+import { API_URI } from "@api/constants"
 
 export default axios.create({
   baseURL: API_URI,

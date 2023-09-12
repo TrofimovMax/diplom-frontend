@@ -5,7 +5,7 @@ import {
   useTheme
 } from "@mui/material";
 
-import GymsTemplate from "components/templates/GymsTemplate";
+import GymsTemplate from "@components/templates/GymsTemplate";
 import {Theme} from "@mui/material/styles/createTheme";
 
 const GymsPage: React.FC = () => {
