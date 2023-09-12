@@ -20,10 +20,10 @@ const AuthBlock = () => {
         axiosClient.delete(`/logout`);
     },
     {
-      onSuccess: (data) => {
+      onSuccess: () => {
           localStorage.removeItem("token");
       },
-      onError(err) {
+      onError() {
         localStorage.removeItem("token");
         handleClick();
       }

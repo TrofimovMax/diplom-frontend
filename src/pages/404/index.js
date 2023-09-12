@@ -1,6 +1,6 @@
 import {useEffect} from "react";
 import {useRouter} from "next/router";
-import Heading from 'components/atoms/Heading';
+import Heading from "@components/atoms/Heading";
 import {Box} from "@mui/material";
 
 const Error = () => {
