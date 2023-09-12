@@ -33,5 +33,6 @@ yarn-error.log*
 # vercel
 .vercel
 
-#codegen directories
+#codegen directories and schemes
 /__generated__
+schema.graphql

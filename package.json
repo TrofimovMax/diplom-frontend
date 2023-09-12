@@ -9,6 +9,7 @@
     "prestart": "npm run graphql",
     "start": "next start -p 8000",
     "codegen": "graphql-codegen --config codegen.ts",
+    "update-schema": "graphql-codegen -c ./codegen.download.yml",
     "remove-codegen-files": "find ./src -name \"__generated__\" -exec rm -rf '{}' +",
     "graphql": "npm run remove-codegen-files && npm run codegen",
     "lint": "next lint"
@@ -39,6 +40,7 @@
     "@graphql-codegen/client-preset": "^4.1.0",
     "@graphql-codegen/named-operations-object": "^2.3.1",
     "@graphql-codegen/near-operation-file-preset": "^2.5.0",
+    "@graphql-codegen/schema-ast": "^4.0.0",
     "@graphql-codegen/typescript": "^4.0.1",
     "@graphql-codegen/typescript-operations": "^4.0.1",
     "@graphql-codegen/typescript-react-apollo": "^3.3.7",

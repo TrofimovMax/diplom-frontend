@@ -4,8 +4,9 @@ const scalars = {
     StartAT: "string",
     EndAt: "string",
 }
+
 const config: CodegenConfig = {
-    schema: 'http://localhost:3000/graphql',
+    schema: 'schema.graphql',
     overwrite: true,
     documents: "src/**/*.graphql",
     generates: {
@@ -42,6 +43,9 @@ const config: CodegenConfig = {
                 identifierName: "namedOperations",
                 scalars
             }
+        },
+        'schema.graphql': {
+            plugins: ['schema-ast']
         }
     }
 };
