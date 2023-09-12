@@ -1,7 +1,7 @@
 import React from 'react';
 import {Grid, Typography} from "@mui/material";
 
-const WelcomeMolecule = () => {
+const WelcomeMolecule: React.FC = () => {
   return (
     <Grid container spacing={1}>
       <Grid item>

@@ -1,13 +1,23 @@
 import React from 'react';
 import {Box, Grid, ImageList, ImageListItem, ImageListItemBar, Paper, Typography} from "@mui/material";
+import gymsCard from "@helper/GymIdCard.json"
 
-const GymIdCardMolecule = ({gymIdCard, isMobile}) => {
+type GymCard ={
+    img: string,
+    title: string,
+    description: string,
+    size: string
+}
+const GymIdCardMolecule: React.FC <{isMobile: boolean}> = ({ isMobile }) => {
+
+  const gymIdCard: Array<GymCard> = gymsCard.gymIdCard || [];
+
   return (
     <Grid container>
-      <ImageList gap={gymIdCard?.gymIdCard?.length}
+      <ImageList gap={gymIdCard.length}
                  cols={isMobile ? 3 : 1}
       >
-        {gymIdCard?.gymIdCard.map((item) => (
+        {gymIdCard.map((item) => (
           <Paper key={item.img} sx={{padding:1}} variant="outlined" square>
             <ImageListItem
               sx={isMobile ? {

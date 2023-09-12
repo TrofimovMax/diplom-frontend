@@ -11,17 +11,23 @@ import GymIdCardMolecule from "@components/templates/GymsTemplate/molecules/GymI
 import BenefitsMolecule from "@components/templates/GymsTemplate/molecules/BenefitsMolecule";
 import TitleSection from "@components/molecules/TitleSection";
 import {NextRouter, useRouter} from "next/router";
-import {useFetchGymsQuery} from "../../../pages/gyms/__generated__/FetchGyms.query";
 import IsLoading from "@components/molecules/isLoading";
 import IsError from "@components/molecules/IsError";
 import Images from "@helper/images.json";
-import Benefits from "@helper/benefits.json";
-import gymIdCard from "@helper/GymIdCard.json";
+import {useFetchNameGymsQuery} from "@components/templates/GymsTemplate/__generated__/FetchNameGyms.query";
 
+type Image = {
+  id: number,
+  title: string,
+  img: string
+}
 const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
   const router: NextRouter = useRouter()
   const { pathname } = useRouter();
-  const {loading, error, data} = useFetchGymsQuery()
+
+  const {loading, error, data} = useFetchNameGymsQuery()
+
+  const images: Array<Image> = Images.Images || [];
 
   if (loading) return <IsLoading />
   if (error) return (<IsError message={error.message}/>)
@@ -44,7 +50,6 @@ const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
     </Grid>
     <Grid container item>
       <GymIdCardMolecule
-        gymIdCard = {gymIdCard}
         isMobile = {isMobile}
       />
     </Grid>
@@ -57,7 +62,7 @@ const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
           gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
         }}
       >
-        {Images.Images.map((item: any) => (
+        {images.map((item) => (
           <ImageListItem key={item.img} sx={{height: '100% !important'}}>
             <img
               src={`${item.img}?w=400&h=400&fit=crop&auto=format`}
@@ -70,9 +75,7 @@ const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
       </ImageList>
     </Grid>
     <Grid container item>
-      <BenefitsMolecule
-        Benefits = {Benefits}
-      />
+      <BenefitsMolecule />
     </Grid>
   </Grid>
     </Container>

@@ -1,0 +1,6 @@
+query FetchNameGyms ($page: Int = 1, $limit: Int = 10 ){
+    fetchGyms(page: $page, limit: $limit) {
+        id
+        title
+    }
+}
