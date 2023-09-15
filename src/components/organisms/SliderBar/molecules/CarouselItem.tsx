@@ -13,9 +13,11 @@ type CarouselItemStyle = {
 
 const theme: Theme = createTheme({
   palette: {
-    button: "#ff6479",
-    "&:hover": {
-      button_hover: "#f4576c",
+    primary: {
+      main: "#ff6479"
+    },
+    secondary: {
+      main: "#f4576c"
     }
   },
 });
@@ -84,9 +86,9 @@ const CarouselItem: React.FC <{item: SliderType}> = ({item}) => {
                   marginTop: {xs: 2, md: 10},
                   padding: {xs: "6px 12px", md: "18px 36px"},
                   fontSize: {xs: "14px", md: "20px"},
-                  backgroundColor: "button",
+                  backgroundColor: "primary.main",
                   "&:hover": {
-                    backgroundColor: "&:hover.button_hover"
+                    backgroundColor: "secondary.main"
                   },
                 }}
                 style={styles.button}>
