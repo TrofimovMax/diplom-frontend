@@ -2,8 +2,16 @@ import React from "react";
 import {Grid, Button, Typography, createTheme, ThemeProvider} from "@mui/material"
 import CssBaseline from "@mui/material/CssBaseline";
 import NextLink from "next/link";
+import SliderType from "@components/organisms/SliderBar/Slider.type";
+import CSS from 'csstype';
+import {Theme} from "@mui/material/styles/createTheme";
 
-const theme = createTheme({
+type CarouselItemStyle = {
+  paperContainer: CSS.Properties,
+  button: CSS.Properties,
+}
+
+const theme: Theme = createTheme({
   palette: {
     button: "#ff6479",
     "&:hover": {
@@ -12,9 +20,9 @@ const theme = createTheme({
   },
 });
 
-const CarouselItem = ({item}) => {
+const CarouselItem: React.FC <{item: SliderType}> = ({item}) => {
 
-  const styles = {
+  const styles: CarouselItemStyle = {
     paperContainer: {
       backgroundImage: `url(${item.image})`,
       backgroundRepeat: "no-repeat",

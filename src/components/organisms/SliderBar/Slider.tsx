@@ -1,9 +1,11 @@
 import React from "react";
 import Carousel from "react-material-ui-carousel"
 import CarouselItem from "@components/organisms/SliderBar/molecules/CarouselItem";
-import slider from "/src/helper/slider.json"
-const Slider = () => {
+import Sliders from "@helper/slider.json"
+import SliderType from "./Slider.type"
 
+const Slider: React.FC = () => {
+  const slider: Array<SliderType> = Sliders
   return (
     <Carousel>
       {

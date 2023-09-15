@@ -1,6 +1,8 @@
 {
   "compilerOptions": {
     "noImplicitAny": true,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
     "module": "esnext",
     "target": "es5",
     "jsx": "preserve",
