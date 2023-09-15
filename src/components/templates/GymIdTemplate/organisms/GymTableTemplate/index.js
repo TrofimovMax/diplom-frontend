@@ -8,8 +8,8 @@ import {
   TableRow, useMediaQuery, useTheme,
 } from "@mui/material";
 import React from "react";
-import { StyledTableCell, StyledTableRow } from './styles';
-import { hours, days } from './constants';
+import { StyledTableCell, StyledTableRow } from "./styles";
+import { hours, days } from "./constants";
 import { useQuery } from "react-query";
 import { getByQueryKey } from "@api/getByQueryKey";
 import IsLoading from "@components/molecules/isLoading";
@@ -26,7 +26,7 @@ const GymTable = ({ data, isEdit, newSchedule}) => {
   const router = useRouter();
   const { id } = router.query;
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.up("sm"))
   const tableWidth = isMobile? 1200: 320;
 
   const { data: bookingData, loading, error: apolloError } = useGetBookingByGymIdQuery({

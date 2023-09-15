@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Box, Grid, ImageList, ImageListItem, ImageListItemBar, Paper, Typography} from "@mui/material";
 import gymsCard from "@helper/GymIdCard.json"
 
@@ -44,10 +44,10 @@ const GymIdCardMolecule: React.FC <{isMobile: boolean}> = ({ isMobile }) => {
                 title={item.title}
                 subtitle={
                   <Box sx={{whiteSpace: "normal"}}>
-                    <Typography variant='body2'>
+                    <Typography variant="body2">
                       {item.description}
                     </Typography>
-                    <Typography variant='body2'>
+                    <Typography variant="body2">
                       <strong> Размер зала:</strong> {item.size}
                     </Typography>
                   </Box>

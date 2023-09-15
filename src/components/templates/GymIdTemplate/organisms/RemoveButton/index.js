@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import {Button} from "@mui/material";
 import IsLoading from "@components/molecules/isLoading";
@@ -27,7 +27,7 @@ const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, isOpe
                 fields: {
                     getBookingByGymId(currentBooking = []){
                         return currentBooking.filter(booking =>
-                          booking.__ref !== `Booking:${deleteBooking['deleteBookingMutation']['booking'].id}`)
+                          booking.__ref !== `Booking:${deleteBooking["deleteBookingMutation"]["booking"].id}`)
                     }
                 }
             })
@@ -52,7 +52,7 @@ const RemoveButton = ({ text, gymId, userId, getEntityIdByUserId, counter, isOpe
                     getWishingByGymId(currentWishing = []){
 
                         return currentWishing.filter(wishing =>
-                            wishing.__ref !== `Wishing:${deleteWishing['deleteWishingMutation']['wishing'].id}`
+                            wishing.__ref !== `Wishing:${deleteWishing["deleteWishingMutation"]["wishing"].id}`
                         )
                     }
                 }

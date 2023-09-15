@@ -1,9 +1,9 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState} from "react";
 import {Grid, Button, Fab, Typography, FormControl} from "@mui/material";
 import _, {times} from "lodash";
-import EditIcon from '@mui/icons-material/Edit';
-import AddIcon from '@mui/icons-material/Add';
-import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from "@mui/icons-material/Edit";
+import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from "@mui/icons-material/Clear";
 import IsError from "@components/molecules/IsError";
 import GymTable from "@components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import IsLoading from "@components/molecules/isLoading";
@@ -39,13 +39,13 @@ export const EditForm = ({data, gymId}) => {
 
   const [scheduleState, setScheduleState] = useState(
       [
-        {"mon": scheduleObject['mon'],},
-        {"tue": scheduleObject['tue'],},
-        {"wed": scheduleObject['wed'],},
-        {"thu": scheduleObject['thu'],},
-        {"fri": scheduleObject['fri'],},
-        {"sat": scheduleObject['sat'],},
-        {"sun": scheduleObject['sun'],},
+        {"mon": scheduleObject["mon"],},
+        {"tue": scheduleObject["tue"],},
+        {"wed": scheduleObject["wed"],},
+        {"thu": scheduleObject["thu"],},
+        {"fri": scheduleObject["fri"],},
+        {"sat": scheduleObject["sat"],},
+        {"sun": scheduleObject["sun"],},
       ]
       )
 
@@ -169,7 +169,7 @@ export const EditForm = ({data, gymId}) => {
                     alignItems="center"
                 >
 
-                  <Grid item xs={12} sx={{textAlign:'center'}}>
+                  <Grid item xs={12} sx={{textAlign:"center"}}>
                     <FormControl>
                       <Typography>{DAY_TITLE_MAP[getFirstKeyByObject(days)]}</Typography>
                     </FormControl>
@@ -180,13 +180,13 @@ export const EditForm = ({data, gymId}) => {
                     xs={12}
                     md={4}
                     lg={3}
-                    sx={{minWidth: '250px'}}
+                    sx={{minWidth: "250px"}}
                     direction="row"
                     justifyContent="center"
                     alignItems="center"
                   >
                     <Grid item xs={3}>
-                      <Fab color="primary" aria-label="add" size='small' onClick={()=> addScheduleInterval(days)}>
+                      <Fab color="primary" aria-label="add" size="small" onClick={()=> addScheduleInterval(days)}>
                         <AddIcon/>
                       </Fab>
                     </Grid>
@@ -212,7 +212,7 @@ export const EditForm = ({data, gymId}) => {
                       }
                     </Grid>
                     <Grid item xs={3} sx={{paddingLeft: 7}}>
-                      <Fab color="error" aria-label="clear" size='small' onClick={()=> deleteScheduleInterval(days)}>
+                      <Fab color="error" aria-label="clear" size="small" onClick={()=> deleteScheduleInterval(days)}>
                         <ClearIcon/>
                       </Fab>
                     </Grid>
@@ -242,13 +242,13 @@ export const EditForm = ({data, gymId}) => {
           </Button>
         </Grid>
         <Grid item xs={6} md={2}>
-          <SelectorFactorByEntity entity='Коэфициент записей' value={factorBooking} setValue={setFactorBooking}/>
+          <SelectorFactorByEntity entity="Коэфициент записей" value={factorBooking} setValue={setFactorBooking}/>
         </Grid>
         <Grid item xs={6} md={2}>
-          <SelectorFactorByEntity entity='Коэфициент пожеланий' value={factorWishing} setValue={setFactorWishing}/>
+          <SelectorFactorByEntity entity="Коэфициент пожеланий" value={factorWishing} setValue={setFactorWishing}/>
         </Grid>
         <Grid item xs={6} md={3}>
-          <SelectorMaxHours entity='Максимум рабочих часов' value={factorMaxHour} setValue={setFactorMaxHour}/>
+          <SelectorMaxHours entity="Максимум рабочих часов" value={factorMaxHour} setValue={setFactorMaxHour}/>
         </Grid>
         <Grid item xs={6} md={2}>
           <Button
@@ -263,7 +263,7 @@ export const EditForm = ({data, gymId}) => {
 
         </Grid>
       </Grid>
-      <Grid item xs={12} sx={{paddingBottom: 5, width: '100%'}}>
+      <Grid item xs={12} sx={{paddingBottom: 5, width: "100%"}}>
         {
           gymId ?
             <GymTable

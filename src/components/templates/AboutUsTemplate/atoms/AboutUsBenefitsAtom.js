@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Grid, Typography} from "@mui/material";
 
 const AboutUsBenefitsAtom = ({img, title, description}) => {
@@ -15,11 +15,11 @@ const AboutUsBenefitsAtom = ({img, title, description}) => {
           />
         </Grid>
         <Grid item>
-          <Typography variant='h6' sx={{fontSize: "16px", ml: 1, fontWeight: 'bold'}} >{title}</Typography>
+          <Typography variant="h6" sx={{fontSize: "16px", ml: 1, fontWeight: "bold"}} >{title}</Typography>
         </Grid>
       </Grid>
-      <Grid item sx={{ mt:1, color: '#9b9b9b', fontWeight:'14px'}}>
-        <Typography variant='body2'>{description}</Typography>
+      <Grid item sx={{ mt:1, color: "#9b9b9b", fontWeight:"14px"}}>
+        <Typography variant="body2">{description}</Typography>
       </Grid>
     </>
   );

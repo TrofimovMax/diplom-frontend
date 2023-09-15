@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {createTheme, Link as MUILink, ThemeProvider} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import NextLink from "next/link";
@@ -6,15 +6,15 @@ const theme = createTheme({
   palette: {
     links: "#fff",
     redLinks: "#ff6479",
-    '&:hover': {
+    "&:hover": {
       links_hover: "#f4576c",
       redLinks_hover: "#f4576c",
     },
   },
 });
 const LinkAtom = ({children, href, color = null, color_hover= null}) => {
-  const linkColor = color ? color : 'links';
-  const linkColorHover = color_hover ? color_hover : '&:hover.links_hover';
+  const linkColor = color ? color : "links";
+  const linkColorHover = color_hover ? color_hover : "&:hover.links_hover";
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
@@ -23,7 +23,7 @@ const LinkAtom = ({children, href, color = null, color_hover= null}) => {
         <MUILink
           sx={{
             color: linkColor,
-            '&:hover': {
+            "&:hover": {
               color: linkColorHover
             },
           }}

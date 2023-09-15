@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios"
 import { API_URI } from "@api/constants"
 
 export default axios.create({
@@ -6,7 +6,7 @@ export default axios.create({
   timeout: 15_000,
   headers: {
     "Content-Type": "application/json",
-    "Authorization": typeof localStorage === 'object' ? localStorage.getItem('token') : null
+    "Authorization": typeof localStorage === "object" ? localStorage.getItem("token") : null
   },
   crossDomain: true
 });

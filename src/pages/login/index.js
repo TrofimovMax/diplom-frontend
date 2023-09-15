@@ -10,8 +10,8 @@ import IsError from "@components/molecules/IsError";
 const Login = () => {
   const router = useRouter();
   const [checked, setChecked] = useState();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const handleChange = (event) => {
     setChecked(event.target.checked);

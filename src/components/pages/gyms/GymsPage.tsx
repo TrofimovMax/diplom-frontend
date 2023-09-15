@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   ThemeProvider,
   useMediaQuery,
@@ -10,7 +10,7 @@ import {Theme} from "@mui/material/styles/createTheme";
 
 const GymsPage: React.FC = () => {
   const theme: Theme = useTheme()
-  const isMobile :boolean  = useMediaQuery(theme.breakpoints.up('sm'))
+  const isMobile :boolean  = useMediaQuery(theme.breakpoints.up("sm"))
   return (
     <ThemeProvider theme={theme}>
       <GymsTemplate

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Grid, Container} from "@mui/material";
 import GymTable from "@components/templates/GymIdTemplate/organisms/GymTableTemplate";
 import TitleSection from "@components/molecules/TitleSection";
@@ -15,12 +15,12 @@ const GymIdPage = ({ data, router, gymId}) => {
             container
             item
             xs={12}
-            direction='row'
+            direction="row"
             justifyContent="space-between"
             alignItems="center"
           >
             <Grid item>
-              <BackButton router = { router } link = '/gyms' />
+              <BackButton router = { router } link = "/gyms" />
             </Grid>
             <Grid container item xs={1}>
               <EditLink

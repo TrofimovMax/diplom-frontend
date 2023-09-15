@@ -6,7 +6,7 @@ export const signUpRequest = async (params) => {
       JSON.stringify(params),
       {
         headers: {
-          'Access-Control-Allow-Origin': '*'
+          "Access-Control-Allow-Origin": "*"
         },
         crossDomain: true
       }

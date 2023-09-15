@@ -2,11 +2,11 @@ import {API_URI} from "@api/constants";
 import axios from "axios";
 export const getByQueryKey = ({ queryKey }) => {
   return axios.get(
-    `${API_URI}/${queryKey.join('/')}`,
+    `${API_URI}/${queryKey.join("/")}`,
     {
       headers: {
         "Content-type": "application/json",
-        "Authorization": typeof localStorage === 'object' ? localStorage.getItem('token') : null
+        "Authorization": typeof localStorage === "object" ? localStorage.getItem("token") : null
       },
     }
   )

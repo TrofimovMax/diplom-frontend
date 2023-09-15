@@ -8,7 +8,7 @@ const Error = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      router.push('/');
+      router.push("/");
     }, 3000);
   }, [router]);
 

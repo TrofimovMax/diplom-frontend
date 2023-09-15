@@ -7,12 +7,12 @@ export const getFirstKeyByObject = (day) => first(keys(day))
 export const getFirstValueByObject = (day) => first(values(day))
 
 export const getEntityByTime = (entityWeeks, day, hour) => {
-  const hourFormat = moment(hour, 'HH:mm:ss').format('HH:mm:ss')
+  const hourFormat = moment(hour, "HH:mm:ss").format("HH:mm:ss")
   const start = `${day} ${hourFormat}`;
   const preparedEntity = entityWeeks.map((item) => {
     return {
       ...item,
-      start: moment(item.startAt).utc().format('ddd DD/MM HH:00:00')
+      start: moment(item.startAt).utc().format("ddd DD/MM HH:00:00")
     }
   })
   const entitiesByTime = filter(preparedEntity, { start })

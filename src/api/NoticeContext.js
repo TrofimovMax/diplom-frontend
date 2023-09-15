@@ -1,5 +1,5 @@
 import { createContext } from "react";
 
-const NoticeContext = createContext('');
+const NoticeContext = createContext("");
 
 export default NoticeContext;

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {useRouter} from "next/router";
 import {useQuery} from "react-query";
 import { EditGymPage } from "@components/pages/gyms/EditGymPage";
@@ -19,7 +19,7 @@ const Edit = () => {
   if (apolloError) return (<IsError/>)
 
   return (
-    gymData && adminData?.data?.status === 'ok'?
+    gymData && adminData?.data?.status === "ok"?
       (<EditGymPage
         data = {gymData?.getGymById}
         router = {router}

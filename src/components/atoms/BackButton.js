@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import NextLink from "next/link";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import {IconButton} from "@mui/material";
@@ -8,7 +8,7 @@ const BackButton = ({router, link}) => {
     <IconButton
       color="primary"
       aria-label="add to shopping cart"
-      component='button'
+      component="button"
       LinkComponent={NextLink}
       onClick={() => router.push(link)}
     >

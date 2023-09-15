@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Button, Grid } from "@mui/material";
 import BackButton from "@components/atoms/BackButton";
 import NextLink from "next/link";
@@ -14,13 +14,13 @@ const GymsLinksMolecule: React.FC <{data: Array<GymsName>, router: NextRouter, p
       <Grid item>
         <BackButton
           router={router}
-          link={'/'}
+          link={"/"}
         />
         {data?.map(({id, title}) => {
           return (
             <Button
               variant="text"
-              component='a'
+              component="a"
               LinkComponent={NextLink}
               key={id}
               href={pathname + `/${id}`}

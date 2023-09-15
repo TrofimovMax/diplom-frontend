@@ -1,6 +1,6 @@
 "use client";
 
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 import {Button, Grid} from "@mui/material";
 import NextLink from "next/link";
 import {useMutation} from "react-query";
@@ -9,7 +9,7 @@ import IsError from "@components/molecules/IsError";
 import NoticeContext from "@api/NoticeContext";
 import axiosClient from "@api/axiosClient";
 
-const buttonStyle = { color: '#000', fontSize: {xs: 10, md: 14}}
+const buttonStyle = { color: "#000", fontSize: {xs: 10, md: 14}}
 
 const AuthBlock = () => {
   const { handleClick } = useContext(NoticeContext);
@@ -55,7 +55,7 @@ const AuthBlock = () => {
       <Grid item>
         <Button
           sx={buttonStyle}
-          component='a'
+          component="a"
           href="/login"
           LinkComponent={NextLink}
         >
@@ -63,7 +63,7 @@ const AuthBlock = () => {
         </Button>
         <Button
           sx={buttonStyle}
-          component='a'
+          component="a"
           href="/signup"
           LinkComponent={NextLink}
         >

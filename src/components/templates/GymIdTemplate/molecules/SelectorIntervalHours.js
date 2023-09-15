@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import {Grid, FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 const SelectorIntervalHours = ({days, handleChange, hours, hour, schedule}) => {
     const isEndTime = true;
     return (
-      <Grid item m={1} sx={{minWidth: '150px'}}>
+      <Grid item m={1} sx={{minWidth: "150px"}}>
         <FormControl fullWidth sx={{ mb: 2 }}>
           <InputLabel id="demo-simple-select-label">С</InputLabel>
           <Select

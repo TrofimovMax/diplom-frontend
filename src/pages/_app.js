@@ -1,11 +1,11 @@
-import React from 'react'
+import React from "react"
 import Layout from "@components/Layout";
-import { createTheme } from '@mui/material/styles';
+import { createTheme } from "@mui/material/styles";
 import { ThemeProvider } from "@mui/material";
-import CssBaseline from '@mui/material/CssBaseline';
-import { Hydrate, QueryClient, QueryClientProvider } from 'react-query';
-import { ReactQueryDevtools } from 'react-query/devtools';
-import client from '/src/apollo/client'
+import CssBaseline from "@mui/material/CssBaseline";
+import { Hydrate, QueryClient, QueryClientProvider } from "react-query";
+import { ReactQueryDevtools } from "react-query/devtools";
+import client from "/src/apollo/client"
 import {ApolloProvider} from "@apollo/client";
 
 export const queryClient = new QueryClient();
@@ -13,7 +13,7 @@ export const queryClient = new QueryClient();
 
 const theme = createTheme({
   typography: {fontFamily:
-      ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(',')
+      ["Open Sans", "Helvetica", "Arial", "sans-serif"].join(",")
   }
 });
 

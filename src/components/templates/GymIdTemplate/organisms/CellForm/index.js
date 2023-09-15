@@ -1,4 +1,4 @@
-import React, {useContext} from 'react';
+import React, {useContext} from "react";
 import {
   Button,
   createTheme,
@@ -21,23 +21,23 @@ import {WishingItemFragmentDoc} from "./__generated__/WishingItem.fragment";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#4F9DE9'
+      main: "#4F9DE9"
     },
     secondary: {
-      main: '#B3D4F4'
+      main: "#B3D4F4"
     },
     yellow: {
-      main: '#FFEA00'
+      main: "#FFEA00"
     },
     orange: {
-      main: '#FFBF00'
+      main: "#FFBF00"
     },
     red: {
-      main: '#FF0000'
+      main: "#FF0000"
     },
     white: {
-      main: '#FFFFFF',
-      secondary: '#e5e5e5',
+      main: "#FFFFFF",
+      secondary: "#e5e5e5",
     }
   },
 });
@@ -57,15 +57,15 @@ export const CellForm = (
   }
 ) => {
   const [open, setOpen] = React.useState(false);
-  const start_at = (+hour - 1 + 3) + ':00';
-  const end_at = (+hour + 3) + ':00';
+  const start_at = (+hour - 1 + 3) + ":00";
+  const end_at = (+hour + 3) + ":00";
   const gymId = data?.id;
   const capacity = data?.capacity;
 
   const dialogTitle = isOpenGymByHour ? `Вы хотите записаться ${date} с ${start_at} до ${end_at}?`:
     `Вы хотели бы заниматься ${date} с ${start_at} до ${end_at}?`;
-  const dialogContentText = isOpenGymByHour ? 'Записавшись на занятие вы гарантированно получите оздоровительные услуги под руководством профессиональных тренеров':
-    'Добавте часы, в которое Вам было бы удобно заниматься и мы учём это при составлении расписания';
+  const dialogContentText = isOpenGymByHour ? "Записавшись на занятие вы гарантированно получите оздоровительные услуги под руководством профессиональных тренеров":
+    "Добавте часы, в которое Вам было бы удобно заниматься и мы учём это при составлении расписания";
   const submitButtonText = isOpenGymByHour ? "Записаться": "Отправить";
   const deleteButtonText = isOpenGymByHour ? "Отписаться": "Отменить";
   const deleteButton = isOpenGymByHour ? <RemoveButton
@@ -211,29 +211,29 @@ export const CellForm = (
 
   const initMainColor = () =>{
     if (counter >= capacity) {
-      return 'red.main';
+      return "red.main";
     } else if (counter >= capacity * 0.75) {
-      return 'orange.main';
+      return "orange.main";
     } else if (counter >= capacity * 0.5) {
-      return 'yellow.main';
+      return "yellow.main";
     } else {
-      return 'primary.main';
+      return "primary.main";
     }
   }
   const initSecondaryColor = () =>{
     if (counter >= capacity) {
-      return 'red.main';
+      return "red.main";
     } else if (counter >= capacity * 0.75) {
-      return 'orange.main';
+      return "orange.main";
     } else if (counter >= capacity * 0.5) {
-      return 'yellow.main';
+      return "yellow.main";
     } else {
-      return 'secondary.main';
+      return "secondary.main";
     }
   }
 
-  const activeBackgroundColor = isOpenGymByHour ? initMainColor(): 'white.main';
-  const secondaryBackgroundColor = isOpenGymByHour ? initSecondaryColor(): 'white.secondary';
+  const activeBackgroundColor = isOpenGymByHour ? initMainColor(): "white.main";
+  const secondaryBackgroundColor = isOpenGymByHour ? initSecondaryColor(): "white.secondary";
 
   return (
     <ThemeProvider theme={theme}>
@@ -247,7 +247,7 @@ export const CellForm = (
           height: 1,
           width: 1,
           backgroundColor: activeBackgroundColor,
-          '&:hover': {
+          "&:hover": {
             backgroundColor: secondaryBackgroundColor,
             opacity: [0.9, 0.8, 0.7],
           },

@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Grid, Paper, Typography} from "@mui/material";
 import AboutUsBenefitsAtom from "@components/templates/AboutUsTemplate/atoms/AboutUsBenefitsAtom";
 
@@ -6,8 +6,8 @@ const AboutUsBenefits = ({benefits}) => {
   return (
     <Paper sx={{
       mt: 5,
-      backgroundColor: '#f4f4f4',
-      fill: '#f4f4f4'
+      backgroundColor: "#f4f4f4",
+      fill: "#f4f4f4"
     }}>
       <Grid container spacing={2} direction="row"
             justifyContent="flex-start"

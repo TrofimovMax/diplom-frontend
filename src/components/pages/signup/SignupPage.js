@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import TitleSection from "@components/molecules/TitleSection";
 import NextLink from "next/link";
 import {Button, Link as MUILink, Stack, TextField, Container} from "@mui/material";
@@ -30,8 +30,8 @@ const SignupPage = ({ handleSubmit,
         <Stack spacing={2} direction="row" sx={{marginBottom: 4}}>
           <TextField
             type="text"
-            variant='outlined'
-            color='secondary'
+            variant="outlined"
+            color="secondary"
             label="Имя"
             onChange={e => setFirstName(e.target.value)}
             value={firstName}
@@ -40,8 +40,8 @@ const SignupPage = ({ handleSubmit,
           />
           <TextField
             type="text"
-            variant='outlined'
-            color='secondary'
+            variant="outlined"
+            color="secondary"
             label="Фамилия"
             onChange={e => setLastName(e.target.value)}
             value={lastName}
@@ -51,8 +51,8 @@ const SignupPage = ({ handleSubmit,
         </Stack>
         <TextField
           type="email"
-          variant='outlined'
-          color='secondary'
+          variant="outlined"
+          color="secondary"
           label="Email"
           onChange={e => setEmail(e.target.value)}
           value={email}
@@ -62,8 +62,8 @@ const SignupPage = ({ handleSubmit,
         />
         <TextField
           type="text"
-          variant='outlined'
-          color='secondary'
+          variant="outlined"
+          color="secondary"
           label="Псевдоним"
           onChange={e => setNickname(e.target.value)}
           value={nickname}
@@ -73,8 +73,8 @@ const SignupPage = ({ handleSubmit,
         />
         <TextField
           type="password"
-          variant='outlined'
-          color='secondary'
+          variant="outlined"
+          color="secondary"
           label="Пароль"
           onChange={e => setPassword(e.target.value)}
           value={password}
@@ -84,8 +84,8 @@ const SignupPage = ({ handleSubmit,
         />
         <TextField
           type="password"
-          variant='outlined'
-          color='secondary'
+          variant="outlined"
+          color="secondary"
           label="Подтвердите пароль"
           onChange={e => setPasswordConfirm(e.target.value)}
           value={passwordConfirm}
@@ -107,9 +107,9 @@ const SignupPage = ({ handleSubmit,
           href="/login" passHref legacyBehavior>
           <MUILink ml={1}
                    sx={{
-                     color: 'links',
-                     '&:hover': {
-                       color: '&:hover.links_hover'
+                     color: "links",
+                     "&:hover": {
+                       color: "&:hover.links_hover"
                      },
                    }}
           >

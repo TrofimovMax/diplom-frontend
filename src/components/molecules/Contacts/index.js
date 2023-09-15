@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Grid, Typography} from "@mui/material";
 import RoomOutlinedIcon from "@mui/icons-material/RoomOutlined";
 import PhoneAndroidOutlinedIcon from "@mui/icons-material/PhoneAndroidOutlined";

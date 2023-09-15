@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Container,
   Grid,
@@ -36,11 +36,11 @@ const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
     <Container>
   <Grid container>
     <Grid container item>
-      <TitleSection title='КЛУБЫ'/>
+      <TitleSection title="КЛУБЫ"/>
     </Grid>
     <Grid container item>
       <GymsLinksMolecule
-        data = {data['fetchGyms']}
+        data = {data["fetchGyms"]}
         router = {router}
         pathname = {pathname}
       />
@@ -59,11 +59,11 @@ const GymsTemplate: React.FC <{ isMobile: boolean }> = ({ isMobile }) => {
         cols={3}
         sx={{
           mb: 8,
-          gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))!important',
+          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))!important",
         }}
       >
         {images.map((item) => (
-          <ImageListItem key={item.img} sx={{height: '100% !important'}}>
+          <ImageListItem key={item.img} sx={{height: "100% !important"}}>
             <img
               src={`${item.img}?w=400&h=400&fit=crop&auto=format`}
               srcSet={`${item.img}?w=800&h=800&fit=crop&auto=format&dpr=2 2x`}

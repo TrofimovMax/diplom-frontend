@@ -1,7 +1,7 @@
-import React from 'react'
+import React from "react"
 
 const Heading = ({tag, text}) => {
-  const Tag = tag || 'h1';
+  const Tag = tag || "h1";
   return <Tag>{text}</Tag>
 }
 

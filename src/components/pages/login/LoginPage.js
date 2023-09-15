@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
 import {Box, Button, Checkbox, FormControlLabel, Grid, Container, TextField} from "@mui/material";
 import TitleSection from "@components/molecules/TitleSection";
 
 const LoginPage = ({ signIn, email, setEmail, password, setPassword}) => {
   return (
     <Container sx={{
-      minHeight: '80vh'
+      minHeight: "80vh"
     }}
       >
       <Grid sx={{
@@ -17,16 +17,16 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword}) => {
       <Grid
         container
         spacing={3}
-        direction='column'
-        justify='center'
-        alignItems='center'
+        direction="column"
+        justify="center"
+        alignItems="center"
       >
         <form id="authentication" onSubmit={signIn}>
           <Grid item xs={12}>
             <TextField
               type="email"
-              variant='outlined'
-              color='secondary'
+              variant="outlined"
+              color="secondary"
               label="Email"
               onChange={e => setEmail(e.target.value)}
               value={email}
@@ -38,8 +38,8 @@ const LoginPage = ({ signIn, email, setEmail, password, setPassword}) => {
           <Grid item xs={12}>
             <TextField
               type="password"
-              variant='outlined'
-              color='secondary'
+              variant="outlined"
+              color="secondary"
               label="Пароль"
               onChange={e => setPassword(e.target.value)}
               value={password}

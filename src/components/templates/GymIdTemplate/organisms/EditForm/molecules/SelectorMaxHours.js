@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 
 const SelectorMaxHours = ({entity, value, setValue}) => {

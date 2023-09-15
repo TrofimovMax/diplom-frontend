@@ -1,4 +1,4 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext, useState} from "react";
 import { useMutation } from "react-query";
 import { useRouter } from "next/router";
 import { signUpRequest } from "@api/sign-up";
@@ -10,12 +10,12 @@ import NoticeContext from "@api/NoticeContext";
 const SignUp = () => {
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
   const router = useRouter();
-  const [firstName, setFirstName] = useState('')
-  const [lastName, setLastName] = useState('')
-  const [email, setEmail] = useState('')
-  const [nickname, setNickname] = useState('')
-  const [password, setPassword] = useState('')
-  const [passwordConfirm, setPasswordConfirm] = useState('')
+  const [firstName, setFirstName] = useState("")
+  const [lastName, setLastName] = useState("")
+  const [email, setEmail] = useState("")
+  const [nickname, setNickname] = useState("")
+  const [password, setPassword] = useState("")
+  const [passwordConfirm, setPasswordConfirm] = useState("")
 
   const newUser = {
     user:{

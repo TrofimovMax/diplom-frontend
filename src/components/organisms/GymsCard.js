@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {Button, Card, CardActions, CardContent, createTheme, ThemeProvider, Typography} from "@mui/material";
 import NextLink from "next/link";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -7,7 +7,7 @@ const theme = createTheme({
   palette: {
     color: "#fff",
     backgroundColor: "transparent",
-    '&:hover': {
+    "&:hover": {
       color: "#000",
       backgroundColor: "#fff",
     }
@@ -40,7 +40,7 @@ const GymsCard = ({image, title, text, link}) => {
           <Typography variant="h4" component="h6"
                       sx={
                         {
-                          fontWeight: '600',
+                          fontWeight: "600",
                           color: "#fff",
                           lineHeight: "normal",
                         }
@@ -57,18 +57,18 @@ const GymsCard = ({image, title, text, link}) => {
         <CardActions>
           <Button
             sx={{
-              mx: 'auto',
+              mx: "auto",
               color: "color",
               padding: "15px 33px",
               borderRadius: "50px",
               borderColor: "#fff",
-              backgroundColor: 'backgroundColor',
-              '&:hover': {
-                color: '&:hover.color',
-                backgroundColor: '&:hover.backgroundColor'
+              backgroundColor: "backgroundColor",
+              "&:hover": {
+                color: "&:hover.color",
+                backgroundColor: "&:hover.backgroundColor"
               },
             }}
-            component='a'
+            component="a"
             LinkComponent={NextLink}
             href={link}
           >

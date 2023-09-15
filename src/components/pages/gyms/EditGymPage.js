@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { Container, Grid} from "@mui/material";
 import { EditForm } from "@components/templates/GymIdTemplate/organisms/EditForm";
 import TitleSection from "@components/molecules/TitleSection";
@@ -21,7 +21,7 @@ export const EditGymPage = ({ data, router, gymId }) => {
 
         <Grid container item xs={12}>
           <Grid item xs={2} md={1}>
-            <BackButton router={router} link={'/gyms/' + gymId}/>
+            <BackButton router={router} link={"/gyms/" + gymId}/>
           </Grid>
           <Grid item xs="auto">
 

@@ -1,8 +1,8 @@
-import Heading from '/src/components/atoms/Heading';
+import Heading from "/src/components/atoms/Heading";
 import {Container, Box, Grid} from "@mui/material";
 import Slider from "@components/organisms/SliderBar/Slider";
 import GymsCard from "@components/organisms/GymsCard";
-import cards from 'helper/gymsCard.json'
+import cards from "@helper/gymsCard.json"
 
 const Home = () => (
   <Box>
@@ -19,8 +19,8 @@ const Home = () => (
 
     <Container>
       <Grid container >
-        <Grid item xs={12} md={3} sx={{mx: 'auto'}}>
-          <Heading text='Наши клубы'/>
+        <Grid item xs={12} md={3} sx={{mx: "auto"}}>
+          <Heading text="Наши клубы"/>
         </Grid>
       </Grid>
       <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 2, sm: 6, md: 12 }}>

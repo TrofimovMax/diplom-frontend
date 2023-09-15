@@ -10,8 +10,8 @@ const Layout = ({children}) => {
   const [severity, setSeverity] = useState("error");
   const [state, setState] = React.useState({
     open: false,
-    vertical: 'top',
-    horizontal: 'center',
+    vertical: "top",
+    horizontal: "center",
   });
   const { vertical, horizontal, open } = state;
   const handleClick = (newState) => () => {

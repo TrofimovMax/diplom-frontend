@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {hasHourInSchedule} from "@components/templates/GymIdTemplate/organisms/GymTableTemplate/utils";
 import {StyledTableCell} from "@components/templates/GymIdTemplate/organisms/GymTableTemplate/styles";
 import {Box, createTheme, Grid, ThemeProvider, Typography} from "@mui/material";
@@ -8,27 +8,27 @@ import {first, keys, values} from "lodash";
 const theme = createTheme({
   palette: {
     primary: {
-      main: '#00A36C'
+      main: "#00A36C"
     },
     secondary: {
-      main: '#7CFC00'
+      main: "#7CFC00"
     },
     yellow: {
-      main: '#FFEA00'
+      main: "#FFEA00"
     },
     orange: {
-      main: '#FFBF00'
+      main: "#FFBF00"
     },
     red: {
-      main: '#FF0000'
+      main: "#FF0000"
     },
     white: {
-      main: '#FFFFFF',
-      secondary: '#e5e5e5',
+      main: "#FFFFFF",
+      secondary: "#e5e5e5",
     },
     blue: {
-      main: '#5555ff',
-      secondary: '#bc13fe',
+      main: "#5555ff",
+      secondary: "#bc13fe",
     }
   },
 });
@@ -59,10 +59,10 @@ const CellEditContent = ({data, day, hour, bookings, wishes, newSchedule}) => {
           sx={{
             height: 1,
             width: 1,
-            color: 'white.main',
-            backgroundColor: 'blue.main',
-            '&:hover': {
-              backgroundColor: 'blue.secondary',
+            color: "white.main",
+            backgroundColor: "blue.main",
+            "&:hover": {
+              backgroundColor: "blue.secondary",
               opacity: [0.9, 0.8, 0.7],
             },
           }}
@@ -80,7 +80,7 @@ const CellEditContent = ({data, day, hour, bookings, wishes, newSchedule}) => {
   } else {
     if(hasHourInSchedule(day, hour, schedule)){
       return (
-        <StyledTableCell align='center' sx={{border: 1, padding: 1, width: 70, height: 70}} key={hour}
+        <StyledTableCell align="center" sx={{border: 1, padding: 1, width: 70, height: 70}} key={hour}
                          component="th" scope="row">
           <Grid
             container

@@ -1,6 +1,6 @@
 import NextLink from "next/link";
 import Image from "next/image";
-import * as React from 'react';
+import * as React from "react";
 import {
   Button,
   Box,
@@ -10,27 +10,27 @@ import {
   ListItem,
   ListItemButton,
   ListItemText, AppBar, Toolbar, IconButton, Drawer, Link as MUILink, Grid, useTheme, useMediaQuery
-} from '@mui/material';
-import MenuIcon from '@mui/icons-material/Menu';
+} from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import PropTypes from "prop-types";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import dynamic from 'next/dynamic'
+import dynamic from "next/dynamic";
 
 const ComponentWithNoSSR = dynamic(
-  () => import('@components/organisms/Header/organisms/AuthBlock'),
+  () => import("@components/organisms/Header/organisms/AuthBlock"),
   { ssr: false }
 )
 
 const navigation = [
-  {id: 1, title: 'Главная', path: '/'},
-  {id: 2, title: 'Контакты', path: '/about-us'},
-  {id: 3, title: 'Клубы', path: '/gyms'},
+  {id: 1, title: "Главная", path: "/"},
+  {id: 2, title: "Контакты", path: "/about-us"},
+  {id: 3, title: "Клубы", path: "/gyms"},
 ];
 const drawerWidth = 240;
 
 function MenuButton() {
-  return (<MenuIcon sx={{ color: '#000' }} />);
+  return (<MenuIcon sx={{ color: "#000" }} />);
 }
 
 function NavBar(props) {
@@ -38,14 +38,14 @@ function NavBar(props) {
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const theme = useTheme()
-  const isMobile = useMediaQuery(theme.breakpoints.up('sm'))
+  const isMobile = useMediaQuery(theme.breakpoints.up("sm"))
 
   const handleDrawerToggle = () => {
     setMobileOpen((prevState) => !prevState);
   };
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{textAlign: 'center'}}>
+    <Box onClick={handleDrawerToggle} sx={{textAlign: "center"}}>
       <Typography variant="h6" sx={{my: 2}}>
         ДВОРЕЦ СПОРТА
       </Typography>
@@ -53,10 +53,10 @@ function NavBar(props) {
       <List>
         {navigation.map(({id, title, path}) => (
           <ListItem key={id} disablePadding>
-            <ListItemButton sx={{textAlign: 'center'}}>
+            <ListItemButton sx={{textAlign: "center"}}>
               <Button
-                sx={{color: '#000'}}
-                component='a'
+                sx={{color: "#000"}}
+                component="a"
                 href={path}
                 LinkComponent={NextLink}
               >
@@ -73,7 +73,7 @@ function NavBar(props) {
   return (
     <Grid container>
       <CssBaseline/>
-      <AppBar component="nav" style={{background: '#fff'}}>
+      <AppBar component="nav" style={{background: "#fff"}}>
         <Toolbar>
           <Grid container item spacing={3}>
             <Grid
@@ -90,7 +90,7 @@ function NavBar(props) {
                   aria-label="open drawer"
                   edge="start"
                   onClick={handleDrawerToggle}
-                  sx={{display: {sm: 'none'}}}
+                  sx={{display: {sm: "none"}}}
                 >
                   <MenuButton/>
                 </IconButton>
@@ -117,11 +117,11 @@ function NavBar(props) {
                 {
                   navigation.map(({id, title, path}) => {
                     return (
-                      <Grid item xs key={id} sx={{display: {xs: 'none', sm: 'inline'}}}>
+                      <Grid item xs key={id} sx={{display: {xs: "none", sm: "inline"}}}>
                         <Button
-                          sx={{color: '#000'}}
+                          sx={{color: "#000"}}
 
-                          component='a'
+                          component="a"
                           href={path}
                           LinkComponent={NextLink}
                         >
@@ -158,8 +158,8 @@ function NavBar(props) {
             keepMounted: true, // Better open performance on mobile.
           }}
           sx={{
-            display: {xs: 'block', sm: 'none'},
-            '& .MuiDrawer-paper': {boxSizing: 'border-box', width: drawerWidth},
+            display: {xs: "block", sm: "none"},
+            "& .MuiDrawer-paper": {boxSizing: "border-box", width: drawerWidth},
           }}
         >
           {drawer}
@@ -172,7 +172,7 @@ function NavBar(props) {
 NavBar.propTypes = {
   /**
    * Injected by the documentation to work in an iframe.
-   * You won't need it on your project.
+   * You won"t need it on your project.
    */
   window: PropTypes.func,
 };
