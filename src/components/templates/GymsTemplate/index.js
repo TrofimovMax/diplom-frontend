@@ -1,5 +1,6 @@
 import React from 'react';
 import {
+  Box,
   Container,
   Grid,
   ImageList,
@@ -10,8 +11,44 @@ import GymsLinksMolecule from "@/components/templates/GymsTemplate/molecules/Gym
 import GymIdCardMolecule from "@/components/templates/GymsTemplate/molecules/GymIdCardMolecule";
 import BenefitsMolecule from "@/components/templates/GymsTemplate/molecules/BenefitsMolecule";
 import TitleSection from "@/components/molecules/TitleSection";
+import {HttpLink, useApolloClient, useQuery} from "@apollo/client";
+import {FETCH_INTAKE_TAGS} from "@/components/templates/GymsTemplate/FETCH_INTAKE_TAGS";
+import IsLoading from "@/components/molecules/isLoading";
+import IsError from "@/components/molecules/IsError";
+
+const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTU5OTE2MzMsInVzZXJfaWQiOjYsImFkbSI6bnVsbCwidWlkIjoiOWViYTMyMjAtMjg1Yi00NDdiLWEwZmQtYTMxYjhmNWM2MjgyIn0.2Fz2CVALSLgoSIMy6U8HIwLjT6NMrJciKo-tkaQQ4Uk";
+
+const CustomClientComponent = (data) => {
+  console.log(data)
+  if (data){
+    return (<Grid>
+      useQuery is worked
+    </Grid>)
+  }
+}
 
 const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMobile}) => {
+
+  const customClient = useApolloClient();
+
+  customClient.setLink(new HttpLink({
+    uri: 'http://localhost:3000/graphql',
+    headers: {
+      Authorization: `Bearer ${TOKEN}`,
+      'Rightway-Consumer-Version': 'Advocate WEB Application',
+    },
+  }));
+
+  const { loading, error, data: queryData } = useQuery(FETCH_INTAKE_TAGS);
+
+  if (loading) {
+    return <IsLoading/>;
+  }
+
+  if (error) {
+    return <IsError message={b.message}/>;
+  }
+
   return (
     <Container>
   <Grid container>
@@ -23,6 +60,11 @@ const GymsTemplate = ({data, Images, Benefits, router, pathname, gymIdCard, isMo
         data = {data}
         router = {router}
         pathname = {pathname}
+      />
+    </Grid>
+    <Grid item xs={12}>
+      <CustomClientComponent
+      data = {queryData}
       />
     </Grid>
     <Grid container item>
