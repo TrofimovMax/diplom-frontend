@@ -4,7 +4,15 @@ import GymTable from "@/components/templates/GymIdTemplate/organisms/GymTableTem
 import TitleSection from "@/components/molecules/TitleSection";
 import BackButton from "@/components/atoms/BackButton";
 import EditLink from "@/components/pages/gyms/GymIdPage/organisms/EditLink";
+import {IntakeTagOrganism} from "@/components/organisms/IntakeTagOrganism";
+import {ApolloProvider, useApolloClient} from "@apollo/client";
+import {navigatorClient} from "@/apollo/client";
 const GymIdPage = ({ data, router, gymId}) => {
+
+  const client = useApolloClient();
+
+  console.log({ GymIdPage: client.link.options.uri })
+
   const isEdit = false;
   return (
     <Container>
@@ -21,6 +29,11 @@ const GymIdPage = ({ data, router, gymId}) => {
           >
             <Grid item>
               <BackButton router = { router } link = '/gyms' />
+            </Grid>
+            <Grid item>
+              <ApolloProvider client={navigatorClient}>
+                <IntakeTagOrganism />
+              </ApolloProvider>
             </Grid>
             <Grid container item xs={1}>
               <EditLink

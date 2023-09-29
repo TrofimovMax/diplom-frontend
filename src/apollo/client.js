@@ -1,13 +1,11 @@
-import {ApolloClient, InMemoryCache} from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client";
 
+const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTYwODExNDUsInVzZXJfaWQiOjYsImFkbSI6bnVsbCwidWlkIjoiY2ZhNjY2OGEtZGZmNy00N2FhLTk0NTAtZDUxNDAwODY5MWIwIn0.6WnOC6szFmKHfJvztqPhaJcF2vG1hNFH5gLc0_zY6ik";
 
 const client = new ApolloClient({
     uri: "http://localhost:3001/graphql",
     cache: new InMemoryCache(),
 })
-
-
-const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTU5OTE2MzMsInVzZXJfaWQiOjYsImFkbSI6bnVsbCwidWlkIjoiOWViYTMyMjAtMjg1Yi00NDdiLWEwZmQtYTMxYjhmNWM2MjgyIn0.2Fz2CVALSLgoSIMy6U8HIwLjT6NMrJciKo-tkaQQ4Uk";
 
 export const navigatorClient = new ApolloClient({
     uri: "http://localhost:3000/graphql",
@@ -17,6 +15,30 @@ export const navigatorClient = new ApolloClient({
       'Rightway-Consumer-Version': 'Advocate WEB Application',
     },
 })
+
+// const firstLink = new HttpLink({
+//   uri: "http://localhost:3001/graphql",
+//   // other link options...
+// });
+//
+// // Create Second Link
+// const secondLink = new HttpLink({
+//   uri: "http://localhost:3000/graphql",
+//   headers: {
+//     Authorization: `Bearer ${TOKEN}`,
+//     'Rightway-Consumer-Version': 'Advocate WEB Application',
+//   },
+//   // other link options...
+// });
+//
+// const client = new ApolloClient({
+//   link: ApolloLink.split(
+//     (operation) => operation.getContext().clientName === "second", // Routes the query to the proper client
+//     secondLink,
+//     firstLink
+//   ),
+//   cache: new InMemoryCache().restore(initialState || {}),
+// });
 
 
 export default client;

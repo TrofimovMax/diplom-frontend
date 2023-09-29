@@ -17,6 +17,12 @@ const theme = createTheme({
   }
 });
 
+// if (typeof window !== 'undefined') {
+//   window.client = client
+//   console.log({ originURL: client.link.options.uri })
+// }
+
+
 const App = ({ Component, pageProps }) => {
 
   return(

@@ -20,6 +20,7 @@ import {useRouter} from "next/router";
 import {useQuery as useApolloQuery} from "@apollo/client/react/hooks/useQuery";
 import {GET_BOOKING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetBookingByGymId";
 import {GET_WISHING_BY_GYM_ID} from "@/components/templates/GymIdTemplate/organisms/GymTableTemplate/GetWishingByGymId";
+import {IntakeTagOrganism} from "@/components/organisms/IntakeTagOrganism";
 
 
 const GymTable = ({ data, isEdit, newSchedule}) => {

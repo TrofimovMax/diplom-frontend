@@ -8,11 +8,6 @@ import AboutUsBenefits from "@/components/templates/AboutUsTemplate/molecules/Ab
 import {ApolloClient, HttpLink, InMemoryCache, useApolloClient} from "@apollo/client";
 import {Query} from "@apollo/client/react/components";
 import {FETCH_INTAKE_TAGS} from "@/components/templates/GymsTemplate/FETCH_INTAKE_TAGS";
-import IsLoading from "@/components/molecules/isLoading";
-import IsError from "@/components/molecules/IsError";
-import { useQuery } from '@apollo/client';
-import {useQuery as useApolloQuery} from "@apollo/client/react/hooks/useQuery";
-import {FETCH_GYMS} from "@/pages/gyms/FetchGymsQuery";
 
 const TOKEN = "eyJhbGciOiJIUzI1NiJ9.eyJleHAiOjE2OTU5OTE2MzMsInVzZXJfaWQiOjYsImFkbSI6bnVsbCwidWlkIjoiOWViYTMyMjAtMjg1Yi00NDdiLWEwZmQtYTMxYjhmNWM2MjgyIn0.2Fz2CVALSLgoSIMy6U8HIwLjT6NMrJciKo-tkaQQ4Uk";
 
