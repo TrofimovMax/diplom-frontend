@@ -1,8 +1,9 @@
 import React from "react";
-import {Grid, Paper, Typography} from "@mui/material";
+import {Grid, Paper} from "@mui/material";
+import { AboutUsBenefit } from "../AboutUsBenefitType"
 import AboutUsBenefitsAtom from "@components/templates/AboutUsTemplate/atoms/AboutUsBenefitsAtom";
 
-const AboutUsBenefits = ({benefits}) => {
+const AboutUsBenefits: React.FC <{ benefits: Array<AboutUsBenefit> }> = ({ benefits }) => {
   return (
     <Paper sx={{
       mt: 5,

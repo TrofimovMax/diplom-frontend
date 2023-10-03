@@ -1,8 +1,8 @@
 import React from "react";
-import {Container, Grid, Paper} from "@mui/material";
+import { Grid, Paper } from "@mui/material";
 import Heading from "@components/atoms/Heading";
 
-const TitleSection = ({title}) => {
+const TitleSection: React.FC <{title: string}> = ({title}) => {
   return (
     <Paper style={{backgroundImage: "url(https://livedemo00.template-help.com/wt_58939/images/header-bg-02.jpg)"}}
            sx={

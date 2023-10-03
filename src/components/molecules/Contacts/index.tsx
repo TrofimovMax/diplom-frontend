@@ -9,7 +9,7 @@ import TelegramIcon from "@mui/icons-material/Telegram";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import EmailIcon from "@mui/icons-material/Email";
 
-const Contacts = () => {
+const Contacts: React.FC = () => {
   return (
     <Grid container item>
       <Grid container item xs={12} spacing={2}

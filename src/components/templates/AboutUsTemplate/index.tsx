@@ -4,13 +4,22 @@ import TitleSection from "@components/molecules/TitleSection";
 import Contacts from "@components/molecules/Contacts";
 import {Placemark, YMaps, Map} from "@pbe/react-yandex-maps";
 import aboutUsBenefits from "@helper/aboutUsBenefits.json"
+import { AboutUsBenefit } from "./AboutUsBenefitType"
 import AboutUsBenefits from "@components/templates/AboutUsTemplate/molecules/AboutUsBenefits";
 
-const AboutUsTemplate = () => {
-  const defaultState = {
+type StateMap = {
+  center: Array<number>,
+  zoom: number
+}
+const AboutUsTemplate: React.FC = () => {
+
+  const defaultState: StateMap = {
     center: [47.212382, 38.933865],
     zoom: 14,
   };
+
+  const benefits: Array<AboutUsBenefit> = aboutUsBenefits.Benefits || [];
+
   return (
     <Container>
       <Grid container spacing={{xs: 1, md: 2}}>
@@ -21,8 +30,7 @@ const AboutUsTemplate = () => {
 
         <Contacts/>
 
-        <AboutUsBenefits benefits = {aboutUsBenefits.aboutUsBenefits}/>
-
+        <AboutUsBenefits benefits ={benefits}/>
 
         <Grid item sx={{
           mt: 5,
@@ -32,7 +40,7 @@ const AboutUsTemplate = () => {
           {/* docs for using this map: https://pbe-react-yandex-maps.vercel.app/ */}
           <YMaps>
             <Map defaultState={defaultState} width="100%" height="100%">
-              <Placemark geometry={[47.212169, 38.933865]}/>
+              <Placemark geometry={defaultState.center}/>
             </Map>
           </YMaps>
         </Grid>

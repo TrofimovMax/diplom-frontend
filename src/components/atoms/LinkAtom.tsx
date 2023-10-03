@@ -2,7 +2,9 @@ import React from "react";
 import {createTheme, Link as MUILink, ThemeProvider} from "@mui/material";
 import CssBaseline from "@mui/material/CssBaseline";
 import NextLink from "next/link";
-const theme = createTheme({
+import {Theme} from "@mui/material/styles/createTheme";
+
+const theme:Theme = createTheme({
   palette: {
     links: "#fff",
     redLinks: "#ff6479",
@@ -12,9 +14,12 @@ const theme = createTheme({
     },
   },
 });
-const LinkAtom = ({children, href, color = null, color_hover= null}) => {
-  const linkColor = color ? color : "links";
-  const linkColorHover = color_hover ? color_hover : "&:hover.links_hover";
+const LinkAtom: React.FC <{children: string, href: string, color:string | null, color_hover: string | null}> =
+  ({children, href, color = null, color_hover= null}) => {
+
+  const linkColor: string = color ? color : "links";
+  const linkColorHover: string = color_hover ? color_hover : "&:hover.links_hover";
+
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>

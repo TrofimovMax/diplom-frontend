@@ -1,7 +1,7 @@
 import React from "react";
 import AboutUsPage from "@components/pages/AboutUsPage";
 
-const AboutUs = () => {
+const AboutUs: React.FC = () => {
 
   return (
     <AboutUsPage />

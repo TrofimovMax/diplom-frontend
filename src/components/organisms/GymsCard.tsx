@@ -2,8 +2,9 @@ import React from "react";
 import {Button, Card, CardActions, CardContent, createTheme, ThemeProvider, Typography} from "@mui/material";
 import NextLink from "next/link";
 import CssBaseline from "@mui/material/CssBaseline";
+import {Theme} from "@mui/material/styles/createTheme";
 
-const theme = createTheme({
+const theme: Theme = createTheme({
   palette: {
     color: "#fff",
     backgroundColor: "transparent",
@@ -14,7 +15,8 @@ const theme = createTheme({
   },
 });
 
-const GymsCard = ({image, title, text, link}) => {
+const GymsCard: React.FC <{image: string, title: string, text: string, link: string}> =
+  ({image, title, text, link}) => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline/>
