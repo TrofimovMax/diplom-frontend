@@ -2,8 +2,8 @@ import {gql} from "@apollo/client";
 
 
 export const FETCH_INTAKE_TAGS = gql(`
-    query Intake_tags {
-    intake_tags(order: name) {
+    query IntakeTags {
+      intake_tags(order: name) {
         nodes {
             color
             created_at

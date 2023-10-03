@@ -7,13 +7,16 @@ import EditLink from "@/components/pages/gyms/GymIdPage/organisms/EditLink";
 import {IntakeTagOrganism} from "@/components/organisms/IntakeTagOrganism";
 import {ApolloProvider, useApolloClient} from "@apollo/client";
 import {navigatorClient} from "@/apollo/client";
+import IntakeTagGymOrganism from "@/components/organisms/IntakeTagGymOrganism";
+
+
+
 const GymIdPage = ({ data, router, gymId}) => {
 
   const client = useApolloClient();
 
-  console.log({ GymIdPage: client.link.options.uri })
-
   const isEdit = false;
+
   return (
     <Container>
       <Grid container>
@@ -35,6 +38,9 @@ const GymIdPage = ({ data, router, gymId}) => {
                 <IntakeTagOrganism />
               </ApolloProvider>
             </Grid>
+            <Grid item>
+              <IntakeTagGymOrganism />
+            </Grid>
             <Grid container item xs={1}>
               <EditLink
                 router={router}
@@ -43,22 +49,16 @@ const GymIdPage = ({ data, router, gymId}) => {
             </Grid>
           </Grid>
         </>
-        {
-          (() => {
-            if(data) {
-              return (
-                <Grid item xs={12} sx={{
-                  marginTop:2
-                }}>
-                  <GymTable
-                    data = {data}
-                    isEdit = {isEdit}
-                  />
-                </Grid>
-              )
-            }
-          }) ()
-        }
+        { data && (
+          <Grid item xs={12} sx={{
+            marginTop:2
+          }}>
+            <GymTable
+              data = {data}
+              isEdit = {isEdit}
+            />
+          </Grid>
+        )}
       </Grid>
     </Container>
   );

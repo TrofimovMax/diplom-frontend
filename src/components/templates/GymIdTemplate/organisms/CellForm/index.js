@@ -11,7 +11,7 @@ import {
   Typography
 } from "@mui/material";
 import NoticeContext from "@/api/NoticeContext";
-import {useMutation as useApolloMutation } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import {createDataTimeUTC} from "@/components/templates/GymIdTemplate/utils";
 import RemoveButton from "@/components/templates/GymIdTemplate/organisms/RemoveButton";
 import {BOOKING_ITEM, CREATE_BOOKING} from "@/components/templates/GymIdTemplate/organisms/CellForm/CreateBooking";
@@ -96,7 +96,7 @@ export const CellForm = (
 
   const {handleClick, setResponseMessage, setSeverity} = useContext(NoticeContext);
 
-  const [createBookingMutation, {loading, error, data: respBook}] = useApolloMutation(CREATE_BOOKING, {
+  const [createBookingMutation, {loading, error, data: respBook}] = useMutation(CREATE_BOOKING, {
     onCompleted: (data) => {
       handleClick();
       setResponseMessage("Вы успешно записались на занятие!");
@@ -152,7 +152,7 @@ export const CellForm = (
     }
   };
 
-  const [createWishingMutation, {loading: loadingWish, error: errorWish, data: respWish}] = useApolloMutation(CREATE_WISHING, {
+  const [createWishingMutation, {loading: loadingWish, error: errorWish, data: respWish}] = useMutation(CREATE_WISHING, {
     onCompleted: (data) => {
       handleClick();
       setResponseMessage("Занятие успешно добавлено в ваш список желаемого!");
